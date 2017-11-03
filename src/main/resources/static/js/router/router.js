@@ -26,7 +26,6 @@ define(function (require) {
 
     showAddForm: function () {
         var addUserView = new AddUserView({collection : contactList});
-        // this.swap(addUserView);
         this.renderUserForm(false);
     },
 
@@ -45,14 +44,7 @@ define(function (require) {
         $(".container_1").slideToggle("slow");
         //show form
         $('#userForm').css('width', '100%');
-    },
-       
-    swap: function (view) {
-        if (this.currentView) {
-            this.currentView.remove();
-        }
-        this.currentView = view;
-    }    
+    }
 
 });
 
