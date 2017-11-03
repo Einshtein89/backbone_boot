@@ -1,0 +1,53 @@
+<div id="userForm" class="userForm">
+    <div align="center">
+        <div class="container_1"  style="display:none;" id="form">
+            <form class="form-horizontal" role="form" id="registerform">
+                <div class="form-group form-field-header">First Name*</div>
+                <div class="form-group">
+                    <input type="hidden" id="id" value="{id}"/>
+                    <input type="text" class="form-control" maxlength="50" style="width: 300px;"
+                           tabindex="1" placeholder="First Name" required="required"
+                           name="firstName" id="firstName" value="{firstName}"/></div>
+                <div class="firstName_error" style="color:red;"></div>
+
+
+                <div class="form-group form-field-header">Last Name*</div>
+                <div class="form-group">
+                    <input type="text" class="form-control" maxlength="50" style="width: 300px;"
+                           tabindex="1" placeholder="Last Name" required="required"
+                           name="lastName" id="lastName" value="{lastName}"/></div>
+                <div class="lastName_error" style="color:red;"></div>
+
+
+                <div class="form-group form-field-header">Phone*</div>
+                <div class="form-group">
+                    <input type="text" class="form-control" maxlength="50" style="width: 300px;"
+                           tabindex="1" placeholder="Phone" required="required"
+                           name="phone" id="phone" value="{phone}"/></div>
+                <div class="phone_error" style="color:red;"></div>
+
+
+                <div class="form-group form-field-header">Sex*</div>
+                <div class="form-group">
+                    <select name="sex" class="form-control" style="width: 300px; display: inline" id="sex">
+                        {#sexArray}
+                        <option value="{.}" name="sex" {@eq key=. value="{sex}"} selected="true"{/eq}>
+                            {.}
+                        </option>
+                        {/sexArray}
+                    </select>
+                </div>
+                <div class="sex_error" style="color:red;"></div>
+
+
+
+
+                <input type="submit" id="submitButton" class="btn btn-success" value="Submit" name="OK"
+                       style="margin-right: 10px;"/>
+                <input type="submit" id="updateButton" class="btn btn-success" value="Update" name="OK"
+                       style="margin-right: 10px;"/>
+                <input class="btn btn-danger" type="button" value="Cancel" name="cancel" id="cancel">
+            </form>
+        </div>
+    </div>
+</div>

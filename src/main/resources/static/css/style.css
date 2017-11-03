@@ -1,0 +1,92 @@
+
+#main {
+    width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.contactList {
+    background-color: cornflowerblue;
+    list-style: none;
+    float: left;
+    margin: 30px;
+    padding: 20px;
+    border-radius: 5px;
+    width: 25%;
+    border: 1px solid black;
+}
+
+.user, .buttons {
+    font-family: Verdana;
+    font-size: medium;
+    text-align: center;
+}
+
+.userInfo {
+    opacity: 0;
+    position: fixed;
+    top:0px;
+    left: 50px;
+    padding: 10px;
+    background-color: yellow;
+    height: auto;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 250px;
+}
+
+.userName {
+    font-weight: bold;
+}
+
+
+.userInfoUnit {
+    margin-top: 15px;
+    paddingp: 10px;
+    font-family: Verdana;
+    font-size: medium;
+    text-align: center;
+}
+
+.closeUserInfo {
+    margin-top: 5px;
+    cursor: pointer;
+    float: right;
+}
+
+.img {
+    width: 60px;
+    height: 60px;
+}
+
+.userForm {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #111; /* Black*/
+    opacity:0.9;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+.addUserHolder {
+    margin: 0 auto 20px;
+    width: 50%;
+    padding-bottom: 10px;
+}
+
+#add {
+    float: right;
+}
+
+.form-field-header {
+    font-weight: bold;
+    font-family: Verdana;
+    font-size: medium;
+    text-align: center;
+    color: white;
+}
