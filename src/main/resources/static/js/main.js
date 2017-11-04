@@ -7,8 +7,8 @@ require.config({
         validation: "bower_components/backbone.validation/dist/backbone-validation-amd",
         text: "bower_components/text/text",
         dust : "bower_components/dustjs-linkedin/dist/dust-full",
-        //node_modules
-        jConfirm: "libs/jquery-confirm"
+        dust_helpers : "bower_components/dustjs-helpers/dist/dust-helpers",
+        jConfirm: "bower_components/jquery-confirm2/js/jquery-confirm"
     },
     map : {
         "*" : {

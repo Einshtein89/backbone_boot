@@ -2,10 +2,8 @@
   "name": "advanced_backbone",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
-  "dependencies": {
-    "express": "^4.14.0"
-  },
+  "main": "",
+  "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "postinstall": "node_modules/.bin/bower install"
