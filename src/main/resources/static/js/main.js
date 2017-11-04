@@ -1,12 +1,13 @@
 require.config({
     paths: {
-        //libs
-        jquery: "libs/jquery",
-        underscore: "libs/underscore",
-        backbone: "libs/backbone",
-        validation: "libs/backbone-validation-amd",
-        text: "libs/text",
-        dust : "libs/dust-full",
+        //bower_components
+        jquery: "bower_components/jquery/dist/jquery",
+        underscore: "bower_components/underscore/underscore",
+        backbone: "bower_components/backbone/backbone",
+        validation: "bower_components/backbone.validation/dist/backbone-validation-amd",
+        text: "bower_components/text/text",
+        dust : "bower_components/dustjs-linkedin/dist/dust-full",
+        //node_modules
         jConfirm: "libs/jquery-confirm"
     },
     map : {

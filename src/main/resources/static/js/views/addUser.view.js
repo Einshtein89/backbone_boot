@@ -4,7 +4,7 @@ define(function (require) {
     var Backbone = require('backbone');
     var User = require('model');
     var UserUtils = require('userUtils');
-    require('jConfirm');
+    // require('jConfirm');
 
     var AddUserView = BaseView.extend({
 

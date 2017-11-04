@@ -1,5 +1,5 @@
 define(function (require) {
-    var $ = require('jquery');
+    require('jConfirm');
 
     var UserUtils = {};
     UserUtils.populateUserData = function(user, isExistedUser){

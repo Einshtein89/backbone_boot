@@ -1,8 +1,8 @@
 define(function (require) {
-    var $ = require('jquery');
     var Backbone =require('backbone');
     var BaseView = require('baseView');
     var UserInfo = require('userInfo');
+    require('jConfirm');
 
     var DeleteContactView = BaseView.extend({
 
