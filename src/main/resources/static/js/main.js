@@ -1,14 +1,14 @@
 require.config({
     paths: {
         //bower_components
-        jquery: "bower_components/jquery/dist/jquery",
-        underscore: "bower_components/underscore/underscore",
-        backbone: "bower_components/backbone/backbone",
-        validation: "bower_components/backbone.validation/dist/backbone-validation-amd",
+        jquery: "bower_components/jquery/dist/jquery.min",
+        underscore: "bower_components/underscore/underscore-min",
+        backbone: "bower_components/backbone/backbone-min",
+        validation: "bower_components/backbone.validation/dist/backbone-validation-amd-min",
         text: "bower_components/text/text",
         dust : "bower_components/dustjs-linkedin/dist/dust-full",
         dust_helpers : "bower_components/dustjs-helpers/dist/dust-helpers",
-        jConfirm: "bower_components/jquery-confirm2/js/jquery-confirm"
+        jConfirm: "bower_components/jquery-confirm2/dist/jquery-confirm.min",
     },
     map : {
         "*" : {
