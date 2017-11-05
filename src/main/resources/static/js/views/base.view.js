@@ -2,7 +2,6 @@
 define(function (require) {
     var Backbone =require('backbone');
     var Dust = require('dust');
-    require('dust_helpers');
 
     return Backbone.View.extend({
 
