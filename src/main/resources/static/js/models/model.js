@@ -31,9 +31,7 @@ define(function (require) {
                 $('.phone_error').html("");
             }
 
-            if (errors.length > 0) {
-                return errors;
-            }
+            return errors.length > 0 ? errors : false;
         },
 
 
