@@ -10,23 +10,27 @@ define(function (require) {
             var phoneCorrectness = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
             var nameCorrectness = /^[a-zA-Z']+$/
             var errors = [];
+            var error;
             if (!nameCorrectness.test(attrs.firstName)) {
-                errors.push({name: 'firstName', error: "The first name must consist of a-z, A-Z"})
-                $('.firstName_error').html("The first name must consist of a-z, A-Z");
+                error = "The first name must consist of a-z, A-Z";
+                errors.push({name: 'firstName', error: error})
+                $('.firstName_error').html(error);
             } else {
                 $('.firstName_error').html("");
             }
 
             if (!nameCorrectness.test(attrs.lastName)) {
-                errors.push({name: 'lastName', error: "The last name must consist of a-z, A-Z"})
-                $('.lastName_error').html("The last name must consist of a-z, A-Z");
+                error = "The last name must consist of a-z, A-Z";
+                errors.push({name: 'lastName', error: error})
+                $('.lastName_error').html(error);
             } else {
                 $('.lastName_error').html("");
             }
 
             if (!phoneCorrectness.test(attrs.phone)) {
-                errors.push({name: 'phone', error: "Phone is invalid. Please use pattern: XXXXXXXXXX"})
-                $('.phone_error').html("Phone is invalid. Please use pattern: XXXXXXXXXX");
+                error = "Phone is invalid. Please use pattern: XXXXXXXXXX";
+                errors.push({name: 'phone', error: error})
+                $('.phone_error').html(error);
             } else {
                 $('.phone_error').html("");
             }
