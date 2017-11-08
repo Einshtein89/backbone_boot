@@ -7,10 +7,6 @@ define(function (require) {
 
         el: '#main',
 
-        events: {
-            'click .confirm-delete': 'removeFromCollection',
-        },
-
         initialize: function () {
             this.render();
         },
@@ -24,14 +20,7 @@ define(function (require) {
         addOne: function(Model, singleView) {
            singleView = new SingleView({model: Model});
            $(singleView.render().el).appendTo(this.$el);
-        },
-
-        removeFromCollection: function (e) {
-            e.preventDefault();
-            var userId = $(".id").attr('data-id');
-            var user = this.collection.get(userId);
-            this.collection.remove(user);
-        },
+        }
     });
 
     return MultiView;
