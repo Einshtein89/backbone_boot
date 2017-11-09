@@ -3,6 +3,7 @@ define(function (require) {
     var Backbone =require('backbone');
     var MultiView = require('multiView');
     var ContactList = require('contactList');
+    var SearchView = require('searchView');
     var AddUserView = require('addUserView');
     var contactList = new ContactList();
 
@@ -10,18 +11,37 @@ define(function (require) {
     routes: {
         '': 'renderAllUsers',
         'add': 'showAddForm',
-        'edit' : 'userEdit'
+        'edit' : 'userEdit',
+        'resetSearch' : 'resetCollection'
     },
 
     renderAllUsers: function () {
-        setTimeout(function() {contactList.fetch(
-            {
+        var self = this;
+        setTimeout(function() {
+            contactList.fetch({
                 success: function () {
+                    var collection = contactList;
                     var usersView = new MultiView({collection : contactList});
                     usersView.render();
+                    var search = new SearchView({collection : contactList, multiView: usersView});
+                    usersView.on('view:search', function (options) {
+                        // collection = this.collection;
+                        this.collection.reset(options.filteredData);
+                        this.render();
+                    });
                 }
             }
         )}, 500);
+    },
+
+    resetCollection: function () {
+        contactList.fetch({
+            success: function () {
+                var usersView = new MultiView({collection : contactList});
+                usersView.render();
+            }
+        })
+        Backbone.history.navigate('', {trigger: false, replace: false});
     },
 
     showAddForm: function () {
@@ -45,7 +65,6 @@ define(function (require) {
         //show form
         $('#userForm').css('width', '100%');
     }
-
 });
 
 return Router;

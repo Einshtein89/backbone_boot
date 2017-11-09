@@ -1,6 +1,6 @@
 
 define(function (require) {
-    var Backbone =require('backbone');
+    var Backbone = require('backbone');
     var Dust = require('dust');
 
     return Backbone.View.extend({

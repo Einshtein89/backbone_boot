@@ -83,10 +83,23 @@
     float: right;
 }
 
+#search, #reset {
+    margin-right: 20px;
+}
+
 .form-field-header {
     font-weight: bold;
     font-family: Verdana;
     font-size: medium;
     text-align: center;
     color: white;
+}
+
+.form-control {
+    width: 40%;
+}
+
+.input-sm {
+    float: left;
+    height: 35px;
 }

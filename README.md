@@ -16,3 +16,5 @@ Ability to watch additional info in floating pop-up.
 Confirmation pop-up while deleting user.
 
 Information pop-up after adding and editing users.
+
+Search Engine v 1.0

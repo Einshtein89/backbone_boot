@@ -19,6 +19,7 @@ require.config({
             'deleteContactView' : 'views/deleteContact.view',
             'addUserView' : 'views/addUser.view',
             'editUserView' : 'views/editUser.view',
+            'searchView' : 'views/search.view',
             //models
             'model' : 'models/model',
             //templates
