@@ -55,14 +55,15 @@ define(function (require) {
                             UserUtils.clearErrors();
                             self.$el.empty();
                             UserUtils.renderMessage("User  " + newUser.attributes.firstName + " was successfully" +
-                                " saved", false)
+                                " saved", false);
+                            Backbone.history.navigate('', true);
                         }
                     },
                     error: function (model, response) {
                         UserUtils.renderMessage("Error during adding new User!", true)
                     }
                 });
-                Backbone.history.navigate('', true);
+
             }
         },
 
