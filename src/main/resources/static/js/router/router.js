@@ -18,20 +18,24 @@ define(function (require) {
     renderAllUsers: function () {
         var self = this;
         setTimeout(function() {
-            contactList.fetch({
-                success: function () {
-                    var collection = contactList;
-                    var usersView = new MultiView({collection : contactList});
-                    usersView.render();
-                    var search = new SearchView({collection : contactList, multiView: usersView});
-                    usersView.on('view:search', function (options) {
-                        // collection = this.collection;
-                        this.collection.reset(options.filteredData);
-                        this.render();
-                    });
-                }
+            var usersView = new MultiView({collection : contactList});
+            if (contactList.models.length === 0) {
+                contactList.fetch({
+                        success: function () {
+                            usersView.render();
+                            var search = new SearchView({collection : contactList, multiView: usersView});
+                            usersView.on('view:search', function (options) {
+                                this.collection.reset(options.filteredData);
+                                this.render();
+                            });
+                        }
+                    }
+                )
             }
-        )}, 500);
+            else {
+                usersView.render();
+            }
+           }, 500);
     },
 
     resetCollection: function () {

@@ -22,8 +22,6 @@ define(function (require) {
     initialize: function () {
         this.userInfoViews = [];
         this.deleteDialogViews = [];
-
-        this.listenTo(this.model,'change', this.render);
     },
 
     render: function () {

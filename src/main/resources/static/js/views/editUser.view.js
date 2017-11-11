@@ -38,6 +38,7 @@ define(function (require) {
                 newUser.save({}, {
                     dataType : 'text',
                     success: function (model, response) {
+                        UserUtils.updateModel(self.model, model, true);
                         UserUtils.clearErrors();
                         self.$el.empty();
                         UserUtils.renderMessage("User " + newUser.attributes.firstName + " was successfully updated", false);

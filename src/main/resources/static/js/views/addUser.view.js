@@ -52,6 +52,7 @@ define(function (require) {
                             UserUtils.renderMessage("User was not saved!", true)
                         }
                         if (!$("#messages").length) {
+                            self.collection.add(model);
                             UserUtils.clearErrors();
                             self.$el.empty();
                             UserUtils.renderMessage("User  " + newUser.attributes.firstName + " was successfully" +
