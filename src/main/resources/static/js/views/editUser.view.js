@@ -52,7 +52,7 @@ define(function (require) {
         cancel: function() {
             UserUtils.clearErrors();
             this.$el.empty();
-            Backbone.history.navigate('', true);
+            Backbone.history.navigate('', {trigger: false, replace: false});
         }
     });
 
