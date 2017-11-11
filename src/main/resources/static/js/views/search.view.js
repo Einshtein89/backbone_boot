@@ -38,8 +38,10 @@ define(function (require) {
         },
 
         resetSearch: function () {
-            Backbone.history.navigate('resetSearch', true);
-            $('#search').val('');
+            if ($('#search').val()){
+                Backbone.history.navigate('resetSearch', true);
+                $('#search').val('');
+            }
         }
     });
 

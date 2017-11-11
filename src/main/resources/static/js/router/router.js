@@ -6,7 +6,7 @@ define(function (require) {
     var SearchView = require('searchView');
     var AddUserView = require('addUserView');
     var contactList = new ContactList();
-
+    var usersView;
     var Router = Backbone.Router.extend({
     routes: {
         '': 'renderAllUsers',
@@ -18,7 +18,7 @@ define(function (require) {
     renderAllUsers: function () {
         var self = this;
         setTimeout(function() {
-            var usersView = new MultiView({collection : contactList});
+            usersView = new MultiView({collection : contactList});
             if (contactList.models.length === 0) {
                 contactList.fetch({
                         success: function () {
@@ -41,7 +41,7 @@ define(function (require) {
     resetCollection: function () {
         contactList.fetch({
             success: function () {
-                var usersView = new MultiView({collection : contactList});
+                usersView = new MultiView({collection : contactList});
                 usersView.render();
             }
         })
