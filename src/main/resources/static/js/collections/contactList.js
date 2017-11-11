@@ -10,8 +10,8 @@ define(function (require) {
 
         filterModels: function (searchString) {
             var filtered = this.filter(function (model) {
-                return model.get("firstName").toUpperCase() === searchString.toUpperCase()
-                    || model.get("lastName").toUpperCase() === searchString.toUpperCase()
+                return model.get("firstName").toUpperCase().indexOf(searchString.toUpperCase()) !== -1
+                    || model.get("lastName").toUpperCase().indexOf(searchString.toUpperCase()) !== -1
             });
             return new UserList(filtered);
         }
