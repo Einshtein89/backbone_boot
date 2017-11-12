@@ -4,7 +4,6 @@ define(function (require) {
     var EditUserView = require('editUserView');
     var UserInfo = require('userInfo');
     var DeleteContactView = require('deleteContactView');
-    // require('jConfirm');
 
 
     var SingleView = BaseView.extend({
