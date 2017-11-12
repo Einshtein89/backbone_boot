@@ -24,15 +24,19 @@ define(function (require) {
 
         renderSearch: function () {
             var input = $('#search').val();
-            var filteredData = this.options.multiView.collection.filterModels(input);
-            var result = [];
-            _.each(filteredData.models, function (model) {
-                result.push(model);
-            })
-            if (result.length > 0) {
-                this.options.multiView.trigger("view:search", {filteredData: result});
-            }
-            else {
+            if (input){
+                var filteredData = this.options.multiView.collection.filterModels(input);
+                var result = [];
+                _.each(filteredData.models, function (model) {
+                    result.push(model);
+                })
+                if (result.length > 0) {
+                    this.options.multiView.trigger("view:search", {filteredData: result});
+                }
+                else {
+                    Backbone.history.navigate('resetSearch', true);
+                }
+            } else {
                 Backbone.history.navigate('resetSearch', true);
             }
         },
