@@ -4,7 +4,6 @@ define(function (require) {
     var EditUserView = require('editUserView');
     var UserInfo = require('userInfo');
     var DeleteContactView = require('deleteContactView');
-    // require('jConfirm');
 
 
     var SingleView = BaseView.extend({
@@ -22,8 +21,6 @@ define(function (require) {
     initialize: function () {
         this.userInfoViews = [];
         this.deleteDialogViews = [];
-
-        this.listenTo(this.model,'change', this.render);
     },
 
     render: function () {

@@ -1,71 +1,14 @@
 define(function (require) {
-    var $ = require('jquery');
-    var Backbone =require('backbone');
-    var MultiView = require('multiView');
-    var ContactList = require('contactList');
-    var SearchView = require('searchView');
-    var AddUserView = require('addUserView');
-    var contactList = new ContactList();
+    var BackboneRouteControl = require('controller');
 
-    var Router = Backbone.Router.extend({
-    routes: {
-        '': 'renderAllUsers',
-        'add': 'showAddForm',
-        'edit' : 'userEdit',
-        'resetSearch' : 'resetCollection'
-    },
-
-    renderAllUsers: function () {
-        var self = this;
-        setTimeout(function() {
-            contactList.fetch({
-                success: function () {
-                    var collection = contactList;
-                    var usersView = new MultiView({collection : contactList});
-                    usersView.render();
-                    var search = new SearchView({collection : contactList, multiView: usersView});
-                    usersView.on('view:search', function (options) {
-                        // collection = this.collection;
-                        this.collection.reset(options.filteredData);
-                        this.render();
-                    });
-                }
-            }
-        )}, 500);
-    },
-
-    resetCollection: function () {
-        contactList.fetch({
-            success: function () {
-                var usersView = new MultiView({collection : contactList});
-                usersView.render();
-            }
-        })
-        Backbone.history.navigate('', {trigger: false, replace: false});
-    },
-
-    showAddForm: function () {
-        var addUserView = new AddUserView({collection : contactList});
-        this.renderUserForm(false);
-    },
-
-    userEdit: function() {
-        this.renderUserForm(true);
-    },
-
-    renderUserForm: function (isEdit) {
-        if (isEdit) {
-            $('#submitButton').hide();
-            $('#updateButton').show();
-        } else {
-            $('#submitButton').show();
-            $('#updateButton').hide();
+    var Router = BackboneRouteControl.extend({
+        routes: {
+            '': 'main#renderAllUsers',
+            'add': 'main#showAddForm',
+            'edit' : 'main#userEdit',
+            'resetSearch' : 'main#resetCollection'
         }
-        $(".container_1").slideToggle("slow");
-        //show form
-        $('#userForm').css('width', '100%');
-    }
-});
+    });
 
-return Router;
+    return Router;
 });

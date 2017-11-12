@@ -52,24 +52,26 @@ define(function (require) {
                             UserUtils.renderMessage("User was not saved!", true)
                         }
                         if (!$("#messages").length) {
+                            self.collection.add(model);
                             UserUtils.clearErrors();
                             self.$el.empty();
                             UserUtils.renderMessage("User  " + newUser.attributes.firstName + " was successfully" +
-                                " saved", false)
+                                " saved", false);
+                            Backbone.history.navigate('', true);
                         }
                     },
                     error: function (model, response) {
                         UserUtils.renderMessage("Error during adding new User!", true)
                     }
                 });
-                Backbone.history.navigate('', true);
+
             }
         },
 
         cancel: function() {
             UserUtils.clearErrors();
             this.$el.empty();
-            Backbone.history.navigate('', true);
+            Backbone.history.navigate('', {trigger: false, replace: false});
         }
     });
 

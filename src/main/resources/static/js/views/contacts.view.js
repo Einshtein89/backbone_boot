@@ -8,7 +8,7 @@ define(function (require) {
         el: '#main',
 
         initialize: function () {
-            this.render();
+            this.listenTo(this.collection,'change', this.render);
         },
 
         render: function () {

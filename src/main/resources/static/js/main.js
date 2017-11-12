@@ -4,6 +4,7 @@ require.config({
         jquery: "bower_components/jquery/dist/jquery.min",
         underscore: "bower_components/underscore/underscore-min",
         backbone: "bower_components/backbone/backbone-min",
+        controller: "bower_components/backbone-route-control/backbone-route-control",
         validation: "bower_components/backbone.validation/dist/backbone-validation-amd-min",
         text: "bower_components/text/text",
         dust : "bower_components/dustjs-linkedin/dist/dust-full",
@@ -31,13 +32,19 @@ require.config({
             //router
             'router' : 'router/router',
             //components
-            'userUtils' : 'components/userUtils'
+            'userUtils' : 'components/userUtils',
+            //controllers
+            'mainController' : 'controllers/mainController'
         }
     }
 });
 
 define.amd.dust = true;
-require(['router'], function (Router) {
-    var router = new Router();
+require(['router', 'mainController'], function (Router, MainController) {
+    var router = new Router({
+        controllers: {
+            main: new MainController()
+        }
+    });
     Backbone.history.start();
 })

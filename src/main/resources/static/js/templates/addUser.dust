@@ -7,7 +7,9 @@
                     <input type="hidden" id="id" value="{id}"/>
                     <input type="text" class="form-control" maxlength="50" style="width: 300px;"
                            tabindex="1" placeholder="First Name" required="required"
-                           name="firstName" id="firstName" value="{firstName}"/></div>
+                           name="firstName" id="firstName" value="{firstName}"/>
+                    <span class="help-block hidden"></span>
+                </div>
                 <div class="firstName_error" style="color:red;"></div>
 
 
@@ -15,7 +17,9 @@
                 <div class="form-group">
                     <input type="text" class="form-control" maxlength="50" style="width: 300px;"
                            tabindex="1" placeholder="Last Name" required="required"
-                           name="lastName" id="lastName" value="{lastName}"/></div>
+                           name="lastName" id="lastName" value="{lastName}"/>
+                    <span class="help-block hidden"></span>
+                </div>
                 <div class="lastName_error" style="color:red;"></div>
 
 
@@ -23,8 +27,11 @@
                 <div class="form-group">
                     <input type="text" class="form-control" maxlength="50" style="width: 300px;"
                            tabindex="1" placeholder="Phone" required="required"
-                           name="phone" id="phone" value="{phone}"/></div>
+                           name="phone" id="phone" value="{phone}"/>
+                    <span class="help-block hidden"></span>
+                </div>
                 <div class="phone_error" style="color:red;"></div>
+
 
 
                 <div class="form-group form-field-header">Sex*</div>

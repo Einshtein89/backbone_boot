@@ -38,21 +38,23 @@ define(function (require) {
                 newUser.save({}, {
                     dataType : 'text',
                     success: function (model, response) {
+                        UserUtils.updateModel(self.model, model, true);
                         UserUtils.clearErrors();
                         self.$el.empty();
                         UserUtils.renderMessage("User " + newUser.attributes.firstName + " was successfully updated", false);
+                        Backbone.history.navigate('', true);
                     },
                     error: function (model, response) {
                         UserUtils.renderMessage("Error during adding new User!")
                     }
                 });
-            Backbone.history.navigate('', true);
+
         },
 
         cancel: function() {
             UserUtils.clearErrors();
             this.$el.empty();
-            Backbone.history.navigate('', true);
+            Backbone.history.navigate('', {trigger: false, replace: false});
         }
     });
 

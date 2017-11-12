@@ -17,4 +17,4 @@ Confirmation pop-up while deleting user.
 
 Information pop-up after adding and editing users.
 
-Search Engine v 1.0
+Search Engine v 2.0: search while typing!
