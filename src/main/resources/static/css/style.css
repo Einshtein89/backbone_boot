@@ -103,3 +103,19 @@
     float: left;
     height: 35px;
 }
+
+#paginationHolder {
+    /*width: 44%;*/
+    /*margin: 0 auto;*/
+    margin: 0 auto;
+    width: max-content;
+}
+
+.pageNumber {
+    list-style-type: none;
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: green;
+}

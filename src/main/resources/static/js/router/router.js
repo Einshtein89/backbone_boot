@@ -6,7 +6,10 @@ define(function (require) {
             '': 'main#renderAllUsers',
             'add': 'main#showAddForm',
             'edit' : 'main#userEdit',
-            'resetSearch' : 'main#resetCollection'
+            'resetSearch' : 'main#resetCollection',
+            'first' : 'main#getFirstPage',
+            'last' : 'main#getLastPage',
+            'page:id' : 'main#getCurrentPage'
         }
     });
 

@@ -5,10 +5,12 @@ define(function (require) {
     var ContactList = require('contactList');
     var SearchView = require('searchView');
     var AddUserView = require('addUserView');
+    var PaginationView = require('paginationView');
     var contactList = new ContactList();
     var usersView;
     var searchView;
     var addUserView;
+    var paginationView;
 
     var MainController = function(options) {
         return {
@@ -18,10 +20,14 @@ define(function (require) {
                     if (!usersView) {
                         usersView = new MultiView({collection: contactList});
                     }
-                    if (contactList.models.length === 0) {
+                    if (contactList.fullCollection.models.length === 0) {
+                        contactList.setPageSize(6, options);
                         contactList.fetch({
                                 success: function () {
                                     usersView.render();
+                                    if (!paginationView){
+                                        paginationView = new PaginationView({collection: contactList});
+                                    }
                                     if (!searchView) {
                                         searchView = new SearchView({collection : contactList, multiView: usersView});
                                     }
@@ -35,6 +41,7 @@ define(function (require) {
                     }
                     else {
                         usersView.render();
+                        paginationView.render();
                     }
                 }, 500);
             },
@@ -49,6 +56,7 @@ define(function (require) {
                         }
                     }
                 })
+
                 Backbone.history.navigate('', {trigger: false, replace: false});
             },
 
@@ -76,6 +84,22 @@ define(function (require) {
                 $(".container_1").slideToggle("slow");
                 //show form
                 $('#userForm').css('width', '100%');
+            },
+
+            getFirstPage: function () {
+                contactList.getFirstPage(options);
+                usersView.render();
+            },
+
+            getLastPage: function () {
+                contactList.getLastPage(options);
+                usersView.render();
+            },
+
+            getCurrentPage: function (id) {
+                var id = Number(id) -1;
+                contactList.getPage(id, options);
+                usersView.render();
             }
         };
     };
