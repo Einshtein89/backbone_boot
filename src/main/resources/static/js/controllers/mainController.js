@@ -21,7 +21,7 @@ define(function (require) {
                         usersView = new MultiView({collection: contactList});
                     }
                     if (contactList.fullCollection.models.length === 0) {
-                        contactList.setPageSize(6, options);
+                        contactList.setPageSize(3, options);
                         contactList.fetch({
                                 success: function () {
                                     usersView.render();
