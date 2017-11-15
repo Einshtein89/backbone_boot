@@ -9,7 +9,8 @@ define(function (require) {
             'resetSearch' : 'main#resetCollection',
             'first' : 'main#getFirstPage',
             'last' : 'main#getLastPage',
-            'page:id' : 'main#getCurrentPage'
+            'page:id' : 'main#getCurrentPage',
+            'prevPage': 'main#getPrevPage'
         }
     });
 

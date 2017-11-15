@@ -10,11 +10,12 @@ define(function (require) {
 
         template: Template,
 
-        initialize: function () {
-            this.render();
+        initialize: function (options) {
+            this.render(options);
         },
 
-        render: function () {
+        render: function (options) {
+            var isMainPage = options.isMainPage;
             var output = '';
             var data = {};
             data.showPaginator = false;
@@ -27,13 +28,16 @@ define(function (require) {
                 }
             });
             this.$el.html(output);
+            if (isMainPage) {
+                $( ".pagination" ).find( "li" ).eq(1).addClass('active');
+            }
             return this;
         },
 
         calculateNumberOfPages: function (data) {
             data.pages = [];
             if (this.collection.fullCollection.length ) {
-                var numberOfPages = Math.ceil(this.collection.fullCollection.length / this.collection.length);
+                var numberOfPages = Math.ceil(this.collection.fullCollection.length / this.collection.state.pageSize);
                 data.pages = [];
                 for (var i = 0; i < numberOfPages; i++) {
                     data.pages.push(i + 1);

@@ -4,7 +4,7 @@ define(function (require) {
     var EditUserView = require('editUserView');
     var UserInfo = require('userInfo');
     var DeleteContactView = require('deleteContactView');
-
+    var paginationView;
 
     var SingleView = BaseView.extend({
 
@@ -18,9 +18,10 @@ define(function (require) {
 
     template: Template,
 
-    initialize: function () {
+    initialize: function (options) {
         this.userInfoViews = [];
         this.deleteDialogViews = [];
+        paginationView = options.paginationView;
     },
 
     render: function () {
@@ -33,7 +34,9 @@ define(function (require) {
     },
 
     showDeleteDialog: function() {
-        var deleteContactView = new DeleteContactView({model:this.model, el: this.el});
+        var deleteContactView = new DeleteContactView({model:this.model, el: this.el,
+            collection: this.collection,
+            paginationView: paginationView});
     },
 
     editUser: function () {

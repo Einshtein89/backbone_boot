@@ -8,8 +8,8 @@ define(function (require) {
         url: "/users",
 
         state: {
-            firstPage: 0,
-            currentPage: 0,
+            firstPage: 1,
+            currentPage: 1,
             totalRecords: 200
         },
 
