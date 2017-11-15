@@ -1,13 +1,23 @@
 {?showPaginator}
 <div>
     <ul class="pagination">
-        <li onclick="$(this).siblings().addClass('active').next().removeClass('active')"><a href="#first">«</a></li>
+        <li onclick="$(this).siblings().addClass('active').not(':eq(1)').removeClass('active')">
+            <a href="#first">«</a>
+        </li>
+        <li>
+            <a href="#prev"><</a>
+        </li>
         {#pages}
-            <li onclick="$(this).addClass('active').siblings().removeClass('active')">
+            <li>
                 <a href="#page{.}">{.}</a>
             </li>
         {/pages}
-        <li onclick="$(this).siblings().addClass('active').prev().removeClass('active')"><a href="#last">»</a></li>
+        <li>
+            <a href="#next">></a>
+        </li>
+        <li onclick="$(this).siblings().prev().addClass('active').not('li:last').removeClass('active')">
+            <a href="#last">»</a>
+        </li>
     </ul>
 </div>
 {/showPaginator}

@@ -32,7 +32,8 @@ define(function (require) {
                     }
                     else {
                         usersView.render();
-                        paginationView.render();
+                        self.getLastPage();
+                        paginationView.render({isMainPage: false, isNewUserAdded: true});
                     }
                 }, 500);
             },
@@ -98,32 +99,67 @@ define(function (require) {
                             usersView.render();
                         }
                     }
-                })
+                });
 
                 Backbone.history.navigate('', {trigger: false, replace: false});
+                paginationView.render({isMainPage: true, isNewUserAdded: false});
             },
 
             //pagination actions
             getFirstPage: function () {
                 contactList.getFirstPage(options);
+                this.setNavigationButtonStyles();
                 usersView.render();
             },
 
             getLastPage: function () {
                 contactList.getLastPage(options);
+                this.setNavigationButtonStyles();
                 usersView.render();
             },
 
             getCurrentPage: function (id) {
                 var id = Number(id);
                 contactList.getPage(id, options);
-                $( ".pagination" ).find( "li" ).eq(id).addClass('active');
+                this.setNavigationButtonStyles();
+                $( ".pagination" ).find( "li" ).eq(id + 1).addClass('active').siblings().removeClass('active');
                 usersView.render();
             },
 
             getPrevPage: function () {
                 contactList.getPreviousPage(options);
+                Backbone.history.navigate('', {trigger: false, replace: false});
+                Backbone.history.navigate('page' + (contactList.state.currentPage), true);
                 usersView.render();
+            },
+
+            getNextPage: function () {
+                contactList.getNextPage(options);
+                Backbone.history.navigate('', {trigger: false, replace: false});
+                Backbone.history.navigate('page' + (contactList.state.currentPage), true);
+                usersView.render();
+            },
+
+            setNavigationButtonStyles: function () {
+                let $firstPage = $( ".pagination" ).find( "li" ).eq(0);
+                let $prevPage = $( ".pagination" ).find( "li" ).eq(1);
+                let $lastPage = $( ".pagination" ).find( 'li:last' );
+                let $nextPage = $( ".pagination" ).find( 'li:last' ).prev();
+
+                if (contactList.state.currentPage === contactList.state.firstPage) {
+                    $firstPage.children().attr('href', null);
+                    $prevPage.children().attr('href', null);
+                } else {
+                    $firstPage.children().attr('href', '#first');
+                    $prevPage.children().attr('href', '#prev');
+                }
+                if (contactList.state.currentPage === contactList.state.lastPage) {
+                    $nextPage.children().attr('href', null);
+                    $lastPage.children().attr('href', null);
+                } else {
+                    $nextPage.children().attr('href', '#next');
+                    $lastPage.children().attr('href', '#last');
+                }
             }
         };
     };

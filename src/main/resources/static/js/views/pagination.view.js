@@ -16,6 +16,7 @@ define(function (require) {
 
         render: function (options) {
             var isMainPage = options.isMainPage;
+            var isNewUserAdded = options.isNewUserAdded;
             var output = '';
             var data = {};
             data.showPaginator = false;
@@ -29,7 +30,11 @@ define(function (require) {
             });
             this.$el.html(output);
             if (isMainPage) {
-                $( ".pagination" ).find( "li" ).eq(1).addClass('active');
+                this.setDefaultStyles();
+                $( ".pagination" ).find( "li" ).eq(2).addClass('active');
+            }
+            if (isNewUserAdded) {
+                $( ".pagination" ).find( 'li:last' ).prev().prev().addClass('active');
             }
             return this;
         },
@@ -44,6 +49,14 @@ define(function (require) {
                 }
                 data.showPaginator = true;
             }
+        },
+
+        setDefaultStyles: function () {
+            let $firstPage = $( ".pagination" ).find( "li" ).eq(0);
+            let $prevPage = $( ".pagination" ).find( "li" ).eq(1);
+
+            $firstPage.children().attr('href', null);
+            $prevPage.children().attr('href', null);
         }
     });
 

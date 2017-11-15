@@ -10,7 +10,8 @@ define(function (require) {
             'first' : 'main#getFirstPage',
             'last' : 'main#getLastPage',
             'page:id' : 'main#getCurrentPage',
-            'prevPage': 'main#getPrevPage'
+            'prev': 'main#getPrevPage',
+            'next': 'main#getNextPage'
         }
     });
 
