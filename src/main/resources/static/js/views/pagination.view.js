@@ -55,8 +55,8 @@ define(function (require) {
             let $firstPage = $( ".pagination" ).find( "li" ).eq(0);
             let $prevPage = $( ".pagination" ).find( "li" ).eq(1);
 
-            $firstPage.children().attr('href', null);
-            $prevPage.children().attr('href', null);
+            $firstPage.hide();
+            $prevPage.hide();
         }
     });
 

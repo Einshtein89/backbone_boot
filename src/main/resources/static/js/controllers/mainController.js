@@ -56,6 +56,23 @@ define(function (require) {
                     this.collection.reset(options.filteredData);
                     this.render();
                 });
+                usersView.on('view:emptySearch', function (options) {
+                    this.collection.reset(options.filteredData);
+                    this.render();
+                });
+                usersView.on('view:resetSearch', function () {
+                    this.collection.fetch({
+                        success: function () {
+                            if (!usersView) {
+                                usersView = new MultiView({collection : contactList});
+                            } else {
+                                usersView.render();
+                                Backbone.history.navigate('', {trigger: false, replace: false});
+                                paginationView.render({isMainPage: true, isNewUserAdded: false});
+                            }
+                        }
+                    });
+                });
             },
 
             showAddForm: function () {
@@ -105,6 +122,11 @@ define(function (require) {
                 paginationView.render({isMainPage: true, isNewUserAdded: false});
             },
 
+            renderEmptyView: function () {
+                contactList.fetch();
+                usersView.render({emptyView: true});
+            },
+
             //pagination actions
             getFirstPage: function () {
                 contactList.getFirstPage(options);
@@ -147,18 +169,18 @@ define(function (require) {
                 let $nextPage = $( ".pagination" ).find( 'li:last' ).prev();
 
                 if (contactList.state.currentPage === contactList.state.firstPage) {
-                    $firstPage.children().attr('href', null);
-                    $prevPage.children().attr('href', null);
+                    $firstPage.hide();
+                    $prevPage.hide();
                 } else {
-                    $firstPage.children().attr('href', '#first');
-                    $prevPage.children().attr('href', '#prev');
+                    $firstPage.show();
+                    $prevPage.show();
                 }
                 if (contactList.state.currentPage === contactList.state.lastPage) {
-                    $nextPage.children().attr('href', null);
-                    $lastPage.children().attr('href', null);
+                    $nextPage.hide();
+                    $lastPage.hide();
                 } else {
-                    $nextPage.children().attr('href', '#next');
-                    $lastPage.children().attr('href', '#last');
+                    $lastPage.show();
+                    $nextPage.show();
                 }
             }
         };

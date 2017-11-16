@@ -9,13 +9,18 @@ define(function (require) {
         el: '#main',
 
         initialize: function (options) {
-            this.listenTo(this.collection,'change', this.render);
+            var emptyView = options.emptyView;
+            this.listenTo(this.collection,'change', this.render(emptyView));
             paginationView = options.paginationView;
         },
 
-        render: function () {
-            this.$el.empty();
-            this.collection.each(this.addOne, this);
+        render: function (emptyView) {
+            if (emptyView) {
+                this.$el.empty();
+            } else {
+                this.$el.empty();
+                this.collection.each(this.addOne, this);
+            }
             return this;
         },
 
