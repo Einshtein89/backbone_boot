@@ -6,7 +6,6 @@ define(function (require) {
             '': 'main#renderAllUsers',
             'add': 'main#showAddForm',
             'edit' : 'main#userEdit',
-            'resetSearch' : 'main#resetCollection',
             'renderEmptyView' : 'main#renderEmptyView',
             'first' : 'main#getFirstPage',
             'last' : 'main#getLastPage',

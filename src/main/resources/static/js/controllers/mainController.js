@@ -107,21 +107,6 @@ define(function (require) {
                 }
             },
 
-            resetCollection: function () {
-                contactList.fetch({
-                    success: function () {
-                        if (!usersView) {
-                            usersView = new MultiView({collection : contactList});
-                        } else {
-                            usersView.render();
-                        }
-                    }
-                });
-
-                Backbone.history.navigate('', {trigger: false, replace: false});
-                paginationView.render({isMainPage: true, isNewUserAdded: false});
-            },
-
             renderEmptyView: function () {
                 contactList.fetch();
                 usersView.render({emptyView: true});
