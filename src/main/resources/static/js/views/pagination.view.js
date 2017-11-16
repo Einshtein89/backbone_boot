@@ -3,7 +3,8 @@ define(function (require) {
     var $ = require('jquery');
     var Backbone = require('backbone');
     var Dust = require('dust');
-
+    var isMainPage;
+    var isNewUserAdded;
     var PaginationView = Backbone.View.extend({
 
         el: '#paginationHolder',
@@ -15,8 +16,8 @@ define(function (require) {
         },
 
         render: function (options) {
-            var isMainPage = options.isMainPage;
-            var isNewUserAdded = options.isNewUserAdded;
+            isMainPage = options.isMainPage;
+            isNewUserAdded = options.isNewUserAdded;
             var output = '';
             var data = {};
             data.showPaginator = false;

@@ -6,11 +6,13 @@ define(function (require) {
     var SearchView = require('searchView');
     var AddUserView = require('addUserView');
     var PaginationView = require('paginationView');
+    var ContactsPerPageView = require('contactsPerPageView');
     var contactList = new ContactList();
     var usersView;
     var searchView;
     var addUserView;
     var paginationView;
+    var contactsPerPageView;
 
     var MainController = function(options) {
         return {
@@ -27,6 +29,7 @@ define(function (require) {
                                 usersView.render();
                                 self.createSearchView();
                                 self.renderSearch();
+                                self.createContactsPerPageView();
                             }
                         })
                     }
@@ -106,6 +109,13 @@ define(function (require) {
                     searchView = new SearchView({collection : contactList, multiView: usersView});
                 }
             },
+            createContactsPerPageView: function () {
+                if (!contactsPerPageView) {
+                    contactsPerPageView = new ContactsPerPageView({collection : contactList,
+                        multiView: usersView, paginationView: paginationView});
+                }
+            },
+
 
             renderEmptyView: function () {
                 contactList.fetch();

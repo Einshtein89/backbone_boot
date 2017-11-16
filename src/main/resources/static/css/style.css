@@ -121,3 +121,8 @@
     border: 1px solid black;
     background-color: green;
 }
+
+#contactPerPageHolder {
+    margin: 0 auto;
+    width: max-content;
+}

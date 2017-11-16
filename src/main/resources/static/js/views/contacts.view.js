@@ -3,18 +3,19 @@ define(function (require) {
     var Backbone =require('backbone');
     var SingleView = require('singleView');
     var paginationView;
+    var emptyView;
 
     var MultiView = Backbone.View.extend({
 
         el: '#main',
 
         initialize: function (options) {
-            var emptyView = options.emptyView;
+            emptyView = options.emptyView;
             this.listenTo(this.collection,'change', this.render(emptyView));
             paginationView = options.paginationView;
         },
 
-        render: function (emptyView) {
+        render: function () {
             if (emptyView) {
                 this.$el.empty();
             } else {

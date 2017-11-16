@@ -23,6 +23,7 @@ require.config({
             'editUserView' : 'views/editUser.view',
             'searchView' : 'views/search.view',
             'paginationView' : 'views/pagination.view',
+            'contactsPerPageView' : 'views/contactsPerPage.view',
             //models
             'model' : 'models/model',
             //templates
@@ -30,6 +31,7 @@ require.config({
             'contactInfoTemplate' : 'text!templates/contactInfo.dust',
             'addUserTemplate' : 'text!templates/addUser.dust',
             'paginationTemplate' : 'text!templates/pagination.dust',
+            'contactsPerPageTemplate' : 'text!templates/contactsPerPage.dust',
             //collections
             'contactList' : 'collections/contactList',
             //router
