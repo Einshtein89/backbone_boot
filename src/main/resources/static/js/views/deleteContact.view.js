@@ -3,19 +3,23 @@ define(function (require) {
     var BaseView = require('baseView');
     var UserInfo = require('userInfo');
     require('jConfirm');
+    var paginationView;
+    var collection;
 
     var DeleteContactView = BaseView.extend({
 
-        initialize: function () {
-            this.render();
+        initialize: function (options) {
+            paginationView = options.paginationView;
+            collection = this.collection;
+            this.render(options);
         },
 
-        render: function () {
-            this.showDeleteDialog();
+        render: function (options) {
+            this.showDeleteDialog(options);
             return this;
         },
 
-        showDeleteDialog: function() {
+        showDeleteDialog: function(options) {
             var self = this;
             $.confirm({
                 title: 'Delete Confirmation',
@@ -29,11 +33,12 @@ define(function (require) {
                     confirm: {
                         btnClass: 'confirm-delete',
                         action: function () {
-                            self.removeInfo();
                             self.model.url = self.model.url + "/" +  self.model.id;
                             self.model.destroy({
                                 success: function () {
+                                    self.removeInfo();
                                     self.$el.remove();
+                                    self.renderPaginationView(options);
                                 },
                                 error: function () {
                                     console.log("Something went wrong...")
@@ -45,6 +50,12 @@ define(function (require) {
                     },
                 }
             });
+        },
+
+        renderPaginationView: function (options) {
+            Backbone.history.navigate('', {trigger: false, replace: false});
+            paginationView.render(options);
+            Backbone.history.navigate('page' + collection.state.currentPage, true);
         },
 
         removeInfo: function () {

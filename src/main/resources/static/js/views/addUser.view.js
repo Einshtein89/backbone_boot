@@ -41,7 +41,7 @@ define(function (require) {
             })
 
             if(existedUser) {
-                this.renderMessage("This user already exists!", false)
+                UserUtils.renderMessage("This user already exists!", false)
             } else {
                 var self = this;
                 newUser.save({}, {
@@ -53,7 +53,7 @@ define(function (require) {
                         }
                         if (!$("#messages").length) {
                             model.set("id", response.id);
-                            self.collection.add(model);
+                            self.collection.fullCollection.add(model);
                             UserUtils.clearErrors();
                             self.$el.empty();
                             UserUtils.renderMessage("User  " + newUser.attributes.firstName + " was successfully" +

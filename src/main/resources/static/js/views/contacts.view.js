@@ -2,23 +2,31 @@ define(function (require) {
     var $ = require('jquery');
     var Backbone =require('backbone');
     var SingleView = require('singleView');
+    var paginationView;
+    var emptyView;
 
     var MultiView = Backbone.View.extend({
 
         el: '#main',
 
-        initialize: function () {
-            this.listenTo(this.collection,'change', this.render);
+        initialize: function (options) {
+            emptyView = options.emptyView;
+            this.listenTo(this.collection,'change', this.render(emptyView));
+            paginationView = options.paginationView;
         },
 
         render: function () {
-            this.$el.empty();
-            this.collection.each(this.addOne, this);
+            if (emptyView) {
+                this.$el.empty();
+            } else {
+                this.$el.empty();
+                this.collection.each(this.addOne, this);
+            }
             return this;
         },
 
         addOne: function(Model, singleView) {
-           singleView = new SingleView({model: Model});
+           singleView = new SingleView({model: Model, collection: this.collection, paginationView: paginationView});
            $(singleView.render().el).appendTo(this.$el);
         }
     });

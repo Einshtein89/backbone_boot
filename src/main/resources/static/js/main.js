@@ -10,6 +10,7 @@ require.config({
         dust : "bower_components/dustjs-linkedin/dist/dust-full",
         dust_helpers : "bower_components/dustjs-helpers/dist/dust-helpers",
         jConfirm: "bower_components/jquery-confirm2/dist/jquery-confirm.min",
+        paginator: "bower_components/backbone.paginator/lib/backbone.paginator.min"
     },
     map : {
         "*" : {
@@ -21,12 +22,16 @@ require.config({
             'addUserView' : 'views/addUser.view',
             'editUserView' : 'views/editUser.view',
             'searchView' : 'views/search.view',
+            'paginationView' : 'views/pagination.view',
+            'contactsPerPageView' : 'views/contactsPerPage.view',
             //models
             'model' : 'models/model',
             //templates
             'contactTemplate' : 'text!templates/contact.dust',
             'contactInfoTemplate' : 'text!templates/contactInfo.dust',
             'addUserTemplate' : 'text!templates/addUser.dust',
+            'paginationTemplate' : 'text!templates/pagination.dust',
+            'contactsPerPageTemplate' : 'text!templates/contactsPerPage.dust',
             //collections
             'contactList' : 'collections/contactList',
             //router

@@ -24,26 +24,26 @@ define(function (require) {
 
         renderSearch: function () {
             var input = $('#search').val();
-            if (input){
+            if (input) {
                 var filteredData = this.options.multiView.collection.filterModels(input);
                 var result = [];
                 _.each(filteredData.models, function (model) {
                     result.push(model);
-                })
+                });
                 if (result.length > 0) {
                     this.options.multiView.trigger("view:search", {filteredData: result});
                 }
                 else {
-                    Backbone.history.navigate('resetSearch', true);
+                    this.options.multiView.trigger("view:emptySearch", {filteredData: null});
                 }
             } else {
-                Backbone.history.navigate('resetSearch', true);
+                this.options.multiView.trigger("view:resetSearch");
             }
         },
 
         resetSearch: function () {
-            if ($('#search').val()){
-                Backbone.history.navigate('resetSearch', true);
+            if ($('#search').val()) {
+                this.options.multiView.trigger("view:resetSearch");
                 $('#search').val('');
             }
         }
