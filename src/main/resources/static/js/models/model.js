@@ -38,7 +38,6 @@ define(function (require) {
             return errors.length > 0 ? errors : false;
         },
 
-
         validation: {
             firstName: {
                 required: true
