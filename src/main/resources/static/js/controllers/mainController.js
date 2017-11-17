@@ -85,10 +85,12 @@ define(function (require) {
                     addUserView.render();
                 }
                 this.renderUserForm(false);
+                Backbone.history.navigate('', {trigger: false, replace: false});
             },
 
             userEdit: function() {
                 this.renderUserForm(true);
+                Backbone.history.navigate('', {trigger: false, replace: false});
             },
 
             //creating views
@@ -127,12 +129,14 @@ define(function (require) {
                 contactList.getFirstPage(options);
                 this.setNavigationButtonStyles();
                 usersView.render();
+                Backbone.history.navigate('', {trigger: false, replace: false});
             },
 
             getLastPage: function () {
                 contactList.getLastPage(options);
                 this.setNavigationButtonStyles();
                 usersView.render();
+                Backbone.history.navigate('', {trigger: false, replace: false});
             },
 
             getCurrentPage: function (id) {
@@ -140,19 +144,18 @@ define(function (require) {
                 contactList.getPage(id, options);
                 this.setNavigationButtonStyles();
                 $( ".pagination" ).find( "li" ).eq(id + 1).addClass('active').siblings().removeClass('active');
+                Backbone.history.navigate('', {trigger: false, replace: false});
                 usersView.render();
             },
 
             getPrevPage: function () {
                 contactList.getPreviousPage(options);
-                Backbone.history.navigate('', {trigger: false, replace: false});
                 Backbone.history.navigate('page' + (contactList.state.currentPage), true);
                 usersView.render();
             },
 
             getNextPage: function () {
                 contactList.getNextPage(options);
-                Backbone.history.navigate('', {trigger: false, replace: false});
                 Backbone.history.navigate('page' + (contactList.state.currentPage), true);
                 usersView.render();
             },
