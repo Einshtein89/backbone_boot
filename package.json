@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "",
-  "dependencies": {},
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
   "devDependencies": {},
   "scripts": {
     "postinstall": "node_modules/.bin/bower install"
