@@ -1,7 +1,7 @@
 
 <div>
     <ul class="contactPerPage">
-        Contacts per Page:
+        <label for="contactsPerPageDropdown">Contacts per Page:&nbsp</label>
         <select name="contactsPerPage" class="form-control" id="contactsPerPageDropdown"
                 style="width: 70px; display: inline">
             {#contactsPerPage}
