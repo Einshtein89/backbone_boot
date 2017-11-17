@@ -37,16 +37,14 @@ define(function (require) {
                 }
             });
             this.$el.html(output);
-
-            // multiView.render({emptyView : false});
-            // paginationView.render({isMainPage : true});
             return this;
         },
 
         changeContactsPerPage: function (options) {
             collection.setPageSize(Number($('#contactsPerPageDropdown').val()), options);
-            multiView.render();
             paginationView.render(options);
+            $( ".pagination" ).find( "li" ).eq(2).addClass('active');
+            Backbone.history.navigate('first', true);
         }
     });
 
