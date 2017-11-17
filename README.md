@@ -5,7 +5,7 @@ Features:
 
 * Spring Boot + JPA + H2 DB
 * Backbone + RequireJS
-* NPM + Bower
+* NPM + Bower + Gulp
 
 Description:
 
