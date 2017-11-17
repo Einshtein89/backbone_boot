@@ -45,6 +45,7 @@ define(function (require) {
             paginationView.render(options);
             $( ".pagination" ).find( "li" ).eq(2).addClass('active');
             Backbone.history.navigate('first', true);
+            Backbone.history.navigate('', {trigger: false, replace: false});
         }
     });
 
