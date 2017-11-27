@@ -8,7 +8,7 @@ define(function (require) {
 
     var EditUserView = BaseView.extend({
 
-        el: '.userFormHolder',
+        className: 'userFormHolder',
 
         events: {
             'click #updateButton': 'update',
@@ -38,22 +38,20 @@ define(function (require) {
                 newUser.save({}, {
                     dataType : 'text',
                     success: function (model, response) {
-                        UserUtils.updateModel(self.model, model, true);
-                        UserUtils.clearErrors();
-                        self.$el.empty();
+                        UserUtils.updateModel(self.model, model);
                         UserUtils.renderMessage("User " + newUser.attributes.firstName + " was successfully updated", false);
+                        Backbone.history.navigate('page' + self.collection.state.currentPage, true);
                         Backbone.history.navigate('', true);
+                        self.remove();
                     },
                     error: function (model, response) {
                         UserUtils.renderMessage("Error during adding new User!")
                     }
                 });
-
         },
 
         cancel: function() {
-            UserUtils.clearErrors();
-            this.$el.empty();
+            this.remove();
             Backbone.history.navigate('', {trigger: false, replace: false});
         }
     });

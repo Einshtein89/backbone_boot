@@ -6,17 +6,13 @@ define(function (require) {
 
     var UserInfo = BaseView.extend({
 
-        el: '.userInfo',
+        className: 'userInfo',
 
         events: {
             'click .closeUserInfo': 'closeUserInfo',
         },
 
         template: Template,
-
-        initialize: function () {
-            this.render();
-        },
 
         render:  function () {
             BaseView.prototype.render.apply(this, arguments);
@@ -33,11 +29,7 @@ define(function (require) {
         },
 
         closeUserInfo: function () {
-            this.$el.empty();
-            this.$el.animate({
-                opacity: 0,
-                top: "-50px",
-            }, 0 );
+            this.remove();
         }
     });
 

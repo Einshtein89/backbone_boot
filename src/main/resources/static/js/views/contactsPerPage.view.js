@@ -9,7 +9,7 @@ define(function (require) {
 
     var ContactsPerPageView = Backbone.View.extend({
 
-        el: '#contactPerPageHolder',
+        className: 'contactPerPageHolder',
 
         template: Template,
 

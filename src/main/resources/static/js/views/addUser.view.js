@@ -4,11 +4,12 @@ define(function (require) {
     var Backbone = require('backbone');
     var User = require('model');
     var UserUtils = require('userUtils');
-    // require('jConfirm');
+    var Validation = require('validation');
+    var paginationView;
 
     var AddUserView = BaseView.extend({
 
-        el: '.userFormHolder',
+        className: 'userFormHolder',
 
         events: {
             'click #submitButton': 'submit',
@@ -17,8 +18,24 @@ define(function (require) {
 
         template: Template,
 
-        initialize: function () {
-            this.render();
+        initialize: function (options) {
+            paginationView = options.paginationView;
+            Backbone.Validation.bind(this, {
+                valid: function(view, attr) {
+                    var $el = view.$('[name=' + attr + ']'),
+                        $group = $el.closest('.form-group');
+
+                    $group.removeClass('has-error');
+                    $group.find('.help-block').html('').addClass('hidden');
+                },
+                invalid: function(view, attr, error) {
+                    var $el = view.$('[name=' + attr + ']'),
+                        $group = $el.closest('.form-group');
+
+                    $group.addClass('has-error');
+                    $group.find('.help-block').html(error).removeClass('hidden');
+                }
+            });
         },
 
         render: function () {
@@ -54,24 +71,22 @@ define(function (require) {
                         if (!$("#messages").length) {
                             model.set("id", response.id);
                             self.collection.fullCollection.add(model);
-                            UserUtils.clearErrors();
-                            self.$el.empty();
                             UserUtils.renderMessage("User  " + newUser.attributes.firstName + " was successfully" +
                                 " saved", false);
-                            Backbone.history.navigate('', true);
+                            Backbone.history.navigate('last', true);
+                            paginationView.render({isMainPage: false, isNewUserAdded: true});
+                            self.remove();
                         }
                     },
                     error: function (model, response) {
                         UserUtils.renderMessage("Error during adding new User!", true)
                     }
                 });
-
             }
         },
 
         cancel: function() {
-            UserUtils.clearErrors();
-            this.$el.empty();
+            this.remove();
             Backbone.history.navigate('', {trigger: false, replace: false});
         }
     });

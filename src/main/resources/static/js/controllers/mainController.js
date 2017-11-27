@@ -24,17 +24,18 @@ define(function (require) {
                         contactList.setPageSize(3, options);
                         contactList.fetch({
                             success: function () {
-                                self.createPaginationView();
+                                self.createContactsPerPageView();
                                 self.createMultiView();
-                                usersView.render();
+                                $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
                                 self.createSearchView();
                                 self.renderSearch();
-                                self.createContactsPerPageView();
+                                self.createPaginationView();
                             }
                         })
                     }
                     else {
-                        usersView.render();
+                        usersView.remove();
+                        $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
                         self.getLastPage();
                         paginationView.render({isMainPage: false, isNewUserAdded: true});
                     }
@@ -79,11 +80,8 @@ define(function (require) {
             },
 
             showAddForm: function () {
-                if (!addUserView) {
-                    addUserView = new AddUserView({collection : contactList});
-                } else {
-                    addUserView.render();
-                }
+                addUserView = new AddUserView({collection : contactList, paginationView: paginationView});
+                $(addUserView.render().el).appendTo("body");
                 this.renderUserForm(false);
                 Backbone.history.navigate('', {trigger: false, replace: false});
             },
@@ -98,6 +96,7 @@ define(function (require) {
                 if (!paginationView){
                     paginationView = new PaginationView({collection: contactList, isMainPage: true});
                 }
+                $(paginationView.render({isMainPage: true, isNewUserAdded: false}).el).insertAfter("." + usersView.$el[0].className);
             },
 
             createMultiView: function () {
@@ -116,6 +115,7 @@ define(function (require) {
                     contactsPerPageView = new ContactsPerPageView({collection : contactList,
                         multiView: usersView, paginationView: paginationView});
                 }
+                $(contactsPerPageView.render().el).insertAfter(".addUserHolder");
             },
 
 
@@ -127,44 +127,45 @@ define(function (require) {
             //pagination actions
             getFirstPage: function () {
                 contactList.getFirstPage(options);
-                this.setNavigationButtonStyles();
-                usersView.render();
+                usersView.remove();
+                $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
                 Backbone.history.navigate('', {trigger: false, replace: false});
+                this.setNavigationButtonStyles();
             },
 
             getLastPage: function () {
                 contactList.getLastPage(options);
-                this.setNavigationButtonStyles();
-                usersView.render();
+                usersView.remove();
+                $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
                 Backbone.history.navigate('', {trigger: false, replace: false});
+                this.setNavigationButtonStyles();
             },
 
             getCurrentPage: function (id) {
                 var id = Number(id);
                 contactList.getPage(id, options);
                 this.setNavigationButtonStyles();
+                usersView.remove();
+                $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
                 $( ".pagination" ).find( "li" ).eq(id + 1).addClass('active').siblings().removeClass('active');
                 Backbone.history.navigate('', {trigger: false, replace: false});
-                usersView.render();
             },
 
             getPrevPage: function () {
                 contactList.getPreviousPage(options);
                 Backbone.history.navigate('page' + (contactList.state.currentPage), true);
-                usersView.render();
             },
 
             getNextPage: function () {
                 contactList.getNextPage(options);
                 Backbone.history.navigate('page' + (contactList.state.currentPage), true);
-                usersView.render();
             },
 
             setNavigationButtonStyles: function () {
-                let $firstPage = $( ".pagination" ).find( "li" ).eq(0);
-                let $prevPage = $( ".pagination" ).find( "li" ).eq(1);
-                let $lastPage = $( ".pagination" ).find( 'li:last' );
-                let $nextPage = $( ".pagination" ).find( 'li:last' ).prev();
+                let $firstPage = paginationView.$el.find( "li" ).eq(0);
+                let $prevPage = paginationView.$el.find( "li" ).eq(1);
+                let $lastPage = paginationView.$el.find( 'li:last' );
+                let $nextPage = paginationView.$el.find( 'li:last' ).prev();
 
                 if (contactList.state.currentPage === contactList.state.firstPage) {
                     $firstPage.hide();
