@@ -49,6 +49,7 @@ define(function (require) {
                         }
                     },
                     cancel: function () {
+                        self.remove();
                     },
                 }
             });

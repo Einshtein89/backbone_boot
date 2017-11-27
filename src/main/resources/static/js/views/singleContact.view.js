@@ -44,7 +44,7 @@ define(function (require) {
     },
 
     showDeleteDialog: function() {
-        var deleteContactView = new DeleteContactView({model:this.model, el: this.el,
+        var deleteContactView = new DeleteContactView({model:this.model,
             collection: this.collection,
             paginationView: paginationView,
             userInfo : userInfo});
