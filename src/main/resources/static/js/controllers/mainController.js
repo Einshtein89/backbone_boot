@@ -24,12 +24,13 @@ define(function (require) {
                         contactList.setPageSize(3, options);
                         contactList.fetch({
                             success: function () {
+                                self.createPaginationView();
                                 self.createContactsPerPageView();
                                 self.createMultiView();
                                 $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
                                 self.createSearchView();
                                 self.renderSearch();
-                                self.createPaginationView();
+
                             }
                         })
                     }
@@ -96,7 +97,7 @@ define(function (require) {
                 if (!paginationView){
                     paginationView = new PaginationView({collection: contactList, isMainPage: true});
                 }
-                $(paginationView.render({isMainPage: true, isNewUserAdded: false}).el).insertAfter("." + usersView.$el[0].className);
+                $(paginationView.render({isMainPage: true, isNewUserAdded: false}).el).insertAfter(".addUserHolder");
             },
 
             createMultiView: function () {
