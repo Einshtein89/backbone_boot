@@ -1,6 +1,5 @@
 define(function (require) {
     var Template = require('paginationTemplate');
-    var $ = require('jquery');
     var Backbone = require('backbone');
     var Dust = require('dust');
     var isMainPage;

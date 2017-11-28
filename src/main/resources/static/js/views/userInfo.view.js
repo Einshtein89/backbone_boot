@@ -1,5 +1,4 @@
 define(function (require) {
-    // var $ = require('jquery');
     var Template = require('contactInfoTemplate');
     var BaseView = require('baseView');
 

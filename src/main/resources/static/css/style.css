@@ -73,7 +73,7 @@
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
-.addUserHolder {
+.header {
     margin: 0 auto 20px;
     width: 44%;
     padding-bottom: 10px;

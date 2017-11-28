@@ -7,7 +7,9 @@ define(function (require) {
     var AddUserView = require('addUserView');
     var PaginationView = require('paginationView');
     var ContactsPerPageView = require('contactsPerPageView');
+    var User = require('model');
     var contactList = new ContactList();
+    var newUser = new User();
     var usersView;
     var searchView;
     var addUserView;
@@ -19,28 +21,25 @@ define(function (require) {
             //rendering actions
             renderAllUsers: function () {
                 var self = this;
-                setTimeout(function() {
-                    if (contactList.fullCollection.models.length === 0) {
-                        contactList.setPageSize(3, options);
-                        contactList.fetch({
-                            success: function () {
-                                self.createPaginationView();
-                                self.createContactsPerPageView();
-                                self.createMultiView();
-                                $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
-                                self.createSearchView();
-                                self.renderSearch();
-
-                            }
-                        })
-                    }
-                    else {
-                        usersView.remove();
-                        $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
-                        self.getLastPage();
-                        paginationView.render({isMainPage: false, isNewUserAdded: true});
-                    }
-                }, 500);
+                if (contactList.fullCollection.models.length === 0) {
+                    contactList.setPageSize(3, options);
+                    contactList.fetch({
+                        success: function () {
+                            self.createPaginationView();
+                            self.createContactsPerPageView();
+                            self.createMultiView();
+                            $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
+                            self.createSearchView();
+                            self.renderSearch();
+                        }
+                    })
+                }
+                else {
+                    usersView.remove();
+                    $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
+                    this.getLastPage();
+                    paginationView.render({isMainPage: false, isNewUserAdded: true});
+                }
             },
 
             renderUserForm: function (isEdit) {
@@ -81,7 +80,7 @@ define(function (require) {
             },
 
             showAddForm: function () {
-                addUserView = new AddUserView({collection : contactList, paginationView: paginationView});
+                addUserView = new AddUserView({model: newUser, collection : contactList, paginationView: paginationView});
                 $(addUserView.render().el).appendTo("body");
                 this.renderUserForm(false);
                 Backbone.history.navigate('', {trigger: false, replace: false});
@@ -97,7 +96,7 @@ define(function (require) {
                 if (!paginationView){
                     paginationView = new PaginationView({collection: contactList, isMainPage: true});
                 }
-                $(paginationView.render({isMainPage: true, isNewUserAdded: false}).el).insertAfter(".addUserHolder");
+                $(paginationView.render({isMainPage: true, isNewUserAdded: false}).el).insertAfter(".header");
             },
 
             createMultiView: function () {
@@ -116,7 +115,7 @@ define(function (require) {
                     contactsPerPageView = new ContactsPerPageView({collection : contactList,
                         multiView: usersView, paginationView: paginationView});
                 }
-                $(contactsPerPageView.render().el).insertAfter(".addUserHolder");
+                $(contactsPerPageView.render().el).insertAfter(".header");
             },
 
 

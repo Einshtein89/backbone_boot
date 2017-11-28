@@ -1,6 +1,5 @@
 define(function (require) {
     var BaseView = require('baseView');
-    var Backbone = require('backbone');
     var _ = require('underscore');
 
     var SearchView = BaseView.extend({
@@ -15,11 +14,6 @@ define(function (require) {
         initialize: function (options) {
             this.options = options;
             $(document).on('keyup', this.keyup);
-            this.render();
-        },
-
-        render: function () {
-            return this;
         },
 
         renderSearch: function () {

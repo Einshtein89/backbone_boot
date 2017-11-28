@@ -21,3 +21,5 @@ Search Engine v 2.0: search while typing!
 
 Pagination: contacts navigation with all necessary functions (first, next, previous, last pages 
 with ability to choose number of contact per page)
+
+Validation is performed using Backbone Validation plugin.

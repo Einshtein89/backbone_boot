@@ -24,7 +24,7 @@ define(function (require) {
             'change #contactsPerPageDropdown': 'changeContactsPerPage'
         },
 
-        render: function (options) {
+        render: function () {
             var output = '';
             var data = {};
             var contactsPerPage = [3, 6, 9, 12, 15];

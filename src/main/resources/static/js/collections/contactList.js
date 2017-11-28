@@ -1,5 +1,4 @@
 define(function (require) {
-    var Backbone = require('backbone');
     var Model = require('model');
     var PageableCollection = require('paginator');
 

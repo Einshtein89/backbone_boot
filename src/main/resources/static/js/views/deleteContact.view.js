@@ -1,7 +1,6 @@
 define(function (require) {
     var Backbone =require('backbone');
     var BaseView = require('baseView');
-    var UserInfo = require('userInfo');
     require('jConfirm');
     var paginationView;
     var collection;
