@@ -127,6 +127,7 @@ define(function (require) {
             //pagination actions
             getFirstPage: function () {
                 contactList.getFirstPage(options);
+                paginationView.render({isMainPage : true});
                 usersView.remove();
                 $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
                 Backbone.history.navigate('', {trigger: false, replace: false});
@@ -135,6 +136,7 @@ define(function (require) {
 
             getLastPage: function () {
                 contactList.getLastPage(options);
+                paginationView.render({isNewUserAdded : true});
                 usersView.remove();
                 $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
                 Backbone.history.navigate('', {trigger: false, replace: false});
@@ -144,10 +146,12 @@ define(function (require) {
             getCurrentPage: function (id) {
                 var id = Number(id);
                 contactList.getPage(id, options);
+                paginationView.render({isMainPage : false});
                 this.setNavigationButtonStyles();
                 usersView.remove();
                 $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
-                $( ".pagination" ).find( "li" ).eq(id + 1).addClass('active').siblings().removeClass('active');
+                var $currentLi = $('[name=' + id + ']');
+                $currentLi.addClass('active').siblings().removeClass('active');
                 Backbone.history.navigate('', {trigger: false, replace: false});
             },
 
