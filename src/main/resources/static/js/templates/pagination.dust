@@ -9,7 +9,11 @@
         </li>
         {#pages}
             <li>
+                {@ne key=. value=".."}
                 <a href="#page{.}">{.}</a>
+                {:else}
+                <a>..</a>
+                {/ne}
             </li>
         {/pages}
         <li>

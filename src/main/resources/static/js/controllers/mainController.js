@@ -144,6 +144,7 @@ define(function (require) {
             getCurrentPage: function (id) {
                 var id = Number(id);
                 contactList.getPage(id, options);
+                paginationView.render({isMainPage : false});
                 this.setNavigationButtonStyles();
                 usersView.remove();
                 $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
