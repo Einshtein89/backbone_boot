@@ -8,8 +8,12 @@
             <a href="#prev"><</a>
         </li>
         {#pages}
-            <li>
-                <a href="#page{.}">{.}</a>
+            <li name ={.}>
+                {@select key=.}
+                {@eq value=".."}<a>..</a>{/eq}
+                {@eq value=".. "}<a>..</a>{/eq}
+                {@none}<a href="#page{.}">{.}</a>{/none}
+                {/select}
             </li>
         {/pages}
         <li>
