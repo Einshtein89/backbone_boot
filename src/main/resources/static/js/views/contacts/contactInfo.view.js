@@ -2,7 +2,6 @@ define(function (require) {
     var Template = require('contactInfoTemplate');
     var BaseView = require('baseView');
 
-
     var UserInfo = BaseView.extend({
 
         className: 'userInfo',
