@@ -14,32 +14,32 @@ require.config({
     },
     map : {
         "*" : {
-            'multiView' : 'views/contacts.view',
-            'singleView' : 'views/singleContact.view',
+            'multiView' : 'views/contacts/contacts.view',
+            'singleView' : 'views/contacts/contact.view',
             'baseView': 'views/base.view',
-            'userInfo' : 'views/userInfo.view',
-            'deleteContactView' : 'views/deleteContact.view',
-            'addUserView' : 'views/addUser.view',
-            'editUserView' : 'views/editUser.view',
-            'searchView' : 'views/search.view',
-            'paginationView' : 'views/pagination.view',
-            'contactsPerPageView' : 'views/contactsPerPage.view',
+            'userInfo' : 'views/contacts/contactInfo.view',
+            'deleteContactView' : 'views/contacts/actions/deleteContact.view',
+            'addUserView' : 'views/contacts/actions/addContact.view',
+            'editUserView' : 'views/contacts/actions/editContact.view',
+            'searchView' : 'views/search/search.view',
+            'paginationView' : 'views/pagination/pagination.view',
+            'contactsPerPageView' : 'views/pagination/contactsPerPage.view',
             //models
             'model' : 'models/model',
             //templates
             'contactTemplate' : 'text!templates/contact.dust',
             'contactInfoTemplate' : 'text!templates/contactInfo.dust',
-            'addUserTemplate' : 'text!templates/addUser.dust',
+            'addUserTemplate' : 'text!templates/addContact.dust',
             'paginationTemplate' : 'text!templates/pagination.dust',
             'contactsPerPageTemplate' : 'text!templates/contactsPerPage.dust',
             //collections
-            'contactList' : 'collections/contactList',
+            'contactList' : 'collections/contacts.collection',
             //router
             'router' : 'router/router',
             //components
-            'userUtils' : 'components/userUtils',
+            'userUtils' : 'components/userUtils.component',
             //controllers
-            'mainController' : 'controllers/mainController'
+            'mainController' : 'controllers/main.controller'
         }
     }
 });
@@ -52,4 +52,4 @@ require(['router', 'mainController'], function (Router, MainController) {
         }
     });
     Backbone.history.start();
-})
+});
