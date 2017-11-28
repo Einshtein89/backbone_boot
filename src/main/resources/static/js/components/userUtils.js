@@ -1,5 +1,7 @@
 define(function (require) {
+    var Backbone = require('backbone');
     require('jConfirm');
+
 
     var UserUtils = {};
     UserUtils.populateUserData = function(user, isExistedUser){
@@ -12,14 +14,11 @@ define(function (require) {
         user.attributes.sex = $("#sex").val();
     };
 
-    UserUtils.updateModel = function(currentModel, newModel, isExistedUser){
-        if (isExistedUser) {
-            currentModel.set("id", newModel.attributes.id);
-        }
-        currentModel.set("firstName", newModel.attributes.firstName);
-        currentModel.set("lastName", newModel.attributes.lastName);
-        currentModel.set("phone", newModel.attributes.phone);
-        currentModel.set("sex", newModel.attributes.sex);
+    UserUtils.updateModel = function(oldModel, newModel){
+        oldModel.attributes.firstName = newModel.attributes.firstName;
+        oldModel.attributes.lastName = newModel.attributes.lastName;
+        oldModel.attributes.phone = newModel.attributes.phone;
+        oldModel.attributes.sex = newModel.attributes.sex;
     };
 
     UserUtils.renderMessage = function (message, addErrorDiv) {
@@ -43,6 +42,25 @@ define(function (require) {
 
     UserUtils.clearErrors = function () {
         $("div[class$='_error']").empty();
+    };
+
+    UserUtils.bindValidation = function (view) {
+        Backbone.Validation.bind(view, {
+            valid: function(view, attr) {
+                var $el = view.$('[name=' + attr + ']'),
+                    $group = $el.closest('.form-group');
+
+                $group.removeClass('has-error');
+                $group.find('.help-block').html('').addClass('hidden');
+            },
+            invalid: function(view, attr, error) {
+                var $el = view.$('[name=' + attr + ']'),
+                    $group = $el.closest('.form-group');
+
+                $group.addClass('has-error');
+                $group.find('.help-block').html(error).removeClass('hidden');
+            }
+        });
     }
 
     return UserUtils;

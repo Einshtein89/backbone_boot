@@ -1,15 +1,16 @@
 define(function (require) {
     var Backbone =require('backbone');
     var BaseView = require('baseView');
-    var UserInfo = require('userInfo');
     require('jConfirm');
     var paginationView;
     var collection;
+    var userInfo;
 
     var DeleteContactView = BaseView.extend({
 
         initialize: function (options) {
             paginationView = options.paginationView;
+            userInfo = options.userInfo;
             collection = this.collection;
             this.render(options);
         },
@@ -27,7 +28,7 @@ define(function (require) {
                 + '<text class="userName">' + this.model.get("firstName") + '</text>' + '?',
                 draggable: false,
                 closeIcon: true,
-                container: '#main',
+                container: '.main',
                 type: 'red',
                 buttons: {
                     confirm: {
@@ -37,7 +38,7 @@ define(function (require) {
                             self.model.destroy({
                                 success: function () {
                                     self.removeInfo();
-                                    self.$el.remove();
+                                    self.remove();
                                     self.renderPaginationView(options);
                                 },
                                 error: function () {
@@ -47,6 +48,7 @@ define(function (require) {
                         }
                     },
                     cancel: function () {
+                        self.remove();
                     },
                 }
             });
@@ -59,13 +61,9 @@ define(function (require) {
         },
 
         removeInfo: function () {
-            // UserInfo.prototype.remove.call(this, arguments);
-            var userInfoEl = UserInfo.prototype.el;
-            $(userInfoEl).empty();
-            $(userInfoEl).animate({
-                opacity: 0,
-                top: "-50px",
-            }, 0 );
+            if (userInfo) {
+                userInfo.remove();
+            }
         }
     });
 

@@ -1,32 +1,47 @@
 define(function (require) {
     var $ = require('jquery');
+    var _ = require('underscore');
     var Backbone =require('backbone');
     var SingleView = require('singleView');
     var paginationView;
     var emptyView;
+    var subViews;
 
     var MultiView = Backbone.View.extend({
 
-        el: '#main',
+        className: 'main',
 
         initialize: function (options) {
+            subViews = [];
             emptyView = options.emptyView;
-            this.listenTo(this.collection,'change', this.render(emptyView));
             paginationView = options.paginationView;
         },
 
         render: function () {
-            if (emptyView) {
-                this.$el.empty();
-            } else {
-                this.$el.empty();
-                this.collection.each(this.addOne, this);
-            }
+            var self = this;
+            this.$el.html('<center><img src=\'images/ajax-loader.gif\'/></center>');
+            setTimeout(function() {
+                if (emptyView) {
+                    self.$el.empty();
+                    _.each(subViews, function (view) {
+                        view.remove();
+                    });
+                } else {
+                    self.$el.empty();
+                    _.each(subViews, function (view) {
+                        view.remove();
+                    });
+                    self.collection.each(self.addOne, self);
+                }
+            }, 500);
             return this;
         },
 
         addOne: function(Model, singleView) {
-           singleView = new SingleView({model: Model, collection: this.collection, paginationView: paginationView});
+           singleView = new SingleView({model: Model,
+               collection: this.collection,
+               paginationView: paginationView});
+           subViews.push(singleView);
            $(singleView.render().el).appendTo(this.$el);
         }
     });

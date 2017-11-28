@@ -1,19 +1,14 @@
 define(function (require) {
     var Template = require('paginationTemplate');
-    var $ = require('jquery');
     var Backbone = require('backbone');
     var Dust = require('dust');
     var isMainPage;
     var isNewUserAdded;
     var PaginationView = Backbone.View.extend({
 
-        el: '#paginationHolder',
+        className: 'paginationHolder',
 
         template: Template,
-
-        initialize: function (options) {
-            this.render(options);
-        },
 
         render: function (options) {
             isMainPage = options.isMainPage;
@@ -32,10 +27,11 @@ define(function (require) {
             this.$el.html(output);
             if (isMainPage) {
                 this.setDefaultStyles();
-                $( ".pagination" ).find( "li" ).eq(2).addClass('active');
             }
             if (isNewUserAdded) {
-                $( ".pagination" ).find( 'li:last' ).prev().prev().addClass('active');
+                this.$el.find( 'li:last' ).prev().prev().addClass('active');
+                this.$el.find( 'li:last' ).hide();
+                this.$el.find( 'li:last' ).prev().hide();
             }
             return this;
         },
@@ -53,11 +49,13 @@ define(function (require) {
         },
 
         setDefaultStyles: function () {
-            let $firstPage = $( ".pagination" ).find( "li" ).eq(0);
-            let $prevPage = $( ".pagination" ).find( "li" ).eq(1);
+            let $firstPage = this.$el.find( "li" ).eq(0);
+            let $prevPage = this.$el.find( "li" ).eq(1);
 
             $firstPage.hide();
             $prevPage.hide();
+
+            this.$el.find( "li" ).eq(2).addClass('active');
         }
     });
 

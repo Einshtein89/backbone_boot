@@ -2,13 +2,13 @@ define(function (require) {
     var Template = require('addUserTemplate');
     var BaseView = require('baseView');
     var Backbone = require('backbone');
-    var User = require('model');
     var UserUtils = require('userUtils');
-    // require('jConfirm');
+    require('validation');
+    var paginationView;
 
     var AddUserView = BaseView.extend({
 
-        el: '.userFormHolder',
+        className: 'userFormHolder',
 
         events: {
             'click #submitButton': 'submit',
@@ -17,13 +17,13 @@ define(function (require) {
 
         template: Template,
 
-        initialize: function () {
-            this.render();
+        initialize: function (options) {
+            paginationView = options.paginationView;
+            UserUtils.bindValidation(this);
         },
 
         render: function () {
             BaseView.prototype.render.apply(this, arguments);
-            console.log('addUser is rendered!');
             return this;
         },
 
@@ -31,47 +31,47 @@ define(function (require) {
             e.stopImmediatePropagation();
             e.preventDefault();
 
-            var newUser = new User();
-            UserUtils.populateUserData(newUser, false);
+            UserUtils.populateUserData(this.model, false);
 
             //checking existing user
             var existedUser = this.collection.findWhere({
-                firstName: newUser.attributes.firstName,
-                lastName: newUser.attributes.lastName
+                firstName: this.model.attributes.firstName,
+                lastName: this.model.attributes.lastName
             })
 
             if(existedUser) {
                 UserUtils.renderMessage("This user already exists!", false)
             } else {
                 var self = this;
-                newUser.save({}, {
-                    dataType : 'text',
-                    success: function (model, response) {
-                        response = JSON.parse(response);
-                        if (!response.id) {
-                            UserUtils.renderMessage("User was not saved!", true)
+                if (this.model.isValid(true)) {
+                    this.model.save({}, {
+                        dataType : 'text',
+                        success: function (model, response) {
+                            response = JSON.parse(response);
+                            if (!response.id) {
+                                UserUtils.renderMessage("User was not saved!", true)
+                            }
+                            if (!$("#messages").length) {
+                                model.set("id", response.id);
+                                self.collection.fullCollection.add(model);
+                                UserUtils.renderMessage("User  " + model.attributes.firstName + " was" +
+                                    " successfully saved", false);
+                                Backbone.history.navigate('last', true);
+                                paginationView.render({isMainPage: false, isNewUserAdded: true});
+                                self.remove();
+                            }
+                        },
+                        error: function (model, response) {
+                            UserUtils.renderMessage("Error during adding new User!", true)
                         }
-                        if (!$("#messages").length) {
-                            model.set("id", response.id);
-                            self.collection.fullCollection.add(model);
-                            UserUtils.clearErrors();
-                            self.$el.empty();
-                            UserUtils.renderMessage("User  " + newUser.attributes.firstName + " was successfully" +
-                                " saved", false);
-                            Backbone.history.navigate('', true);
-                        }
-                    },
-                    error: function (model, response) {
-                        UserUtils.renderMessage("Error during adding new User!", true)
-                    }
-                });
+                    });
+                }
 
             }
         },
 
         cancel: function() {
-            UserUtils.clearErrors();
-            this.$el.empty();
+            this.remove();
             Backbone.history.navigate('', {trigger: false, replace: false});
         }
     });
