@@ -1,6 +1,5 @@
 define(function (require) {
     var Template = require('paginationTemplate');
-    // var $ = require('jquery');
     var _ = require('underscore');
     var Backbone = require('backbone');
     var Dust = require('dust');
@@ -21,7 +20,7 @@ define(function (require) {
             var output = '';
             var data = {};
             data.showPaginator = false;
-            this.calculateNumberOfPages(data);
+            this.preparePageSection(data);
             Dust.renderSource(this.template, data, function(err, out) {
                 if (err) {
                     alert(err);
@@ -39,14 +38,14 @@ define(function (require) {
             return this;
         },
 
-        calculateNumberOfPages: function (data) {
+        preparePageSection: function (data) {
             var currentPage = this.collection.state.currentPage;
             var collectionLength = this.collection.fullCollection.length;
             var pageSize = this.collection.state.pageSize;
             if (collectionLength) {
                 var numberOfPages = Math.ceil(collectionLength / pageSize);
                 data.pages = [];
-                for (var i = 0; i < numberOfPages; i++) {
+                for (var i = 0 ; i < numberOfPages; i++) {
                     if ((i <= currentPage && currentPage >= initialNumberOfVisiblePages)
                         || i < initialNumberOfVisiblePages){
                         data.pages.push(i + 1);
@@ -60,6 +59,17 @@ define(function (require) {
                         data.pages.push(numberOfPages);
                     }
                 }
+
+                var i = 0;
+                if (currentPage > initialNumberOfVisiblePages) {
+                    while (i < currentPage - 2) {
+                        data.pages.splice(0, 1);
+                        i++;
+                    }
+                    data.pages.unshift(".. ");
+                    data.pages.unshift("1");
+                }
+
                 data.pages = _.uniq(data.pages);
                 data.showPaginator = true;
             }
