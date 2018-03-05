@@ -2,10 +2,10 @@
 <div>
     <ul class="contactPerPage">
         <label for="contactsPerPageDropdown">Contacts per Page:&nbsp</label>
-        <select name="contactsPerPage" class="form-control" id="contactsPerPageDropdown"
+        <select firstName="contactsPerPage" class="form-control" id="contactsPerPageDropdown"
                 style="width: 70px; display: inline">
             {#contactsPerPage}
-            <option value="{.}" name="contact">
+            <option value="{.}" firstName="contact">
             {.}
             </option>
             {/contactsPerPage}

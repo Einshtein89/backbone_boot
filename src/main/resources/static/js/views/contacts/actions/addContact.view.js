@@ -18,11 +18,12 @@ define(function (require) {
         template: Template,
 
         initialize: function (options) {
+            this.render(options);
             paginationView = options.paginationView;
             UserUtils.bindValidation(this);
         },
 
-        render: function () {
+        render: function (options) {
             BaseView.prototype.render.apply(this, arguments);
             return this;
         },
@@ -31,7 +32,7 @@ define(function (require) {
             e.stopImmediatePropagation();
             e.preventDefault();
 
-            UserUtils.populateUserData(this.model, false);
+            UserUtils.populateUserData(this.model, false, true);
 
             //checking existing user
             var existedUser = this.collection.findWhere({

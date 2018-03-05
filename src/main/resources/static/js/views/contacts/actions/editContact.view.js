@@ -30,7 +30,7 @@ define(function (require) {
             e.stopImmediatePropagation();
             e.preventDefault();
 
-            UserUtils.populateUserData(this.model, true);
+            UserUtils.populateUserData(this.model, true, false);
 
             var self = this;
             this.model.save({}, {

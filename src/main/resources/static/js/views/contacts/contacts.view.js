@@ -19,7 +19,7 @@ define(function (require) {
 
         render: function () {
             var self = this;
-            this.$el.html('<center><img src=\'images/ajax-loader.gif\'/></center>');
+            this.$el.html('<center><img src=\'../images/ajax-loader.gif\'/></center>');
             setTimeout(function() {
                 if (emptyView) {
                     self.$el.empty();
@@ -42,7 +42,7 @@ define(function (require) {
                collection: this.collection,
                paginationView: paginationView});
            subViews.push(singleView);
-           $(singleView.render().el).appendTo(this.$el);
+           $(singleView.$el).appendTo(this.$el);
         }
     });
 

@@ -8,7 +8,7 @@
             <a href="#prev"><</a>
         </li>
         {#pages}
-            <li name ={.}>
+            <li firstName ={.}>
                 {@select key=.}
                 {@eq value=".."}<a>..</a>{/eq}
                 {@eq value=".. "}<a>..</a>{/eq}

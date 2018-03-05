@@ -22,11 +22,12 @@ define(function (require) {
     template: Template,
 
     initialize: function (options) {
+        this.render(options);
         subViews = [];
         paginationView = options.paginationView;
     },
 
-    render: function () {
+    render: function (options) {
         _.each(subViews, function (view) {
             view.remove();
         });
@@ -40,7 +41,7 @@ define(function (require) {
         });
         userInfo = new UserInfo({model:this.model});
         subViews.push(userInfo);
-        $(userInfo.render().el).appendTo("body");
+        $(userInfo.$el).appendTo("body");
     },
 
     showDeleteDialog: function() {
@@ -51,8 +52,8 @@ define(function (require) {
     },
 
     editUser: function () {
-        var editUserView = new EditUserView({model: this.model, collection: this.collection})
-        $(editUserView.render().el).appendTo("body");
+        var editUserView = new EditUserView({model: this.model, collection: this.collection, isEdit:true})
+        $(editUserView.$el).appendTo("body");
     }
     });
 

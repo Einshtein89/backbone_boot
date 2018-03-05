@@ -80,8 +80,10 @@ define(function (require) {
             },
 
             showAddForm: function () {
-                addUserView = new AddUserView({model: newUser, collection : contactList, paginationView: paginationView});
-                $(addUserView.render().el).appendTo("body");
+                addUserView = new AddUserView({model: newUser, collection : contactList,
+                    paginationView: paginationView,
+                    isAdd: true});
+                $(addUserView.$el).appendTo("body");
                 this.renderUserForm(false);
                 Backbone.history.navigate('', {trigger: false, replace: false});
             },
