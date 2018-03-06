@@ -31,6 +31,18 @@ define(function (require) {
                 pattern:  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
                 msg: 'Phone is invalid. Please use pattern: XXXXXXXXXX'
             },
+            email: {
+                required: true,
+                pattern:  'email',
+                msg: 'Email format is invalid. Please update'
+            },
+            password: {
+                minLength: 5
+            },
+            repeatPassword: {
+                equalTo: 'password',
+                msg: 'The passwords does not match'
+            },
         }
     });
 

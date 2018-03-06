@@ -1,4 +1,4 @@
-INSERT INTO user VALUES (1, 'Jack', 'Bauer', '(123)-456-7890', 'man', 1, 'admin@admin.ru', 'admin');
+INSERT INTO user VALUES (1, 'Jack', 'Bauer', '(123)-456-7890', 'man', 1, 'admin@admin.ru', '$2a$10$x/Yb2ndLX7aFfwqlalS4J.W6d2uILbOYBiyxgX5qjenbE1jc0E3yW');
 INSERT INTO user VALUES (2, 'Chloe', 'OBrian', '(123)-456-7890', 'woman', 1, 'sdfa@sdf.ru', 'sdfssf');
 INSERT INTO user VALUES (3, 'Kim', 'Bauer', '(123)-456-7890', 'man', 1, 'sd21f@sdf.ru', 'sdfssf');
 INSERT INTO user VALUES (4, 'David', 'Palmer', '(123)-456-7890', 'man', 1, 'sd123f@sdf.ru', 'sdfssf');
@@ -37,4 +37,4 @@ INSERT INTO user VALUES (34, 'Johnny', 'Depp', '(123)-456-7890', 'man', 1, 'sdff
 INSERT INTO role VALUES (1,'ADMIN');
 INSERT INTO role VALUES (2,'USER');
 
-INSERT INTO user_role VALUES (1, 1)
+INSERT INTO user_role VALUES (1, 1);

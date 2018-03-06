@@ -35,13 +35,12 @@ define(function (require) {
             UserUtils.populateUserData(this.model, false, true);
 
             //checking existing user
-            var existedUser = this.collection.findWhere({
-                firstName: this.model.attributes.firstName,
-                lastName: this.model.attributes.lastName
-            })
+            var existedUser = this.collection.fullCollection.findWhere({
+                email: this.model.attributes.email
+            });
 
             if(existedUser) {
-                UserUtils.renderMessage("This user already exists!", false)
+                UserUtils.renderMessage("This email already exists!", false)
             } else {
                 var self = this;
                 if (this.model.isValid(true)) {

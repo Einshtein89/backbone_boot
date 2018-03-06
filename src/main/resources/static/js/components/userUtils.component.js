@@ -15,6 +15,7 @@ define(function (require) {
         user.attributes.email = $("#email").val();
         if (isAdd) {
             user.attributes.password = $("#password").val();
+            user.attributes.repeatPassword = $("#repeatPassword").val();
         }
     };
 

@@ -39,9 +39,11 @@ public class DaoController {
     }
     @PostMapping("")
     public ResponseEntity<User> addUser(@RequestBody User newUser) {
-        User oldUser =
+        User oldUserByNames =
             repository.findByFirstNameAndLastName(newUser.getFirstName(), newUser.getLastName());
-        if (Objects.nonNull(oldUser))
+        User oldUserByEmail =
+                repository.findByEmail(newUser.getEmail());
+        if (Objects.nonNull(oldUserByNames) || Objects.nonNull(oldUserByEmail))
         {
             return new ResponseEntity<User>(newUser, HttpStatus.CONFLICT);
         }
