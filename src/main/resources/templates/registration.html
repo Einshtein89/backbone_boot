@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/password_validate.js}"></script>
 </head>
 <body>
 	<form th:action="@{/}" method="get">
@@ -28,7 +29,6 @@
 								   class="validation-message"></label>
 						</div>
 					</div>
-
 					<div class="form-group">
 						<div class="col-sm-9">
 							<input type="text" th:field="*{lastName}"
@@ -48,15 +48,6 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-9">
-							<input type="password" th:field="*{password}"
-								placeholder="Password" class="form-control" />
-							<label
-								th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-								class="validation-message"></label>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-9">
 							<input type="text" th:field="*{phone}"
 								   placeholder="Phone" class="form-control" />
 							<label
@@ -71,20 +62,31 @@
 										th:value="${gender}"
 										th:text="${gender}"></option>
 							</select>
-
-
-
-							<!--<input type="text" th:field="*{sex}"-->
-								   <!--placeholder="Sex" class="form-control" />-->
 							<label
 								th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"
 								class="validation-message"></label>
 						</div>
 					</div>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="password" th:field="*{password}"
+								   placeholder="Password" class="form-control" />
+							<label
+									th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+									class="validation-message"></label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="password" id="passwordagain"
+								   placeholder="Repeat Password" class="form-control" onChange="checkPasswordMatch();" />
+							<label class = "validation-message" id="divCheckPasswordMatch" style="color:red; display: block;"></label>
+						</div>
+					</div>
 
 					<div class="form-group">
 						<div class="col-sm-9">
-							<button type="submit" class="btn btn-primary btn-block">Register User</button>
+							<button type="submit" id="submitButton" class="btn btn-primary btn-block">Register User</button>
 						</div>
 					</div>
 					

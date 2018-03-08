@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<firstName>backbone_boot</firstName>
+	<name>backbone_boot</name>
 	<description>Spring Boot+Backbone</description>
 
 	<parent>

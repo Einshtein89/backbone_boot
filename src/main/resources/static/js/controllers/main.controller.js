@@ -1,12 +1,14 @@
 define(function (require) {
     var $ = require('jquery');
-    var Backbone =require('backbone');
+    var Backbone = require('backbone');
     var MultiView = require('multiView');
     var ContactList = require('contactList');
     var SearchView = require('searchView');
     var AddUserView = require('addUserView');
     var PaginationView = require('paginationView');
     var ContactsPerPageView = require('contactsPerPageView');
+    var SelectViewView = require('selectViewView');
+    var singleViewListTemplate = require('contactListTemplate');
     var User = require('model');
     var contactList = new ContactList();
     var newUser = new User();
@@ -15,6 +17,7 @@ define(function (require) {
     var addUserView;
     var paginationView;
     var contactsPerPageView;
+    var selectViewView;
 
     var MainController = function(options) {
         return {
@@ -28,9 +31,11 @@ define(function (require) {
                             self.createPaginationView();
                             self.createContactsPerPageView();
                             self.createMultiView();
+                            self.createSelectViewView();
                             $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
                             self.createSearchView();
                             self.renderSearch();
+                            self.chooseListOrTabView();
                         }
                     })
                 }
@@ -79,6 +84,19 @@ define(function (require) {
                 });
             },
 
+            chooseListOrTabView: function () {
+                usersView.on('view:listView', function (options) {
+                    options.singleViewTemplate = singleViewListTemplate;
+                    options.className = 'contactList_list';
+                    this.render(options);
+                });
+                usersView.on('view:tabsView', function (options) {
+                    options.singleViewTemplate = null;
+                    options.className = null;
+                    this.render(options);
+                });
+            },
+
             showAddForm: function () {
                 addUserView = new AddUserView({model: newUser, collection : contactList,
                     paginationView: paginationView,
@@ -120,6 +138,13 @@ define(function (require) {
                 $(contactsPerPageView.render().el).insertAfter(".header");
             },
 
+            createSelectViewView: function () {
+                if (!selectViewView) {
+                    selectViewView = new SelectViewView({collection : contactList,
+                        multiView: usersView, paginationView: paginationView});
+                }
+                $(selectViewView.render().el).insertAfter(".header");
+            },
 
             renderEmptyView: function () {
                 contactList.fetch();

@@ -11,7 +11,7 @@ define(function (require) {
 
     var SingleView = BaseView.extend({
 
-    className: 'contactList',
+    className: 'contactList_tabs',
 
     events: {
         'click #delete': 'showDeleteDialog',
@@ -22,9 +22,11 @@ define(function (require) {
     template: Template,
 
     initialize: function (options) {
-        this.render(options);
         subViews = [];
         paginationView = options.paginationView;
+        this.template = options.template ? options.template : Template;
+        this.className = options.className ? options.className : 'contactList_tabs';
+        this.render(options);
     },
 
     render: function (options) {

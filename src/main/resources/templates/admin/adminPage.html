@@ -8,6 +8,13 @@
         <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
     </head>
     <body>
+    <div class="logOut" style="position: absolute; right: 0;">
+        <button type="button" class="btn btn-danger" onclick="document.forms['logoutForm'].submit()">Log out</button>
+        <span th:utext="${userName}"></span>
+    </div>
+
+    <form id="logoutForm" method="post" th:action="@{/logout}"></form>
+
     <h1 align="center"><a href="">Contact List</a></h1>
     <div class="header">
         <a href="#add" id="add"><input type="button" class="btn btn-primary" value="Add User" /></a>

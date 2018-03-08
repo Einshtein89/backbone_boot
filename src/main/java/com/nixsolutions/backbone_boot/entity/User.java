@@ -2,16 +2,8 @@ package com.nixsolutions.backbone_boot.entity;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -19,7 +11,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = { "email" }) })
 public class User {
 
 	@Id
@@ -37,12 +29,15 @@ public class User {
 	private String password;
 	@Column(name = "first_name")
 	@NotEmpty(message = "*Please provide your first name")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "First Name must contain only letters")
 	private String firstName;
 	@Column(name = "last_name")
 	@NotEmpty(message = "*Please provide your last name")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "Last Name must contain only letters")
 	private String lastName;
 	@Column(name = "phone")
 	@NotEmpty(message = "*Please provide your phone")
+	@Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message = "Incorrect phone format")
 	private String phone;
 	@Column(name = "sex")
 	@NotEmpty(message = "*Please provide your sex")

@@ -24,14 +24,17 @@ require.config({
             'searchView' : 'views/search/search.view',
             'paginationView' : 'views/pagination/pagination.view',
             'contactsPerPageView' : 'views/pagination/contactsPerPage.view',
+            'selectViewView' : 'views/selectview/selectView.view',
             //models
             'model' : 'models/model',
             //templates
-            'contactTemplate' : 'text!templates/contact.dust',
+            'contactTemplate' : 'text!templates/contactView.dust',
+            'contactListTemplate' : 'text!templates/contactList.dust',
             'contactInfoTemplate' : 'text!templates/contactInfo.dust',
             'addUserTemplate' : 'text!templates/addContact.dust',
             'paginationTemplate' : 'text!templates/pagination.dust',
             'contactsPerPageTemplate' : 'text!templates/contactsPerPage.dust',
+            'selectViewTemplate' : 'text!templates/selectView.dust',
             //collections
             'contactList' : 'collections/contacts.collection',
             //router

@@ -6,6 +6,8 @@ define(function (require) {
     var paginationView;
     var emptyView;
     var subViews;
+    var singleViewTemplate;
+    var className;
 
     var MultiView = Backbone.View.extend({
 
@@ -17,20 +19,18 @@ define(function (require) {
             paginationView = options.paginationView;
         },
 
-        render: function () {
+        render: function (options) {
+            if (options) {
+                singleViewTemplate = options.singleViewTemplate;
+                className = options.className;
+            }
             var self = this;
             this.$el.html('<center><img src=\'../images/ajax-loader.gif\'/></center>');
             setTimeout(function() {
                 if (emptyView) {
-                    self.$el.empty();
-                    _.each(subViews, function (view) {
-                        view.remove();
-                    });
+                    self.removeViews();
                 } else {
-                    self.$el.empty();
-                    _.each(subViews, function (view) {
-                        view.remove();
-                    });
+                    self.removeViews();
                     self.collection.each(self.addOne, self);
                 }
             }, 500);
@@ -38,12 +38,27 @@ define(function (require) {
         },
 
         addOne: function(Model, singleView) {
-           singleView = new SingleView({model: Model,
-               collection: this.collection,
-               paginationView: paginationView});
+            if (singleViewTemplate) {
+                singleView = new SingleView({model: Model,
+                    collection: this.collection,
+                    paginationView: paginationView,
+                    template: singleViewTemplate,
+                    className: className});
+            } else {
+                singleView = new SingleView({model: Model,
+                    collection: this.collection,
+                    paginationView: paginationView});
+            }
            subViews.push(singleView);
            $(singleView.$el).appendTo(this.$el);
-        }
+        },
+
+        removeViews: function() {
+            this.$el.empty();
+            _.each(subViews, function (view) {
+                view.remove();
+        });
+    }
     });
 
     return MultiView;
