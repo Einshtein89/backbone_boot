@@ -20,18 +20,22 @@ define(function (require) {
         },
 
         render: function (options) {
+            var self = this;
+            this.$el.html('<center><img src=\'../images/ajax-loader.gif\'/></center>');
             if (options) {
                 singleViewTemplate = options.singleViewTemplate;
                 className = options.className;
             }
-            var self = this;
-            this.$el.html('<center><img src=\'../images/ajax-loader.gif\'/></center>');
             setTimeout(function() {
                 if (emptyView) {
                     self.removeViews();
                 } else {
                     self.removeViews();
                     self.collection.each(self.addOne, self);
+                    if (className) {
+                        self.$el.prepend('<button>DELETE</button>');
+                        self.$el.append('<button>DELETE</button>');
+                    }
                 }
             }, 500);
             return this;
@@ -57,8 +61,8 @@ define(function (require) {
             this.$el.empty();
             _.each(subViews, function (view) {
                 view.remove();
-        });
-    }
+            });
+        }
     });
 
     return MultiView;

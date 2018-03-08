@@ -1,4 +1,5 @@
 
+<input type="checkbox" value="{#id}{.}{/id}" name="idList" id="userDelete" class="userList float_left">
 <div class="userList float_left"><img class="img" src="../images/{sex}.png"/></div>
 <div class="userList_name float_left">{#firstName}{.}{/firstName}</div>
 <div class="userList_name float_left">&nbsp;{#lastName}{.}{/lastName}&nbsp;</div>
