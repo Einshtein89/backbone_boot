@@ -72,7 +72,7 @@ define(function (require) {
 
         cancel: function() {
             this.remove();
-            Backbone.history.navigate('', {trigger: false, replace: false});
+            Backbone.history.navigate('admin', {trigger: false, replace: false});
         }
     });
 

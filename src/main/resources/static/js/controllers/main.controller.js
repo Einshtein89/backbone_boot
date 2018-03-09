@@ -9,6 +9,7 @@ define(function (require) {
     var ContactsPerPageView = require('contactsPerPageView');
     var SelectViewView = require('selectViewView');
     var singleViewListTemplate = require('contactListTemplate');
+    var AdminHeaderView = require('adminHeaderView');
     var User = require('model');
     var contactList = new ContactList();
     var newUser = new User();
@@ -18,16 +19,21 @@ define(function (require) {
     var paginationView;
     var contactsPerPageView;
     var selectViewView;
+    var adminHeaderView;
 
     var MainController = function(options) {
         return {
             //rendering actions
-            renderAllUsers: function () {
+            renderHomePage: function () {
+                contactList.fullCollection.models = [];
+            },
+            renderAdminPage: function () {
                 var self = this;
                 if (contactList.fullCollection.models.length === 0) {
                     contactList.setPageSize(3, options);
                     contactList.fetch({
                         success: function () {
+                            self.createHeaderView();
                             self.createPaginationView();
                             self.createContactsPerPageView();
                             self.createMultiView();
@@ -76,7 +82,7 @@ define(function (require) {
                                 usersView = new MultiView({collection : contactList});
                             } else {
                                 usersView.render();
-                                Backbone.history.navigate('', {trigger: false, replace: false});
+                                Backbone.history.navigate('admin', {trigger: false, replace: false});
                                 paginationView.render({isMainPage: true, isNewUserAdded: false});
                             }
                         }
@@ -103,15 +109,21 @@ define(function (require) {
                     isAdd: true});
                 $(addUserView.$el).appendTo("body");
                 this.renderUserForm(false);
-                Backbone.history.navigate('', {trigger: false, replace: false});
+                Backbone.history.navigate('admin', {trigger: false, replace: false});
             },
 
             userEdit: function() {
                 this.renderUserForm(true);
-                Backbone.history.navigate('', {trigger: false, replace: false});
+                Backbone.history.navigate('admin', {trigger: false, replace: false});
             },
 
             //creating views
+            createHeaderView: function () {
+                if (!adminHeaderView){
+                    adminHeaderView = new AdminHeaderView();
+                }
+            },
+
             createPaginationView: function () {
                 if (!paginationView){
                     paginationView = new PaginationView({collection: contactList, isMainPage: true});
@@ -157,7 +169,7 @@ define(function (require) {
                 paginationView.render({isMainPage : true});
                 usersView.remove();
                 $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
-                Backbone.history.navigate('', {trigger: false, replace: false});
+                Backbone.history.navigate('admin', {trigger: false, replace: false});
                 this.setNavigationButtonStyles();
             },
 
@@ -166,7 +178,7 @@ define(function (require) {
                 paginationView.render({isNewUserAdded : true});
                 usersView.remove();
                 $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
-                Backbone.history.navigate('', {trigger: false, replace: false});
+                Backbone.history.navigate('admin', {trigger: false, replace: false});
                 this.setNavigationButtonStyles();
             },
 
@@ -179,7 +191,7 @@ define(function (require) {
                 $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
                 var $currentLi = $('[name=' + id + ']');
                 $currentLi.addClass('active').siblings().removeClass('active');
-                Backbone.history.navigate('', {trigger: false, replace: false});
+                Backbone.history.navigate('admin', {trigger: false, replace: false});
             },
 
             getPrevPage: function () {

@@ -1,9 +1,18 @@
+body {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .float_left {
     float: left;
 }
 
 .float_right {
     float: right;
+}
+
+.home_content {
+    display: block;
 }
 
 .main {
@@ -151,8 +160,11 @@
 }
 
 .contactPerPageHolder, .selectViewHolder {
-    margin: 0 auto;
     width: 50%;
+}
+
+.contactPerPageHolder {
+    margin-left:17%;
 }
 
 .selectViewHolder {

@@ -3,7 +3,9 @@ define(function (require) {
 
     var Router = BackboneRouteControl.extend({
         routes: {
-            '': 'main#renderAllUsers',
+            '' : 'main#renderHomePage',
+            'home' : 'main#renderHomePage',
+            'admin': 'main#renderAdminPage',
             'add': 'main#showAddForm',
             'edit' : 'main#userEdit',
             'renderEmptyView' : 'main#renderEmptyView',

@@ -40,7 +40,7 @@ define(function (require) {
                         UserUtils.renderMessage("User " + model.attributes.firstName
                             + " was successfully updated", false);
                         Backbone.history.navigate('page' + self.collection.state.currentPage, true);
-                        Backbone.history.navigate('', true);
+                        Backbone.history.navigate('admin', true);
                         self.remove();
                     },
                     error: function (model, response) {
@@ -51,7 +51,7 @@ define(function (require) {
 
         cancel: function() {
             this.remove();
-            Backbone.history.navigate('', {trigger: false, replace: false});
+            Backbone.history.navigate('admin', {trigger: false, replace: false});
         }
     });
 

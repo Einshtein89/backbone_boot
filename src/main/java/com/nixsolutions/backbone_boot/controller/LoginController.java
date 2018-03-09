@@ -1,8 +1,10 @@
 package com.nixsolutions.backbone_boot.controller;
 
 
-import com.nixsolutions.backbone_boot.entity.User;
-import com.nixsolutions.backbone_boot.service.UserService;
+import java.util.Arrays;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,12 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
-import java.util.Arrays;
+import com.nixsolutions.backbone_boot.entity.User;
+import com.nixsolutions.backbone_boot.service.UserService;
 
 @Controller
 public class LoginController {
@@ -60,8 +60,8 @@ public class LoginController {
 		}
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
+
+	@GetMapping("/admin/")
 	public ModelAndView home(){
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

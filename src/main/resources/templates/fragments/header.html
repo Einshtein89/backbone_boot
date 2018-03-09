@@ -1,0 +1,23 @@
+<head th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script data-main="../js/main" th:src="@{/js/bower_components/requirejs/require.js}"></script>
+    <script th:src="@{/js/utils/menuSwitch.js}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}" />
+</head>
+<body th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
+<div class="navbar navbar-inverse ">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Contact List</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li ><a class="tablinks" href="#home" onclick="menuSwitch(event, 'home_content')">Home</a></li>
+                <li ><a class="tablinks" href="#admin" onclick="menuSwitch(event, 'admin_content')">Admin</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>

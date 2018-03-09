@@ -25,6 +25,7 @@ require.config({
             'paginationView' : 'views/pagination/pagination.view',
             'contactsPerPageView' : 'views/pagination/contactsPerPage.view',
             'selectViewView' : 'views/selectview/selectView.view',
+            'adminHeaderView' : 'views/admin.header.view',
             //models
             'model' : 'models/model',
             //templates
@@ -35,6 +36,7 @@ require.config({
             'paginationTemplate' : 'text!templates/pagination.dust',
             'contactsPerPageTemplate' : 'text!templates/contactsPerPage.dust',
             'selectViewTemplate' : 'text!templates/selectView.dust',
+            'adminHeaderTemplate' : 'text!templates/adminHeader.dust',
             //collections
             'contactList' : 'collections/contacts.collection',
             //router
