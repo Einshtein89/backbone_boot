@@ -1,0 +1,8 @@
+<div>
+    <a><img src="../../../images/tabs.jpg" id="listtabs" class="tabs_view"
+            onmousedown="$(this).css('padding', '5px')"
+            onmouseup="$(this).css('padding', '0px')"/></a>
+    <a><img src="../../../images/list.png" id="listtabs" class="list_view"
+            onmousedown="$(this).css('padding', '5px')"
+            onmouseup="$(this).css('padding', '0px')"/></a>
+</div>
