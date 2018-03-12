@@ -1,15 +1,13 @@
 package com.nixsolutions.backbone_boot.entity;
 
-import java.util.Set;
-
-import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.Transient;
+
+import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import java.util.Set;
 
 @Entity
 @Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = { "email" }) })
@@ -25,23 +23,23 @@ public class User {
 	@NotEmpty(message = "{hibernate.user.email.empty.message}")
 	private String email;
 	@Column(name = "password")
-	@Length(min = 5, message = "hibernate.user.password.message")
-	@NotEmpty(message = "hibernate.user.password.empty.message")
+	@Length(min = 5, message = "{hibernate.user.password.size.message}")
+	@NotEmpty(message = "{hibernate.user.password.empty.message}")
 	private String password;
 	@Column(name = "first_name")
-	@NotEmpty(message = "*Please provide your first name")
-	@Pattern(regexp = "^[a-zA-Z]+$", message = "First Name must contain only letters")
+	@NotEmpty(message = "{hibernate.user.firstName.empty.message}")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "{hibernate.user.firstName.invalid.format}")
 	private String firstName;
 	@Column(name = "last_name")
-	@NotEmpty(message = "*Please provide your last name")
-	@Pattern(regexp = "^[a-zA-Z]+$", message = "Last Name must contain only letters")
+	@NotEmpty(message = "{hibernate.user.lastName.empty.message}")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "{hibernate.user.lastName.invalid.format}")
 	private String lastName;
 	@Column(name = "phone")
-	@NotEmpty(message = "*Please provide your phone")
-	@Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message = "Incorrect phone format")
+	@NotEmpty(message = "{hibernate.user.phone.empty.message}")
+	@Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message = "{hibernate.user.phone.invalid.format}")
 	private String phone;
 	@Column(name = "sex")
-	@NotEmpty(message = "*Please provide your sex")
+	@NotEmpty(message = "{hibernate.user.sex.empty.message}")
 	private String sex;
 	@Column(name = "active")
 	private int active;

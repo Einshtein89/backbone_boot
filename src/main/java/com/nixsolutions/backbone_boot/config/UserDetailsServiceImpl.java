@@ -1,6 +1,8 @@
 package com.nixsolutions.backbone_boot.config;
 
 import com.nixsolutions.backbone_boot.entity.Role;
+import com.nixsolutions.backbone_boot.entity.User;
+import com.nixsolutions.backbone_boot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

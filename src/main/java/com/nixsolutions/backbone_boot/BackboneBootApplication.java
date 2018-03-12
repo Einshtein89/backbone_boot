@@ -8,7 +8,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
 @SpringBootApplication
-@PropertySource("classpath:messages.properties")
 public class BackboneBootApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(BackboneBootApplication.class);

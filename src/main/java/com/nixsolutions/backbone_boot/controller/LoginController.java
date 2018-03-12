@@ -2,6 +2,8 @@ package com.nixsolutions.backbone_boot.controller;
 
 
 import com.nixsolutions.backbone_boot.config.MessageReader;
+import com.nixsolutions.backbone_boot.entity.User;
+import com.nixsolutions.backbone_boot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
