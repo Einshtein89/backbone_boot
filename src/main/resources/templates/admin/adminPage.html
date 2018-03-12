@@ -1,28 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <script data-main="../js/main" th:src="@{/js/bower_components/requirejs/require.js}"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
-        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-    </head>
-    <body>
-    <div class="logOut" style="position: absolute; right: 0;">
-        <button type="button" class="btn btn-danger" onclick="document.forms['logoutForm'].submit()">Log out</button>
-        <span th:utext="${userName}"></span>
-    </div>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="fragments/header :: header-css"/></div>
+</head>
+<div>
+    <div th:include="fragments/header :: header"/></div>
 
-    <form id="logoutForm" method="post" th:action="@{/logout}"></form>
-
-    <h1 align="center"><a href="">Contact List</a></h1>
-    <div class="header">
-        <a href="#add" id="add"><input type="button" class="btn btn-primary" value="Add User" /></a>
-        <div class="searchHolder">
-            <input type="text" placeholder="search..." id="search" class="form-control input-sm"/>
-            <input type="button" value="X" id="reset" class="btn btn-success"/>
-        </div>
-    </div>
-  </body>
+    <div th:replace="fragments/footer :: footer"/></div>
+</body>
 </html>
 

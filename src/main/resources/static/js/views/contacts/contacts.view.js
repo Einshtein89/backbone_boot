@@ -1,8 +1,9 @@
 define(function (require) {
     var $ = require('jquery');
     var _ = require('underscore');
-    var Backbone =require('backbone');
+    var Backbone = require('backbone');
     var SingleView = require('singleView');
+    var deleteFormTemplate = require('batchDeleteForm');
     var paginationView;
     var emptyView;
     var subViews;
@@ -12,6 +13,10 @@ define(function (require) {
     var MultiView = Backbone.View.extend({
 
         className: 'main',
+
+        events: {
+            // 'click #deleteUsersButton': 'showDeleteDialog',
+        },
 
         initialize: function (options) {
             subViews = [];
@@ -33,8 +38,8 @@ define(function (require) {
                     self.removeViews();
                     self.collection.each(self.addOne, self);
                     if (className) {
-                        self.$el.prepend('<button>DELETE</button>');
-                        self.$el.append('<button>DELETE</button>');
+                        self.$el.prepend(deleteFormTemplate);
+                        self.enableDeleteButton();
                     }
                 }
             }, 500);
@@ -62,6 +67,42 @@ define(function (require) {
             _.each(subViews, function (view) {
                 view.remove();
             });
+        },
+
+        remove: function () {
+            this.$el.remove();
+            this.removeViews();
+        },
+
+        enableDeleteButton: function () {
+            var checkBoxes = $("input[name='idList']");
+            checkBoxes.change(function () {
+                $('#deleteUsersButton').prop('disabled', checkBoxes.filter(':checked').length < 1);
+            });
+        },
+
+        showDeleteDialog: function (options) {
+            this.removeEach(subViews, options);
+        },
+
+        removeEach: function (subViews, options) {
+            var self = this;
+            var checkedCheckboxes = $("input[name='idList']").filter(':checked');
+            checkedCheckboxes.each(function () {
+                var contact = self.collection.findWhere({
+                    id: Number($( this ).val())
+                });
+                contact.url = contact.url + "/" +  contact.id;
+                contact.destroy();
+                _.each(subViews, function (view) {
+                    if (view.model.id === contact.id) {
+                        view.remove();
+                    }
+                });
+            });
+            paginationView.render(options);
+            Backbone.history.navigate('page' + self.collection.state.currentPage, true);
+            Backbone.history.navigate('admin', {trigger: true, replace: true});
         }
     });
 

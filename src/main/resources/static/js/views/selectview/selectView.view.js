@@ -30,7 +30,7 @@ define(function (require) {
 
         renderTabsView: function () {
             multiView.trigger("view:tabsView", {});
-        },
+        }
     });
 
     return SelectViewView;

@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+
+import static com.nixsolutions.backbone_boot.config.Constants.ADMIN_ROLE;
+import static com.nixsolutions.backbone_boot.config.Constants.USER_ROLE;
 
 @Service("userService")
 public class UserServiceImpl implements UserService{
@@ -34,13 +38,27 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public User saveUser(User user) {
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+	public User saveUser(User user, boolean isUpdatePassword) {
+        if (isUpdatePassword)
+        {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
         user.setActive(1);
-        Role userRole = roleRepository.findByRole("ADMIN");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        if (!user.getRoles().contains(ADMIN_ROLE))
+        {
+            Role userRole = roleRepository.findByRole(USER_ROLE);
+            user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        }
+
         User savedUser = userRepository.save(user);
         return savedUser;
 	}
+
+    @Override
+    public void deleteByCheckboxes(List<Long> ids) {
+        for (Long id : ids) {
+            userRepository.delete(id);
+        }
+    }
 
 }

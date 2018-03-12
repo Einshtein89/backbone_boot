@@ -9,6 +9,8 @@ define(function (require) {
     var ContactsPerPageView = require('contactsPerPageView');
     var SelectViewView = require('selectViewView');
     var singleViewListTemplate = require('contactListTemplate');
+    var AdminHeaderView = require('headerView');
+    var HomePageView = require('homePageView');
     var User = require('model');
     var contactList = new ContactList();
     var newUser = new User();
@@ -18,32 +20,29 @@ define(function (require) {
     var paginationView;
     var contactsPerPageView;
     var selectViewView;
+    var adminHeaderView;
+    var homePageView;
 
     var MainController = function(options) {
         return {
             //rendering actions
-            renderAllUsers: function () {
+            renderHomePage: function () {
+                this.createHomePageView();
+                this.deleteAdminPage();
+                // $(".content_home").css("display", "block");
+            },
+            renderAdminPage: function () {
+                this.deleteHomePage();
                 var self = this;
                 if (contactList.fullCollection.models.length === 0) {
                     contactList.setPageSize(3, options);
                     contactList.fetch({
                         success: function () {
-                            self.createPaginationView();
-                            self.createContactsPerPageView();
-                            self.createMultiView();
-                            self.createSelectViewView();
-                            $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
-                            self.createSearchView();
-                            self.renderSearch();
-                            self.chooseListOrTabView();
+                            self.createAdminPage();
                         }
                     })
-                }
-                else {
-                    usersView.remove();
-                    $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
-                    this.getLastPage();
-                    paginationView.render({isMainPage: false, isNewUserAdded: true});
+                } else {
+                    self.refreshAdminPage();
                 }
             },
 
@@ -76,7 +75,7 @@ define(function (require) {
                                 usersView = new MultiView({collection : contactList});
                             } else {
                                 usersView.render();
-                                Backbone.history.navigate('', {trigger: false, replace: false});
+                                Backbone.history.navigate('admin', {trigger: false, replace: false});
                                 paginationView.render({isMainPage: true, isNewUserAdded: false});
                             }
                         }
@@ -103,15 +102,41 @@ define(function (require) {
                     isAdd: true});
                 $(addUserView.$el).appendTo("body");
                 this.renderUserForm(false);
-                Backbone.history.navigate('', {trigger: false, replace: false});
+                Backbone.history.navigate('admin', {trigger: false, replace: false});
             },
 
             userEdit: function() {
                 this.renderUserForm(true);
-                Backbone.history.navigate('', {trigger: false, replace: false});
+                Backbone.history.navigate('admin', {trigger: false, replace: false});
             },
 
             //creating views
+            createHomePageView: function () {
+                if (!homePageView){
+                    homePageView = new HomePageView();
+                }
+                $(homePageView.render().el).insertBefore(".footer");
+            },
+
+            createAdminPage: function () {
+                this.createHeaderView();
+                this.createPaginationView();
+                this.createContactsPerPageView();
+                this.createMultiView();
+                this.createSelectViewView();
+                $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
+                this.createSearchView();
+                this.renderSearch();
+                this.chooseListOrTabView();
+            },
+
+            createHeaderView: function () {
+                if (!adminHeaderView){
+                    adminHeaderView = new AdminHeaderView();
+                }
+                $(adminHeaderView.render().el).insertBefore(".footer");
+            },
+
             createPaginationView: function () {
                 if (!paginationView){
                     paginationView = new PaginationView({collection: contactList, isMainPage: true});
@@ -151,13 +176,34 @@ define(function (require) {
                 usersView.render({emptyView: true});
             },
 
+            deleteHomePage: function () {
+                if (homePageView) homePageView.remove(); homePageView = null;
+            },
+
+            deleteAdminPage: function () {
+                contactList.fullCollection.models = [];
+                if (usersView) usersView.remove(); usersView = null;
+                if (adminHeaderView) adminHeaderView.remove();
+                if (paginationView)  paginationView.remove(); paginationView = null;
+                if (contactsPerPageView) contactsPerPageView.remove(); contactsPerPageView = null;
+                if (selectViewView) selectViewView.remove(); selectViewView = null;
+                if (searchView) searchView.remove(); searchView = null;
+            },
+
+            refreshAdminPage: function () {
+                usersView.remove();
+                $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
+                this.getLastPage();
+                paginationView.render({isMainPage: false, isNewUserAdded: true});
+            },
+
             //pagination actions
             getFirstPage: function () {
                 contactList.getFirstPage(options);
                 paginationView.render({isMainPage : true});
                 usersView.remove();
                 $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
-                Backbone.history.navigate('', {trigger: false, replace: false});
+                Backbone.history.navigate('admin', {trigger: false, replace: false});
                 this.setNavigationButtonStyles();
             },
 
@@ -166,7 +212,7 @@ define(function (require) {
                 paginationView.render({isNewUserAdded : true});
                 usersView.remove();
                 $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
-                Backbone.history.navigate('', {trigger: false, replace: false});
+                Backbone.history.navigate('admin', {trigger: false, replace: false});
                 this.setNavigationButtonStyles();
             },
 
@@ -179,7 +225,7 @@ define(function (require) {
                 $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
                 var $currentLi = $('[name=' + id + ']');
                 $currentLi.addClass('active').siblings().removeClass('active');
-                Backbone.history.navigate('', {trigger: false, replace: false});
+                Backbone.history.navigate('admin', {trigger: false, replace: false});
             },
 
             getPrevPage: function () {

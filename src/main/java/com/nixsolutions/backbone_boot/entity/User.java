@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -12,6 +13,7 @@ import org.springframework.data.annotation.Transient;
 
 @Entity
 @Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = { "email" }) })
+@DynamicUpdate
 public class User {
 
 	@Id
@@ -19,13 +21,12 @@ public class User {
 	@Column(name = "user_id")
 	private long id;
 	@Column(name = "email")
-	@Email(message = "*Please provide a valid Email")
-	@NotEmpty(message = "*Please provide an email")
+	@Email(message = "{hibernate.user.email.message}")
+	@NotEmpty(message = "{hibernate.user.email.empty.message}")
 	private String email;
 	@Column(name = "password")
-	@Length(min = 5, message = "*Your password must have at least 5 characters")
-	@NotEmpty(message = "*Please provide your password")
-	@Transient
+	@Length(min = 5, message = "hibernate.user.password.message")
+	@NotEmpty(message = "hibernate.user.password.empty.message")
 	private String password;
 	@Column(name = "first_name")
 	@NotEmpty(message = "*Please provide your first name")

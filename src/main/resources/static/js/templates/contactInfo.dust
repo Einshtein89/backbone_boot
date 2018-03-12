@@ -1,4 +1,0 @@
-
-<div class="jconfirm-closeIcon closeUserInfo" style="display: block;">X</div>
-<div class="userInfoUnit">{#phone}Phone: {.}{/phone}</div>
-<div class="userInfoUnit">{#firstName}Name: {.}{/firstName}</div><br/>
