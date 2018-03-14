@@ -1,0 +1,15 @@
+
+<div>
+    <ul class="contactPerPage">
+        <label for="contactsPerPageDropdown">Contacts per Page:&nbsp</label>
+        <select firstName="contactsPerPage" class="form-control" id="contactsPerPageDropdown"
+                style="width: 70px; display: inline">
+            {#contactsPerPage}
+            <option value="{.}" firstName="contact">
+            {.}
+            </option>
+            {/contactsPerPage}
+        </select>
+    </ul>
+</div>
+

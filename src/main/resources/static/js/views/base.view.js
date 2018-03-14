@@ -6,13 +6,15 @@ define(function (require) {
     return Backbone.View.extend({
 
         initialize: function (options) {
-            this.model.on('change', this.render(options), this);
+            if (this.model) {
+                this.model.on('change', this.render(options), this);
+            }
         },
 
         render: function (options) {
             var sexArray = ["man", "woman"];
             var data = (this.model) ? this.model.toJSON() : {};
-            if (options && options.isAdd) {
+            if (options) {
                 data.isAdd = options.isAdd;
             }
             data.sexArray = sexArray;

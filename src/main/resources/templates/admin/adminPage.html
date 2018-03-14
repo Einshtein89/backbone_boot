@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-    <head lang="en" th:include="fragments/header :: header">
-    </head>
-    <div class="logOut">
-        <button type="button" class="btn btn-danger" onclick="document.forms['logoutForm'].submit()">Log out</button>
-        <span th:utext="${userName}"></span>
-    </div>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="fragments/header :: header-css"/></div>
+</head>
+<div>
+    <div th:include="fragments/header :: header"/></div>
 
-    <form id="logoutForm" method="post" th:action="@{/logout}"></form>
-
-    <div class="home_content tabcontent">
-        <h2 align="center">This is admin home page.</h2>
-    </div>
-  </body>
+    <div th:replace="fragments/footer :: footer"/></div>
+</body>
 </html>
 

@@ -47,7 +47,7 @@ public class DaoController {
         {
             return new ResponseEntity<User>(newUser, HttpStatus.CONFLICT);
         }
-        User user = userService.saveUser(newUser);
+        User user = userService.saveUser(newUser, true);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
     @PutMapping("")
@@ -61,7 +61,14 @@ public class DaoController {
         {
             return new ResponseEntity<User>(newUser, HttpStatus.BAD_REQUEST);
         }
-        userService.saveUser(newUser);
+        if (oldUser.getPassword().equals(newUser.getPassword()))
+        {
+            userService.saveUser(newUser, false);
+        }
+        else
+        {
+            userService.saveUser(newUser, true);
+        }
         return new ResponseEntity<User>(newUser, HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
