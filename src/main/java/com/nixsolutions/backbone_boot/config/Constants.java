@@ -24,6 +24,7 @@ public class Constants {
         public static final String LOGIN = "/login";
         public static final String LOGOUT = "/logout";
         public static final String ADMIN_PAGES = "/admin/**";
+        public static final String USER_PAGES = "/user/**";
         public static final String ACCESS_DENIED = "/access-denied";
 
     }

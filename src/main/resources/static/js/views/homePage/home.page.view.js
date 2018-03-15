@@ -8,8 +8,12 @@ define(function (require) {
 
         template: Template,
 
-        initialize: function () {
-          this.getName();
+        initialize: function (options) {
+          options = options || {};
+          $.when(this.isAdmin(options)).then(function () {
+              this.render(options)
+          }.bind(this));
+
         },
 
         render: function (options) {
@@ -17,16 +21,16 @@ define(function (require) {
             return this;
         },
 
-        getName: function() {
-        $.ajax({
-            url: 'getName',
-            contentType: "application/json",
-            success: function (response) {
-                // response = JSON.parse(response);
-                $('#name').html(response);
-            }
-        });
-    }
+        isAdmin: function(options) {
+            var ajax = $.ajax({
+                url: '../isAdmin',
+                contentType: "application/json",
+                success: function (response) {
+                    options.isAdmin = response;
+                }
+            });
+            return ajax;
+        }
     });
 
     return HomeHeaderView;

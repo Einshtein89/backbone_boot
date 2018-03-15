@@ -1,13 +1,22 @@
 package com.nixsolutions.backbone_boot.controller;
 
 
-import com.nixsolutions.backbone_boot.config.MessageReader;
-import com.nixsolutions.backbone_boot.entity.User;
-import com.nixsolutions.backbone_boot.service.UserService;
+import static com.nixsolutions.backbone_boot.config.Constants.ADMIN_ROLE;
+import static com.nixsolutions.backbone_boot.config.Constants.LoginConstants.EMAIL;
+import static com.nixsolutions.backbone_boot.config.Constants.LoginConstants.REGISTRATION;
+import static com.nixsolutions.backbone_boot.config.Constants.LoginConstants.USER_NAME;
+import static com.nixsolutions.backbone_boot.config.Constants.USER;
+import static com.nixsolutions.backbone_boot.config.Constants.USER_ROLE;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +24,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.List;
-
-import static com.nixsolutions.backbone_boot.config.Constants.*;
-import static com.nixsolutions.backbone_boot.config.Constants.LoginConstants.EMAIL;
-import static com.nixsolutions.backbone_boot.config.Constants.LoginConstants.REGISTRATION;
-import static com.nixsolutions.backbone_boot.config.Constants.LoginConstants.USER_NAME;
+import com.nixsolutions.backbone_boot.process.AuthenticationProcess;
+import com.nixsolutions.backbone_boot.config.MessageReader;
+import com.nixsolutions.backbone_boot.entity.User;
+import com.nixsolutions.backbone_boot.service.UserService;
 
 @Controller
 public class LoginController {
@@ -32,23 +36,20 @@ public class LoginController {
 	private UserService userService;
 
 	@Autowired
+	private AuthenticationProcess authenticationProcess;
+
+	@Autowired
 	MessageReader messageReader;
 
 	@GetMapping(value = {"/", "/login"})
 	public String login(HttpServletRequest request)
 	{
-//		ModelAndView modelAndView = new ModelAndView();
-		if (request.isUserInRole(ADMIN_ROLE)) {
+		if (Objects.nonNull(authenticationProcess.getAuthentication()) && request.isUserInRole(ADMIN_ROLE)) {
 			return "redirect:/admin/";
-//			modelAndView.setViewName("/admin/adminPage");
 		}
-		if (request.isUserInRole(USER_ROLE)) {
-			return "redirect:/user";
-//			modelAndView.setViewName("/user");
+		if (Objects.nonNull(authenticationProcess.getAuthentication()) && request.isUserInRole(USER_ROLE)) {
+			return "redirect:/user/";
 		}
-//		else {
-//			modelAndView.setViewName("login");
-//		}
 
 		return "login";
 	}
@@ -87,29 +88,32 @@ public class LoginController {
 	}
 
 	@GetMapping("/admin/")
-	public ModelAndView home()
+	public ModelAndView adminHome()
 	{
-		ModelAndView modelAndView = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findByEmail(auth.getName());
-		modelAndView.addObject(USER_NAME, "Welcome, " + user.getFirstName() + "!");
-		modelAndView.setViewName("admin/adminPage");
-		return modelAndView;
+		ModelAndView adminHomeModelAndView = populateHomeModelAndView();
+		adminHomeModelAndView.addObject("admin", true);
+		adminHomeModelAndView.setViewName("admin/adminPage");
+		return adminHomeModelAndView;
 	}
 
-	@GetMapping("/admin/getName")
-	public ResponseEntity getName()
+	@GetMapping("/user/")
+	public ModelAndView userHome()
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findByEmail(auth.getName());
-		return ResponseEntity.ok(user.getFirstName());
+		ModelAndView userHomeModelAndView = populateHomeModelAndView();
+		userHomeModelAndView.setViewName("user/userPage");
+		return userHomeModelAndView;
 	}
 
-	@PostMapping("/admin/deleteSelected")
-	public String deleteSelected(@RequestParam("idList") List<Long> idList)
+	@GetMapping("/access-denied")
+	public String accessDenied()
 	{
-		userService.deleteByCheckboxes(idList);
-		return "redirect:/admin/#admin";
+		return "access-denied";
+	}
+
+	@GetMapping("/error")
+	public String error()
+	{
+		return "error";
 	}
 
 	private ModelAndView createDefaultModelAndView()
@@ -118,4 +122,15 @@ public class LoginController {
 		modelAndView.addObject("genders", Arrays.asList("man", "women"));
 		return modelAndView;
 	}
+
+	private ModelAndView populateHomeModelAndView()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject(USER_NAME, "Welcome, "
+				+ authenticationProcess.getAuthenticatedUser().getFirstName() + "!");
+
+		return modelAndView;
+	}
+
+
 }

@@ -29,9 +29,8 @@ define(function (require) {
             renderHomePage: function () {
                 this.createHomePageView();
                 this.deleteAdminPage();
-                // $(".content_home").css("display", "block");
             },
-            renderAdminPage: function () {
+            renderAdminPage: function (view) {
                 this.deleteHomePage();
                 var self = this;
                 if (contactList.fullCollection.models.length === 0) {
@@ -39,12 +38,21 @@ define(function (require) {
                     contactList.fetch({
                         success: function () {
                             self.createAdminPage();
+                            if (view === "listView") {
+                                self.renderListView({}, usersView);
+                                return;
+                            }
                         }
                     })
                 } else {
                     self.refreshAdminPage();
                 }
             },
+
+            renderUserPage: function () {
+
+            },
+
 
             renderUserForm: function (isEdit) {
                 if (isEdit) {
@@ -84,16 +92,27 @@ define(function (require) {
             },
 
             chooseListOrTabView: function () {
+                var self = this;
                 usersView.on('view:listView', function (options) {
-                    options.singleViewTemplate = singleViewListTemplate;
-                    options.className = 'contactList_list';
-                    this.render(options);
+                    self.renderListView(options, this);
+                    Backbone.history.navigate('admin/listView', {trigger: false, replace: true});
                 });
                 usersView.on('view:tabsView', function (options) {
-                    options.singleViewTemplate = null;
-                    options.className = null;
-                    this.render(options);
+                    self.renderTabView(options, this);
+                    Backbone.history.navigate('admin/tabView', {trigger: false, replace: true});
                 });
+            },
+
+            renderListView: function (options, usersView) {
+                options.singleViewTemplate = singleViewListTemplate;
+                options.className = 'contactList_list';
+                usersView.render(options);
+            },
+
+            renderTabView: function (options, usersView) {
+                options.singleViewTemplate = null;
+                options.className = null;
+                usersView.render(options);
             },
 
             showAddForm: function () {
@@ -115,7 +134,7 @@ define(function (require) {
                 if (!homePageView){
                     homePageView = new HomePageView();
                 }
-                $(homePageView.render().el).insertBefore(".footer");
+                $(homePageView.$el).insertBefore(".footer");
             },
 
             createAdminPage: function () {

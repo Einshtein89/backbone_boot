@@ -16,7 +16,12 @@
             </div>
             <ul class="nav navbar-nav">
                 <li ><a class="tablinks" href="#home" onclick="menuSwitch(event, 'content_home')">Home</a></li>
-                <li ><a class="tablinks" href="#admin" onclick="menuSwitch(event, 'content_admin')">Admin</a></li>
+                <li th:if="${admin}">
+                    <a class="tablinks" href="#admin" onclick="menuSwitch(event, 'content_admin')">Admin</a>
+                </li>
+                <li th:unless="${admin}">
+                    <a class="tablinks" href="#user" onclick="menuSwitch(event, 'content_user')">User</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a><span class="glyphicon glyphicon-user user_greeting" th:utext="${userName}"></span></a></li>

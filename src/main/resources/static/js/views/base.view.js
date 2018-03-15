@@ -16,6 +16,7 @@ define(function (require) {
             var data = (this.model) ? this.model.toJSON() : {};
             if (options) {
                 data.isAdd = options.isAdd;
+                data.isAdmin = options.isAdmin;
             }
             data.sexArray = sexArray;
             var output = '';

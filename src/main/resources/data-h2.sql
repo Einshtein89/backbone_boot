@@ -31,10 +31,11 @@ INSERT INTO user VALUES (30, 'Jack', 'Smirnov', '(123)-456-7890', 'man', 1, 'sdf
 INSERT INTO user VALUES (31, 'Pit', 'Stop', '(123)-456-7890', 'man', 1, 'sd345f@sdf.ru', 'sdfssf');
 INSERT INTO user VALUES (32, 'Miranda', 'Walsh', '(123)-456-7890', 'woman', 1, 'sd346675f@sdf.ru', 'sdfssf');
 INSERT INTO user VALUES (33, 'Celeste', 'O', '(123)-456-7890', 'woman', 1, 'sdgfghfgf@sdf.ru', 'sdfssf');
-INSERT INTO user VALUES (34, 'Johnny', 'Depp', '(123)-456-7890', 'man', 1, 'sdffgh@sdf.ru', 'sdfssf');
+INSERT INTO user VALUES (34, 'user', 'user', '(123)-456-7890', 'man', 1, 'user@user.ru', '$2a$10$TKs0Ww9190rs9Yid74k7I.qrD/RHgkzk6feqNJiW42AtBZvcRBpXW');
 
 
 INSERT INTO role VALUES (1,'ADMIN');
 INSERT INTO role VALUES (2,'USER');
 
 INSERT INTO user_role VALUES (1, 1);
+INSERT INTO user_role VALUES (34, 2);
