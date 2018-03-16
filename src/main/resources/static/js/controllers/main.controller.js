@@ -11,6 +11,7 @@ define(function (require) {
     var singleViewListTemplate = require('contactListTemplate');
     var AdminHeaderView = require('headerView');
     var HomePageView = require('homePageView');
+    var ControllerUtils = require('controllerUtils');
     var User = require('model');
     var contactList = new ContactList();
     var newUser = new User();
@@ -22,37 +23,44 @@ define(function (require) {
     var selectViewView;
     var adminHeaderView;
     var homePageView;
+    var globalOptions;
 
     var MainController = function(options) {
         return {
             //rendering actions
             renderHomePage: function () {
-                this.createHomePageView();
-                this.deleteAdminPage();
+                var options = options || {};
+                $.when(ControllerUtils.isAdmin(options)).then(function () {
+                    this.createHomePageView(options);
+                    this.deleteAdminPage();
+                }.bind(this));
             },
             renderAdminPage: function (view) {
-                this.deleteHomePage();
-                var self = this;
-                if (contactList.fullCollection.models.length === 0) {
-                    contactList.setPageSize(3, options);
-                    contactList.fetch({
-                        success: function () {
-                            self.createAdminPage();
-                            if (view === "listView") {
-                                self.renderListView({}, usersView);
-                                return;
+                var options = options || {};
+                $.when(ControllerUtils.isAdmin(options)).then(function () {
+                    globalOptions = options;
+                    this.deleteHomePage();
+                    var self = this;
+                    if (contactList.fullCollection.models.length === 0) {
+                        contactList.setPageSize(3, options);
+                        contactList.fetch({
+                            success: function () {
+                                self.createAdminPage();
+                                if (view === "listView") {
+                                    self.renderListView({}, usersView);
+                                    return;
+                                }
                             }
-                        }
-                    })
-                } else {
-                    self.refreshAdminPage();
-                }
+                        })
+                    } else {
+                        self.refreshAdminPage();
+                    }
+                }.bind(this));
             },
 
             renderUserPage: function () {
 
             },
-
 
             renderUserForm: function (isEdit) {
                 if (isEdit) {
@@ -130,20 +138,20 @@ define(function (require) {
             },
 
             //creating views
-            createHomePageView: function () {
+            createHomePageView: function (options) {
                 if (!homePageView){
-                    homePageView = new HomePageView();
+                    homePageView = new HomePageView(options);
                 }
                 $(homePageView.$el).insertBefore(".footer");
             },
 
             createAdminPage: function () {
-                this.createHeaderView();
+                this.createHeaderView(globalOptions);
                 this.createPaginationView();
                 this.createContactsPerPageView();
                 this.createMultiView();
                 this.createSelectViewView();
-                $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
+                $(usersView.render(globalOptions).el).insertAfter("." + contactsPerPageView.$el[0].className);
                 this.createSearchView();
                 this.renderSearch();
                 this.chooseListOrTabView();
@@ -151,9 +159,9 @@ define(function (require) {
 
             createHeaderView: function () {
                 if (!adminHeaderView){
-                    adminHeaderView = new AdminHeaderView();
+                    adminHeaderView = new AdminHeaderView(globalOptions);
                 }
-                $(adminHeaderView.render().el).insertBefore(".footer");
+                $(adminHeaderView.render(globalOptions).el).insertBefore(".footer");
             },
 
             createPaginationView: function () {
@@ -163,9 +171,11 @@ define(function (require) {
                 $(paginationView.render({isMainPage: true, isNewUserAdded: false}).el).insertAfter(".header");
             },
 
-            createMultiView: function () {
+            createMultiView: function (globalOptions) {
                 if (!usersView) {
-                    usersView = new MultiView({collection: contactList, paginationView: paginationView});
+                    usersView = new MultiView({collection: contactList,
+                        paginationView: paginationView,
+                        options: globalOptions});
                 }
             },
 

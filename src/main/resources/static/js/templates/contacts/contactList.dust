@@ -1,14 +1,17 @@
-
+{?isAdmin}
 <input type="checkbox" value="{#id}{.}{/id}" name="idList" id="userDelete" class="userList float_left" form="batchDelete" />
+{/isAdmin}
 <div class="userList float_left"><img class="img" src="../images/{sex}.png"/></div>
 <div class="userList_name float_left">{#firstName}{.}{/firstName}</div>
 <div class="userList_name float_left">&nbsp;{#lastName}{.}{/lastName}&nbsp;</div>
 <div class="buttonsList float_right">
     <input type="button" value="Info"  align="center" class="btn btn-info" id="showUserInfo" />
+    {?isAdmin}
     <a href="#edit" id="edit">
         <input type="button" value="Edit"  align="center" class="btn btn-info"/>
     </a>
     <input type="button" value="Delete"  align="center"  class="btn btn-danger" id="delete"
            data-id="{#id}{.}{/id}"/>
+    {/isAdmin}
 </div>
 <input type="hidden" value="{#id}{.}{/id}" id="modelId" />

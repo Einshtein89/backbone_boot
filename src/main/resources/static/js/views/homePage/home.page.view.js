@@ -10,26 +10,12 @@ define(function (require) {
 
         initialize: function (options) {
           options = options || {};
-          $.when(this.isAdmin(options)).then(function () {
-              this.render(options)
-          }.bind(this));
-
+          this.render(options)
         },
 
         render: function (options) {
             BaseView.prototype.render.apply(this, arguments);
             return this;
-        },
-
-        isAdmin: function(options) {
-            var ajax = $.ajax({
-                url: '../isAdmin',
-                contentType: "application/json",
-                success: function (response) {
-                    options.isAdmin = response;
-                }
-            });
-            return ajax;
         }
     });
 

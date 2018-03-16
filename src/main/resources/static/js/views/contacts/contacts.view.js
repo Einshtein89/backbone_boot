@@ -9,6 +9,7 @@ define(function (require) {
     var subViews;
     var singleViewTemplate;
     var className;
+    var isAdmin;
 
     var MultiView = Backbone.View.extend({
 
@@ -30,6 +31,7 @@ define(function (require) {
             if (options) {
                 singleViewTemplate = options.singleViewTemplate;
                 className = options.className;
+                isAdmin = options.isAdmin;
             }
             setTimeout(function() {
                 if (emptyView) {
@@ -37,7 +39,7 @@ define(function (require) {
                 } else {
                     self.removeViews();
                     self.collection.each(self.addOne, self);
-                    if (className) {
+                    if (className && isAdmin) {
                         self.$el.prepend(deleteFormTemplate);
                         self.enableDeleteButton();
                     }
@@ -52,11 +54,13 @@ define(function (require) {
                     collection: this.collection,
                     paginationView: paginationView,
                     template: singleViewTemplate,
-                    className: className});
+                    className: className,
+                    isAdmin: isAdmin});
             } else {
                 singleView = new SingleView({model: Model,
                     collection: this.collection,
-                    paginationView: paginationView});
+                    paginationView: paginationView,
+                    isAdmin: isAdmin});
             }
            subViews.push(singleView);
            $(singleView.$el).appendTo(this.$el);
