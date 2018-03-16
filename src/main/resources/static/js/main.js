@@ -46,6 +46,7 @@ require.config({
             'router' : 'router/router',
             //components
             'userUtils' : 'components/userUtils.component',
+            'controllerUtils' : 'components/controller.utils',
             //controllers
             'mainController' : 'controllers/main.controller'
         }

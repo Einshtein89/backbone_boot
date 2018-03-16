@@ -8,7 +8,7 @@ define(function (require) {
 
         template: Template,
 
-        render: function () {
+        render: function (options) {
             BaseView.prototype.render.apply(this, arguments);
             return this;
         },

@@ -6,7 +6,7 @@ define(function (require) {
             '' : 'main#renderHomePage',
             'home' : 'main#renderHomePage',
             'admin': 'main#renderAdminPage',
-            'user': 'main#renderUserPage',
+            'user': 'main#renderAdminPage',
             'admin/:listView': 'main#renderAdminPage',
             'admin/:tabView': 'main#renderAdminPage',
             'add': 'main#showAddForm',
