@@ -1,0 +1,5 @@
+{?isAdmin}
+<h2 align="center">This is admin home page.</h2>
+{:else}
+<h2 align="center">This is user home page.</h2>
+{/isAdmin}

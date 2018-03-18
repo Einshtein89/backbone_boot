@@ -1,0 +1,2 @@
+<form id="batchDelete" class="form-inline" role="form" action="/admin/deleteSelected" method="post">
+<button type="submit" class="btn btn-danger" id="deleteUsersButton" disabled>Delete Selected</button>

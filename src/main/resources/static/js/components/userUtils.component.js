@@ -4,7 +4,7 @@ define(function (require) {
 
 
     var UserUtils = {};
-    UserUtils.populateUserData = function(user, isExistedUser){
+    UserUtils.populateUserData = function(user, isExistedUser, isAdd){
         if (isExistedUser) {
             user.attributes.id = $("#id").val();
         }
@@ -12,6 +12,11 @@ define(function (require) {
         user.attributes.lastName = $("#lastName").val();
         user.attributes.phone = $("#phone").val();
         user.attributes.sex = $("#sex").val();
+        user.attributes.email = $("#email").val();
+        if (isAdd) {
+            user.attributes.password = $("#password").val();
+            user.attributes.repeatPassword = $("#repeatPassword").val();
+        }
     };
 
     UserUtils.updateModel = function(oldModel, newModel){
@@ -19,6 +24,7 @@ define(function (require) {
         oldModel.attributes.lastName = newModel.attributes.lastName;
         oldModel.attributes.phone = newModel.attributes.phone;
         oldModel.attributes.sex = newModel.attributes.sex;
+        oldModel.attributes.email = newModel.attributes.email;
     };
 
     UserUtils.renderMessage = function (message, addErrorDiv) {

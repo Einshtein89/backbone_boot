@@ -1,5 +1,5 @@
 
-<div class="user"><img class="img" src="images/{sex}.png"/></div>
+<div class="user"><img class="img" src="../images/{sex}.png"/></div>
 <div class="user">{#firstName}{.}{/firstName}</div>
 <div class="user">{#lastName}{.}{/lastName}</div><br/>
 <div class="buttons">

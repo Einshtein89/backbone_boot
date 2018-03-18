@@ -3,9 +3,12 @@ package com.nixsolutions.backbone_boot.controller;
 import java.util.List;
 import java.util.Objects;
 
+import com.nixsolutions.backbone_boot.entity.User;
+import com.nixsolutions.backbone_boot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,13 +18,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nixsolutions.backbone_boot.dao.UserRepository;
-import com.nixsolutions.backbone_boot.entity.User;
 
-@org.springframework.stereotype.Controller
+@Controller
 @RequestMapping("/users")
-public class Controller {
+public class DaoController {
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
@@ -35,13 +39,15 @@ public class Controller {
     }
     @PostMapping("")
     public ResponseEntity<User> addUser(@RequestBody User newUser) {
-        User oldUser =
+        User oldUserByNames =
             repository.findByFirstNameAndLastName(newUser.getFirstName(), newUser.getLastName());
-        if (Objects.nonNull(oldUser))
+        User oldUserByEmail =
+                repository.findByEmail(newUser.getEmail());
+        if (Objects.nonNull(oldUserByNames) || Objects.nonNull(oldUserByEmail))
         {
             return new ResponseEntity<User>(newUser, HttpStatus.CONFLICT);
         }
-        User user = repository.save(newUser);
+        User user = userService.saveUser(newUser, true);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
     @PutMapping("")
@@ -55,7 +61,14 @@ public class Controller {
         {
             return new ResponseEntity<User>(newUser, HttpStatus.BAD_REQUEST);
         }
-        repository.save(newUser);
+        if (oldUser.getPassword().equals(newUser.getPassword()))
+        {
+            userService.saveUser(newUser, false);
+        }
+        else
+        {
+            userService.saveUser(newUser, true);
+        }
         return new ResponseEntity<User>(newUser, HttpStatus.OK);
     }
     @DeleteMapping("/{id}")

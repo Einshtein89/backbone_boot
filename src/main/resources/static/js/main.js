@@ -24,20 +24,29 @@ require.config({
             'searchView' : 'views/search/search.view',
             'paginationView' : 'views/pagination/pagination.view',
             'contactsPerPageView' : 'views/pagination/contactsPerPage.view',
+            'selectViewView' : 'views/selectview/selectView.view',
+            "headerView" : 'views/header/header.view',
+            "homePageView" : 'views/homePage/home.page.view',
             //models
             'model' : 'models/model',
             //templates
-            'contactTemplate' : 'text!templates/contact.dust',
-            'contactInfoTemplate' : 'text!templates/contactInfo.dust',
-            'addUserTemplate' : 'text!templates/addContact.dust',
-            'paginationTemplate' : 'text!templates/pagination.dust',
-            'contactsPerPageTemplate' : 'text!templates/contactsPerPage.dust',
+            'contactTemplate' : 'text!templates/contacts/contactView.dust',
+            'contactListTemplate' : 'text!templates/contacts/contactList.dust',
+            'contactInfoTemplate' : 'text!templates/contacts/contactInfo.dust',
+            'addUserTemplate' : 'text!templates/contacts/addContact.dust',
+            'paginationTemplate' : 'text!templates/pagination/pagination.dust',
+            'contactsPerPageTemplate' : 'text!templates/contacts/contactsPerPage.dust',
+            'selectViewTemplate' : 'text!templates/selectView//selectView.dust',
+            "headerTemplate" : 'text!templates/header/header.dust',
+            "homePageTemplate" : 'text!templates/homePage/home.dust',
+            "batchDeleteForm" : 'text!templates/contacts/batchDeleteForm.dust',
             //collections
             'contactList' : 'collections/contacts.collection',
             //router
             'router' : 'router/router',
             //components
             'userUtils' : 'components/userUtils.component',
+            'controllerUtils' : 'components/controller.utils',
             //controllers
             'mainController' : 'controllers/main.controller'
         }

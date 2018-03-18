@@ -18,11 +18,12 @@ define(function (require) {
         template: Template,
 
         initialize: function (options) {
+            this.render(options);
             paginationView = options.paginationView;
             UserUtils.bindValidation(this);
         },
 
-        render: function () {
+        render: function (options) {
             BaseView.prototype.render.apply(this, arguments);
             return this;
         },
@@ -31,16 +32,15 @@ define(function (require) {
             e.stopImmediatePropagation();
             e.preventDefault();
 
-            UserUtils.populateUserData(this.model, false);
+            UserUtils.populateUserData(this.model, false, true);
 
             //checking existing user
-            var existedUser = this.collection.findWhere({
-                firstName: this.model.attributes.firstName,
-                lastName: this.model.attributes.lastName
-            })
+            var existedUser = this.collection.fullCollection.findWhere({
+                email: this.model.attributes.email
+            });
 
             if(existedUser) {
-                UserUtils.renderMessage("This user already exists!", false)
+                UserUtils.renderMessage("This email already exists!", false)
             } else {
                 var self = this;
                 if (this.model.isValid(true)) {
@@ -72,7 +72,7 @@ define(function (require) {
 
         cancel: function() {
             this.remove();
-            Backbone.history.navigate('', {trigger: false, replace: false});
+            Backbone.history.navigate('admin', {trigger: false, replace: false});
         }
     });
 

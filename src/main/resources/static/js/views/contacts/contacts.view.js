@@ -1,15 +1,23 @@
 define(function (require) {
     var $ = require('jquery');
     var _ = require('underscore');
-    var Backbone =require('backbone');
+    var Backbone = require('backbone');
     var SingleView = require('singleView');
+    var deleteFormTemplate = require('batchDeleteForm');
     var paginationView;
     var emptyView;
     var subViews;
+    var singleViewTemplate;
+    var className;
+    var isAdmin;
 
     var MultiView = Backbone.View.extend({
 
         className: 'main',
+
+        events: {
+            // 'click #deleteUsersButton': 'showDeleteDialog',
+        },
 
         initialize: function (options) {
             subViews = [];
@@ -17,32 +25,88 @@ define(function (require) {
             paginationView = options.paginationView;
         },
 
-        render: function () {
+        render: function (options) {
             var self = this;
-            this.$el.html('<center><img src=\'images/ajax-loader.gif\'/></center>');
+            this.$el.html('<center><img src=\'../images/ajax-loader.gif\'/></center>');
+            if (options) {
+                singleViewTemplate = options.singleViewTemplate;
+                className = options.className;
+                isAdmin = options.isAdmin;
+            }
             setTimeout(function() {
                 if (emptyView) {
-                    self.$el.empty();
-                    _.each(subViews, function (view) {
-                        view.remove();
-                    });
+                    self.removeViews();
                 } else {
-                    self.$el.empty();
-                    _.each(subViews, function (view) {
-                        view.remove();
-                    });
+                    self.removeViews();
                     self.collection.each(self.addOne, self);
+                    if (className && isAdmin) {
+                        self.$el.prepend(deleteFormTemplate);
+                        self.enableDeleteButton();
+                    }
                 }
             }, 500);
             return this;
         },
 
         addOne: function(Model, singleView) {
-           singleView = new SingleView({model: Model,
-               collection: this.collection,
-               paginationView: paginationView});
+            if (singleViewTemplate) {
+                singleView = new SingleView({model: Model,
+                    collection: this.collection,
+                    paginationView: paginationView,
+                    template: singleViewTemplate,
+                    className: className,
+                    isAdmin: isAdmin});
+            } else {
+                singleView = new SingleView({model: Model,
+                    collection: this.collection,
+                    paginationView: paginationView,
+                    isAdmin: isAdmin});
+            }
            subViews.push(singleView);
-           $(singleView.render().el).appendTo(this.$el);
+           $(singleView.$el).appendTo(this.$el);
+        },
+
+        removeViews: function() {
+            this.$el.empty();
+            _.each(subViews, function (view) {
+                view.remove();
+            });
+        },
+
+        remove: function () {
+            this.$el.remove();
+            this.removeViews();
+        },
+
+        enableDeleteButton: function () {
+            var checkBoxes = $("input[name='idList']");
+            checkBoxes.change(function () {
+                $('#deleteUsersButton').prop('disabled', checkBoxes.filter(':checked').length < 1);
+            });
+        },
+
+        showDeleteDialog: function (options) {
+            this.removeEach(subViews, options);
+        },
+
+        removeEach: function (subViews, options) {
+            var self = this;
+            var checkedCheckboxes = $("input[name='idList']").filter(':checked');
+            checkedCheckboxes.each(function () {
+                var contact = self.collection.findWhere({
+                    id: Number($( this ).val())
+                });
+                contact.url = contact.url + "/" +  contact.id;
+                contact.destroy();
+                _.each(subViews, function (view) {
+                    if (view.model.id === contact.id) {
+                        view.remove();
+                    }
+                });
+            });
+            paginationView.render(options);
+            Backbone.history.navigate('page' + self.collection.state.currentPage, true);
+            Backbone.history.navigate('admin', {trigger: true, replace: true});
         }
     });
 

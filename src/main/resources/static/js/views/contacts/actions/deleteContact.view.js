@@ -57,7 +57,7 @@ define(function (require) {
         renderPaginationView: function (options) {
             paginationView.render(options);
             Backbone.history.navigate('page' + collection.state.currentPage, true);
-            Backbone.history.navigate('', {trigger: false, replace: false});
+            Backbone.history.navigate('admin', {trigger: false, replace: false});
         },
 
         removeInfo: function () {

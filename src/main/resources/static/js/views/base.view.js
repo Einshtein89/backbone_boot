@@ -5,13 +5,19 @@ define(function (require) {
 
     return Backbone.View.extend({
 
-        initialize: function () {
-            this.model.on('change', this.render, this);
+        initialize: function (options) {
+            if (this.model) {
+                this.model.on('change', this.render(options), this);
+            }
         },
 
-        render: function () {
+        render: function (options) {
             var sexArray = ["man", "woman"];
             var data = (this.model) ? this.model.toJSON() : {};
+            if (options) {
+                data.isAdd = options.isAdd;
+                data.isAdmin = options.isAdmin;
+            }
             data.sexArray = sexArray;
             var output = '';
             Dust.renderSource(this.template, data, function(err, out) {

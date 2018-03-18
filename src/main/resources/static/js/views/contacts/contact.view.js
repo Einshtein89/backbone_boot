@@ -11,7 +11,7 @@ define(function (require) {
 
     var SingleView = BaseView.extend({
 
-    className: 'contactList',
+    className: 'contactList_tabs',
 
     events: {
         'click #delete': 'showDeleteDialog',
@@ -24,9 +24,12 @@ define(function (require) {
     initialize: function (options) {
         subViews = [];
         paginationView = options.paginationView;
+        this.template = options.template ? options.template : Template;
+        this.className = options.className ? options.className : 'contactList_tabs';
+        this.render(options);
     },
 
-    render: function () {
+    render: function (options) {
         _.each(subViews, function (view) {
             view.remove();
         });
@@ -40,7 +43,7 @@ define(function (require) {
         });
         userInfo = new UserInfo({model:this.model});
         subViews.push(userInfo);
-        $(userInfo.render().el).appendTo("body");
+        $(userInfo.$el).appendTo("body");
     },
 
     showDeleteDialog: function() {
@@ -51,8 +54,8 @@ define(function (require) {
     },
 
     editUser: function () {
-        var editUserView = new EditUserView({model: this.model, collection: this.collection})
-        $(editUserView.render().el).appendTo("body");
+        var editUserView = new EditUserView({model: this.model, collection: this.collection, isEdit:true})
+        $(editUserView.$el).appendTo("body");
     }
     });
 

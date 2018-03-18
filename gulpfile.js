@@ -1,14 +1,21 @@
-var gulp = require('gulp');
+let gulp = require('gulp');
 
 const paths = {
-    src : 'src/main/resources/static/**/*.*',
-    target : 'target/classes/static/',
+    srcStatic : 'src/main/resources/static/**/*.*',
+    targetStatic : 'target/classes/static/',
+    srcTemplates : 'src/main/resources/templates/**/*.*',
+    targetTemplates : 'target/classes/templates/',
 };
 
 gulp.task('watch', function(){
-    gulp.watch(paths.src, ['dev']);
+    gulp.watch(paths.srcStatic, ['static']);
+    gulp.watch(paths.srcTemplates, ['templates']);
 });
 
-gulp.task('dev', function() {
-    return gulp.src(paths.src).pipe(gulp.dest(paths.target));
+gulp.task('static', function() {
+        gulp.src(paths.srcStatic).pipe(gulp.dest(paths.targetStatic));
+});
+
+gulp.task('templates', function() {
+    gulp.src(paths.srcTemplates).pipe(gulp.dest(paths.targetTemplates));
 });
