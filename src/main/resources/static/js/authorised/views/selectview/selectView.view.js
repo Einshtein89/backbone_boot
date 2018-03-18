@@ -3,6 +3,7 @@ define(function (require) {
     var Backbone = require('backbone');
     var BaseView = require('baseView');
     var multiView;
+    var isAdmin;
     var SelectViewView = Backbone.View.extend({
 
         className: 'selectViewHolder',
@@ -11,6 +12,7 @@ define(function (require) {
 
         initialize: function (options) {
             multiView = options.multiView;
+            isAdmin = options.isAdmin;
             this.render(options);
         },
 
@@ -25,11 +27,11 @@ define(function (require) {
         },
 
         renderListView: function () {
-            multiView.trigger("view:listView", {});
+            multiView.trigger("view:listView", {isAdmin: isAdmin});
         },
 
         renderTabsView: function () {
-            multiView.trigger("view:tabsView", {});
+            multiView.trigger("view:tabsView", {isAdmin: isAdmin});
         }
     });
 

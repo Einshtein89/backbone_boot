@@ -1,14 +1,14 @@
 define(function (require) {
-    var Backbone = require('backbone');
+    const Backbone = require('backbone');
     require('jConfirm');
 
 
-    var ControllerUtils = {};
+    const ControllerUtils = {};
 
     ControllerUtils.isAdmin = function(options) {
         var options = options || {};
-        var ajax = $.ajax({
-            url: '../isAdmin',
+        const ajax = $.ajax({
+            url: '../isAuthorised',
             contentType: "application/json",
             success: function (response) {
                 options.isAdmin = response;

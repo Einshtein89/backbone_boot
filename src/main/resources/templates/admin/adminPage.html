@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:include="fragments/header :: header-css"/></div>
+    <div th:include="fragments/authorisedHeader :: header-css"/></div>
 </head>
-<div>
-    <div th:include="fragments/header :: header"/></div>
+<body>
+    <div th:include="fragments/authorisedHeader :: header"/></div>
 
     <div th:replace="fragments/footer :: footer"/></div>
 </body>

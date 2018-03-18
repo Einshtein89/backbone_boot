@@ -4,10 +4,15 @@ Test project for Backbone + Spring Boot frameworks
 Features:
 
 * Spring Boot + JPA + H2 DB
+* Spring Security
 * Backbone + RequireJS
 * NPM + Bower + Gulp
 
 Description:
+
+Log in and registration. Admin and user pages. Pages for unauthorised users.
+
+Authorisation with Spring Security.
 
 Simple Contact List with CRUD operations (add new user, edit, delete).
 

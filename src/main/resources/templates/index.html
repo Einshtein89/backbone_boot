@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="fragments/header :: header-css"/></div>
+</head>
+<body>
+    <div th:include="fragments/header :: header"/></div>
+
+    <div>
+        <a href="/login">Go to Login Page</a>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"/></div>
+</body>
+</html>

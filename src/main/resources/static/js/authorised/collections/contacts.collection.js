@@ -1,8 +1,8 @@
 define(function (require) {
-    var Model = require('model');
-    var PageableCollection = require('paginator');
+    const Model = require('user');
+    const PageableCollection = require('paginator');
 
-    var UserList = PageableCollection.extend({
+    const UserList = PageableCollection.extend({
 
         url: "/users",
 
@@ -22,7 +22,7 @@ define(function (require) {
         model: Model,
 
         filterModels: function (searchString) {
-            var filtered = this.fullCollection.filter(function (model) {
+            let filtered = this.fullCollection.filter(function (model) {
                 return model.get("firstName").toUpperCase().indexOf(searchString.toUpperCase()) !== -1
                     || model.get("lastName").toUpperCase().indexOf(searchString.toUpperCase()) !== -1
             });
