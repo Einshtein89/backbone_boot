@@ -1,9 +1,9 @@
 define(function (require) {
-    var Backbone = require('backbone');
+    const Backbone = require('backbone');
     require('jConfirm');
 
 
-    var UserUtils = {};
+    const UserUtils = {};
     UserUtils.populateUserData = function(user, isExistedUser, isAdd){
         if (isExistedUser) {
             user.attributes.id = $("#id").val();
@@ -53,21 +53,21 @@ define(function (require) {
     UserUtils.bindValidation = function (view) {
         Backbone.Validation.bind(view, {
             valid: function(view, attr) {
-                var $el = view.$('[name=' + attr + ']'),
+                const $el = view.$('[name=' + attr + ']'),
                     $group = $el.closest('.form-group');
 
                 $group.removeClass('has-error');
                 $group.find('.help-block').html('').addClass('hidden');
             },
             invalid: function(view, attr, error) {
-                var $el = view.$('[name=' + attr + ']'),
+                const $el = view.$('[name=' + attr + ']'),
                     $group = $el.closest('.form-group');
 
                 $group.addClass('has-error');
                 $group.find('.help-block').html(error).removeClass('hidden');
             }
         });
-    }
+    };
 
     return UserUtils;
 });

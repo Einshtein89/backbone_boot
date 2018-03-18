@@ -1,7 +1,7 @@
 define(function (require) {
-    var Backbone = require('backbone');
+    const Backbone = require('backbone');
 
-    var Model = Backbone.Model.extend({
+    const Model = Backbone.Model.extend({
 
         url:"/users",
 
@@ -14,6 +14,10 @@ define(function (require) {
                 {
                     rangeLength: [2, 20],
                     msg: 'First name should have 2 to 20 characters'
+                },
+                {
+                    pattern:  /^[a-zA-Z]+$/im,
+                    msg: "First Name must contain only letters"
                 }
             ],
             lastName: [
@@ -24,6 +28,10 @@ define(function (require) {
                 {
                     rangeLength: [2, 20],
                     msg: 'Last name should have 2 to 20 characters'
+                },
+                {
+                    pattern:  /^[a-zA-Z]+$/im,
+                    msg: "Last Name must contain only letters"
                 }
             ],
             phone: {

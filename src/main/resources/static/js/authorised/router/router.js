@@ -1,8 +1,9 @@
 define(function (require) {
-    var BackboneRouteControl = require('controller');
+    const BackboneRouteControl = require('controller');
 
-    var Router = BackboneRouteControl.extend({
+    const Router = BackboneRouteControl.extend({
         routes: {
+            //admin and user pages
             '' : 'main#renderHomePage',
             'home' : 'main#renderHomePage',
             'admin': 'main#renderAdminPage',

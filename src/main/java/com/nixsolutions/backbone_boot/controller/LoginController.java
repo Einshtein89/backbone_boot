@@ -2,9 +2,8 @@ package com.nixsolutions.backbone_boot.controller;
 
 
 import static com.nixsolutions.backbone_boot.config.Constants.ADMIN_ROLE;
-import static com.nixsolutions.backbone_boot.config.Constants.LoginConstants.EMAIL;
-import static com.nixsolutions.backbone_boot.config.Constants.LoginConstants.REGISTRATION;
-import static com.nixsolutions.backbone_boot.config.Constants.LoginConstants.USER_NAME;
+import static com.nixsolutions.backbone_boot.config.Constants.LoginConstants.*;
+import static com.nixsolutions.backbone_boot.config.Constants.SecurityConstants.LOGOUT;
 import static com.nixsolutions.backbone_boot.config.Constants.USER;
 import static com.nixsolutions.backbone_boot.config.Constants.USER_ROLE;
 
@@ -17,6 +16,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,17 +41,16 @@ public class LoginController {
 	@Autowired
 	MessageReader messageReader;
 
-	@GetMapping(value = {"/", "/login"})
-	public String login(HttpServletRequest request)
+	@GetMapping(value = {"/"})
+	public String index(HttpServletRequest request)
 	{
-		if (Objects.nonNull(authenticationProcess.getAuthentication()) && request.isUserInRole(ADMIN_ROLE)) {
-			return "redirect:/admin/";
-		}
-		if (Objects.nonNull(authenticationProcess.getAuthentication()) && request.isUserInRole(USER_ROLE)) {
-			return "redirect:/user/";
-		}
+		return redirectTo(request, INDEX);
+	}
 
-		return "login";
+	@GetMapping(value = {"/login"})
+	public String login(HttpServletRequest request, String page)
+	{
+		return redirectTo(request, LOGIN);
 	}
 
 	@GetMapping("/registration")
@@ -87,7 +86,7 @@ public class LoginController {
 		return modelAndView;
 	}
 
-	@GetMapping("/admin/")
+	@GetMapping("/admin")
 	public ModelAndView adminHome()
 	{
 		ModelAndView adminHomeModelAndView = populateHomeModelAndView();
@@ -96,7 +95,7 @@ public class LoginController {
 		return adminHomeModelAndView;
 	}
 
-	@GetMapping("/user/")
+	@GetMapping("/user")
 	public ModelAndView userHome()
 	{
 		ModelAndView userHomeModelAndView = populateHomeModelAndView();
@@ -104,16 +103,10 @@ public class LoginController {
 		return userHomeModelAndView;
 	}
 
-	@GetMapping("/access-denied")
-	public String accessDenied()
-	{
-		return "access-denied";
-	}
-
-	@GetMapping("/error")
+	@GetMapping("/403")
 	public String error()
 	{
-		return "error";
+		return "error/403";
 	}
 
 	private ModelAndView createDefaultModelAndView()
@@ -130,6 +123,18 @@ public class LoginController {
 				+ authenticationProcess.getAuthenticatedUser().getFirstName() + "!");
 
 		return modelAndView;
+	}
+
+	private String redirectTo(HttpServletRequest request, String page)
+	{
+		if (Objects.nonNull(authenticationProcess.getAuthentication()) && request.isUserInRole(ADMIN_ROLE)) {
+			return "redirect:/admin";
+		}
+		if (Objects.nonNull(authenticationProcess.getAuthentication()) && request.isUserInRole(USER_ROLE)) {
+			return "redirect:/user";
+		}
+
+		return page;
 	}
 
 

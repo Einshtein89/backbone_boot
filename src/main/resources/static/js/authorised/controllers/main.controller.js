@@ -1,31 +1,31 @@
 define(function (require) {
-    var $ = require('jquery');
-    var Backbone = require('backbone');
-    var MultiView = require('multiView');
-    var ContactList = require('contactList');
-    var SearchView = require('searchView');
-    var AddUserView = require('addUserView');
-    var PaginationView = require('paginationView');
-    var ContactsPerPageView = require('contactsPerPageView');
-    var SelectViewView = require('selectViewView');
-    var singleViewListTemplate = require('contactListTemplate');
-    var AdminHeaderView = require('headerView');
-    var HomePageView = require('homePageView');
-    var ControllerUtils = require('controllerUtils');
-    var User = require('model');
-    var contactList = new ContactList();
-    var newUser = new User();
-    var usersView;
-    var searchView;
-    var addUserView;
-    var paginationView;
-    var contactsPerPageView;
-    var selectViewView;
-    var adminHeaderView;
-    var homePageView;
-    var globalOptions;
+    let $ = require('jquery');
+    let Backbone = require('backbone');
+    let MultiView = require('multiView');
+    let ContactList = require('contactList');
+    let SearchView = require('searchView');
+    let AddUserView = require('addUserView');
+    let PaginationView = require('paginationView');
+    let ContactsPerPageView = require('contactsPerPageView');
+    let SelectViewView = require('selectViewView');
+    let singleViewListTemplate = require('contactListTemplate');
+    let AdminHeaderView = require('headerView');
+    let HomePageView = require('homePageView');
+    let ControllerUtils = require('controllerUtils');
+    let User = require('user');
+    let contactList = new ContactList();
+    let newUser = new User();
+    let usersView;
+    let searchView;
+    let addUserView;
+    let paginationView;
+    let contactsPerPageView;
+    let selectViewView;
+    let adminHeaderView;
+    let homePageView;
+    let globalOptions;
 
-    var MainController = function(options) {
+    let MainController = function(options) {
         return {
             //rendering actions
             renderHomePage: function () {
@@ -40,15 +40,14 @@ define(function (require) {
                 $.when(ControllerUtils.isAdmin(options)).then(function () {
                     globalOptions = options;
                     this.deleteHomePage();
-                    var self = this;
+                    let self = this;
                     if (contactList.fullCollection.models.length === 0) {
                         contactList.setPageSize(3, options);
                         contactList.fetch({
                             success: function () {
                                 self.createAdminPage();
                                 if (view === "listView") {
-                                    self.renderListView({}, usersView);
-                                    return;
+                                    self.renderListView(globalOptions, usersView);
                                 }
                             }
                         })
@@ -99,18 +98,6 @@ define(function (require) {
                 });
             },
 
-            chooseListOrTabView: function (globalOptions) {
-                var self = this;
-                usersView.on('view:listView', function (globalOptions) {
-                    self.renderListView(globalOptions, this);
-                    Backbone.history.navigate('admin/listView', {trigger: false, replace: true});
-                });
-                usersView.on('view:tabsView', function (globalOptions) {
-                    self.renderTabView(globalOptions, this);
-                    Backbone.history.navigate('admin/tabView', {trigger: false, replace: true});
-                });
-            },
-
             renderListView: function (options, usersView) {
                 options.singleViewTemplate = singleViewListTemplate;
                 options.className = 'contactList_list';
@@ -121,6 +108,18 @@ define(function (require) {
                 options.singleViewTemplate = null;
                 options.className = null;
                 usersView.render(options);
+            },
+
+            chooseListOrTabView: function () {
+                let self = this;
+                usersView.on('view:listView', function (options) {
+                    self.renderListView(options, this);
+                    Backbone.history.navigate('admin/listView', {trigger: false, replace: true});
+                });
+                usersView.on('view:tabsView', function (options) {
+                    self.renderTabView(options, this);
+                    Backbone.history.navigate('admin/tabView', {trigger: false, replace: true});
+                });
             },
 
             showAddForm: function () {
@@ -150,7 +149,7 @@ define(function (require) {
                 this.createPaginationView();
                 this.createContactsPerPageView();
                 this.createMultiView();
-                this.createSelectViewView();
+                this.createSelectViewView(globalOptions);
                 $(usersView.render(globalOptions).el).insertAfter("." + contactsPerPageView.$el[0].className);
                 this.createSearchView();
                 this.renderSearch();
@@ -192,12 +191,12 @@ define(function (require) {
                 $(contactsPerPageView.render().el).insertAfter(".header");
             },
 
-            createSelectViewView: function () {
+            createSelectViewView: function (globalOptions) {
                 if (!selectViewView) {
                     selectViewView = new SelectViewView({collection : contactList,
-                        multiView: usersView, paginationView: paginationView});
+                        multiView: usersView, paginationView: paginationView, isAdmin: globalOptions.isAdmin});
                 }
-                $(selectViewView.render().el).insertAfter(".header");
+                $(selectViewView.$el).insertAfter(".header");
             },
 
             renderEmptyView: function () {
@@ -245,14 +244,14 @@ define(function (require) {
                 this.setNavigationButtonStyles();
             },
 
-            getCurrentPage: function (id) {
-                var id = Number(id);
+            getCurrentPage: function (pageId) {
+                let id = Number(pageId);
                 contactList.getPage(id, options);
                 paginationView.render({isMainPage : false});
                 this.setNavigationButtonStyles();
                 usersView.remove();
                 $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
-                var $currentLi = $('[name=' + id + ']');
+                let $currentLi = $('[name=' + id + ']');
                 $currentLi.addClass('active').siblings().removeClass('active');
                 Backbone.history.navigate('admin', {trigger: false, replace: false});
             },

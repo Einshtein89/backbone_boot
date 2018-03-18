@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static com.nixsolutions.backbone_boot.config.Constants.LoginConstants.EMAIL;
@@ -52,6 +53,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	UserDetailsService userDetailsService;
 
 	@Autowired
+	private AccessDeniedHandler accessDeniedHandler;
+
+	@Autowired
 	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService);
 		auth.authenticationProvider(authenticationProvider());
@@ -69,13 +73,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(USER_PAGES).access("hasRole('USER') or hasRole('ADMIN')").anyRequest()
 				.authenticated().and().csrf().disable().formLogin()
 				.loginPage(LOGIN).failureUrl("/login?error=true")
-//				.defaultSuccessUrl("/admin/")
 				.usernameParameter(EMAIL)
 				.passwordParameter(PASSWORD)
 				.and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT))
-				.logoutSuccessUrl(SLASH).and().exceptionHandling()
-				.accessDeniedPage(ACCESS_DENIED);
+				.logoutSuccessUrl(SLASH)
+				.and().exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+				.and().headers().frameOptions().sameOrigin();
+//				.and()
+//				.requiresChannel()
+//				.anyRequest().requiresSecure();
 	}
 
 	@Override

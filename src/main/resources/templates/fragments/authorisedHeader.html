@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header-css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script data-main="../js/authorised/main" th:src="@{/js/bower_components/requirejs/require.js}"></script>
+    <script th:src="@{/js/utils/menuSwitch.js}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}" />
+</head>
+<body>
+<div th:fragment="header">
+    <div class="navbar navbar-inverse ">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Contact List</a>
+            </div>
+            <ul class="nav navbar-nav" th:if="${userName}">
+                <li ><a class="tablinks" href="#home" onclick="menuSwitch(event, 'content_home')">Home</a></li>
+                <li th:if="${admin}">
+                    <a class="tablinks" href="#admin" onclick="menuSwitch(event, 'content_admin')">Users</a>
+                </li>
+                <li>
+                    <a class="tablinks" href="#orders" onclick="menuSwitch(event, 'content_user')">Orders</a>
+                </li>
+                <li th:unless="${admin}">
+                    <a class="tablinks" href="#my_orders" onclick="menuSwitch(event, 'content_user')">My Orders</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a th:if="${userName}">
+                        <span class="glyphicon glyphicon-user user_greeting" th:utext="${userName}"></span>
+                    </a>
+                </li>
+                <li class="cursor_pointer"><a onclick="document.forms['logoutForm'].submit()"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+            </ul>
+        </div>
+    </div>
+    <form id="logoutForm" method="post" th:action="@{/logout}"></form>
+</div>
+</body>
+</html>

@@ -14,6 +14,8 @@ public class Constants {
         public static final String EMAIL = "email";
         public static final String USER_NAME = "userName";
         public static final String PASSWORD = "password";
+        public static final String INDEX = "index";
+        public static final String LOGIN = "login";
     }
 
     public class SecurityConstants {
@@ -25,7 +27,7 @@ public class Constants {
         public static final String LOGOUT = "/logout";
         public static final String ADMIN_PAGES = "/admin/**";
         public static final String USER_PAGES = "/user/**";
-        public static final String ACCESS_DENIED = "/access-denied";
+        public static final String ACCESS_DENIED = "/403";
 
     }
 }

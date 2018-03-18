@@ -24,11 +24,13 @@ public class AdminController
   @Autowired
   private AuthenticationProcess authenticationProcess;
 
-  @GetMapping("/isAdmin")
+  @GetMapping("/isAuthorised")
   public ResponseEntity getName()
   {
     User user = authenticationProcess.getAuthenticatedUser();
-    return ResponseEntity.ok(user.getRoles().stream().map(Role::getRole).anyMatch(ADMIN_ROLE::equals));
+    boolean isAdmin = user.getRoles().stream().map(Role::getRole).anyMatch(ADMIN_ROLE::equals);
+
+    return ResponseEntity.ok(isAdmin);
   }
 
   @PostMapping("/admin/deleteSelected")
