@@ -5,7 +5,11 @@
         <script th:src="@{/js/utils/menuSwitch.js}"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
-        <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+    <script th:src="@{/js/utils/langSwitch.js}"></script>
 </head>
 <body>
 <div th:fragment="header">
@@ -16,6 +20,16 @@
             </div>
             <ul class="nav navbar-nav">
                 <li ><a class="tablinks" href="#store" onclick="menuSwitch(event, 'content_books')">Books</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle cursor_pointer" data-toggle="dropdown" role="button" aria-expanded="false"><span id="lanNavSel">LANG</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a id="navEng" href="?lang=en" class="language"><img id="imgNavEng" src="" alt="..." class="img-thumbnail icon-small">  <span id="lanNavEng">English</span></a></li>
+                        <li><a id="navRus" href="?lang=ru" class="language"> <img id="imgNavRus" src="" alt="..." class="img-thumbnail icon-small">  <span id="lanNavRus">Russian</span></a></li>
+                    </ul>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="cursor_pointer"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>

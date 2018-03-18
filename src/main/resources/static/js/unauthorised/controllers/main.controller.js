@@ -1,8 +1,8 @@
 define(function (require) {
     let $ = require('jquery');
     let Backbone = require('backbone');
-    let HomePageView = require('homePageView');
-    let homePageView;
+    // let HomePageView = require('homePageView');
+    // let homePageView;
 
     let MainController = function(options) {
         return {
@@ -13,10 +13,10 @@ define(function (require) {
             },
             //creating views
             createHomePageView: function (options) {
-                if (!homePageView){
-                    homePageView = new HomePageView(options);
-                }
-                $(homePageView.$el).insertBefore(".footer");
+                // if (!homePageView){
+                //     homePageView = new HomePageView(options);
+                // }
+                // $(homePageView.$el).insertBefore(".footer");
             },
         }
     };
