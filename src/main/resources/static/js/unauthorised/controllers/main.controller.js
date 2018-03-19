@@ -58,7 +58,7 @@ define(function (require) {
                 if (!booksPageView){
                     booksPageView = new BooksPageView({collection: bookList});
                 }
-                $(booksPageView.render().el).insertAfter(".header");
+                $(booksPageView.render().el).insertAfter(".menu");
             },
 
             deleteHomePage: function () {

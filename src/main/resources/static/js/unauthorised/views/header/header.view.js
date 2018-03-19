@@ -2,7 +2,7 @@ define(function (require) {
     var Template = require('headerTemplate');
     var BaseView = require('baseView');
 
-    var AdminHeaderView = BaseView.extend({
+    var BooksHeaderView = BaseView.extend({
 
         className: "content_books tabcontent",
 
@@ -22,5 +22,5 @@ define(function (require) {
         }
     });
 
-    return AdminHeaderView;
+    return BooksHeaderView;
 });
