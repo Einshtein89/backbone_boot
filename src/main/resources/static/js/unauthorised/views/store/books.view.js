@@ -12,7 +12,7 @@ define(function (require) {
 
     var BooksView = Backbone.View.extend({
 
-        className: 'content_books tabcontent',
+        className: 'main',
 
         events: {
             // 'click #deleteUsersButton': 'showDeleteDialog',

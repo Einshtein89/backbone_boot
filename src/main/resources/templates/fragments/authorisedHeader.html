@@ -20,7 +20,7 @@
                 <li th:if="${admin}">
                     <a class="tablinks" href="#admin" onclick="menuSwitch(event, 'content_admin')">Users</a>
                 </li>
-                <li>
+                <li th:if="${admin}">
                     <a class="tablinks" href="#orders" onclick="menuSwitch(event, 'content_user')">Orders</a>
                 </li>
                 <li th:unless="${admin}">

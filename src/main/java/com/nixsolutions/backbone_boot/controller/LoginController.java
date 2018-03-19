@@ -61,6 +61,7 @@ public class LoginController {
 		ModelAndView modelAndView = createDefaultModelAndView();
 		User user = new User();
 		modelAndView.addObject(USER, user);
+		modelAndView.addObject(REGISTRATION, true);
 		modelAndView.setViewName(REGISTRATION);
 		return modelAndView;
 	}
@@ -85,6 +86,7 @@ public class LoginController {
 			modelAndView.setViewName(REGISTRATION);
 			
 		}
+
 		return modelAndView;
 	}
 

@@ -34,7 +34,7 @@ DROP TABLE IF EXISTS `book`;
 CREATE TABLE book (
   book_id int(11) NOT NULL AUTO_INCREMENT,
   title varchar(255) NOT NULL,
-  price varchar(255) NOT NULL,
+  price DECIMAL (10, 2) NOT NULL,
   PRIMARY KEY (book_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
