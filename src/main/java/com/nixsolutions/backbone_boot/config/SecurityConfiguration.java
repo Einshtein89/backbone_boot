@@ -66,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		http.
 			authorizeRequests()
-				.antMatchers(SLASH).permitAll()
+				.antMatchers(SLASH + "**").permitAll()
 				.antMatchers(LOGIN).permitAll()
 				.antMatchers(SLASH + REGISTRATION).permitAll()
 				.antMatchers(ADMIN_PAGES).access("hasRole('ADMIN')")
@@ -77,7 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.passwordParameter(PASSWORD)
 				.and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT))
-				.logoutSuccessUrl(SLASH)
+				.logoutSuccessUrl(LOGIN)
 				.and().exceptionHandling().accessDeniedHandler(accessDeniedHandler)
 				.and().headers().frameOptions().sameOrigin();
 //				.and()

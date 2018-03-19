@@ -18,6 +18,7 @@ body {
 }
 
 .footer {
+    margin-top: 10px;
     width: 100%;
     background-color: #222;
     color: white;
@@ -33,4 +34,21 @@ body {
 
 .cursor_pointer {
     cursor: pointer;
+}
+
+.book {
+    font-family: Verdana;
+    font-size: medium;
+    text-align: center;
+}
+
+.bookList_tabs, .contactList_tabs {
+    background-color: cornflowerblue;
+    list-style: none;
+    float: left;
+    margin: 30px;
+    padding: 20px;
+    border-radius: 5px;
+    width: 25%;
+    border: 1px solid black;
 }

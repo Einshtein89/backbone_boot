@@ -1,5 +1,4 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<p th:text="#{hibernate.user.email.message}"></p>
+
 <div class="user"><img class="img" src="../images/{sex}.png"/></div>
 <div class="user">{#firstName}{.}{/firstName}</div>
 <div class="user">{#lastName}{.}{/lastName}</div><br/>
@@ -14,6 +13,3 @@
            data-id="{#id}{.}{/id}"/>
     {/isAdmin}
 </div>
-
-<input type="hidden" value="{#id}{.}{/id}" id="modelId">
-</html>

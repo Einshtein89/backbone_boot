@@ -1,0 +1,4 @@
+
+<div class="book"><img class="img" src="../images/{sex}.png"/></div>
+<div class="book">{#title}{.}{/title}</div>
+<div class="book">{#price}{.}{/price}</div><br/>

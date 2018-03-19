@@ -39,3 +39,9 @@ INSERT INTO role VALUES (2,'USER');
 
 INSERT INTO user_role VALUES (1, 1);
 INSERT INTO user_role VALUES (34, 2);
+
+INSERT INTO book VALUES (1, 'Pushkin', 200.00);
+INSERT INTO book VALUES (2, 'Lermontov', 200.00);
+INSERT INTO book VALUES (3, 'Tolstoy', 200.00);
+
+INSERT INTO user_books VALUES (1, 1);

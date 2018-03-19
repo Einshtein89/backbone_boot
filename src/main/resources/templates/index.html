@@ -6,10 +6,8 @@
 <body>
     <div th:include="fragments/header :: header"/></div>
 
-    <div>
-        <a href="/login">Go to Login Page</a>
-        <p th:text="#{hibernate.user.email.message}"></p>
-
+    <div class="content_home tabcontent">
+        <h1 align="center" th:text="#{index.page.welcome}"></h1>
     </div>
 
     <div th:replace="fragments/footer :: footer"/></div>

@@ -6,7 +6,9 @@ import static com.nixsolutions.backbone_boot.config.Constants.LoginConstants.*;
 import static com.nixsolutions.backbone_boot.config.Constants.SecurityConstants.LOGOUT;
 import static com.nixsolutions.backbone_boot.config.Constants.USER;
 import static com.nixsolutions.backbone_boot.config.Constants.USER_ROLE;
+import static java.lang.String.format;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -119,8 +121,9 @@ public class LoginController {
 	private ModelAndView populateHomeModelAndView()
 	{
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(USER_NAME, "Welcome, "
-				+ authenticationProcess.getAuthenticatedUser().getFirstName() + "!");
+
+		modelAndView.addObject(USER_NAME, MessageFormat
+				.format(messageReader.get("authorised.greeting"), authenticationProcess.getAuthenticatedUser().getFirstName()));
 
 		return modelAndView;
 	}

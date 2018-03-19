@@ -27,8 +27,11 @@ require.config({
             'selectViewView' : 'views/selectview/selectView.view',
             "headerView" : 'views/header/header.view',
             "homePageView" : 'views/homePage/home.page.view',
+            "bookView" : 'views/store/book.view',
+            "booksView" : 'views/store/books.view',
             //models
             'user' : 'models/user',
+            'book' : 'models/book',
             //templates
             'contactTemplate' : 'text!templates/contacts/contactView.dust',
             'contactListTemplate' : 'text!templates/contacts/contactList.dust',
@@ -40,8 +43,10 @@ require.config({
             "headerTemplate" : 'text!templates/header/header.dust',
             "homePageTemplate" : 'text!templates/homePage/home.dust',
             "batchDeleteForm" : 'text!templates/contacts/batchDeleteForm.dust',
+            "bookTemplate" : 'text!templates/books/book.dust',
             //collections
             'contactList' : 'collections/contacts.collection',
+            'booksList' : 'collections/books.collection',
             //router
             'router' : 'router/router',
             //components

@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nixsolutions.backbone_boot.dao.UserRepository;
+import com.nixsolutions.backbone_boot.service.UserServiceImpl;
 
 @Controller
 @RequestMapping("/users")
-public class DaoController {
+public class UserController
+{
     @Autowired
     private UserRepository repository;
     @Autowired
@@ -34,7 +36,7 @@ public class DaoController {
     }
     @GetMapping("")
     public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = (List<User>) repository.findAll();
+        List<User> users = repository.findAll();
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
     @PostMapping("")

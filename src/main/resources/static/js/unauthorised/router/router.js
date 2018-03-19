@@ -3,8 +3,8 @@ define(function (require) {
 
     const Router = BackboneRouteControl.extend({
         routes: {
-            '' : 'main#renderHomePage'
-            // 'home' : 'main#renderHomePage',
+            // '' : 'main#renderHomePage'
+            'store' : 'main#renderBooksPage',
             // 'admin': 'main#renderAdminPage',
             // 'user': 'main#renderAdminPage',
             // 'admin/:listView': 'main#renderAdminPage',

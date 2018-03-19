@@ -3,11 +3,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <script data-main="../js/unauthorised/main" th:src="@{/js/bower_components/requirejs/require.js}"></script>
         <script th:src="@{/js/utils/menuSwitch.js}"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
         <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script th:src="@{/js/utils/langSwitch.js}"></script>
 </head>
@@ -19,6 +19,7 @@
                 <a class="navbar-brand" href="/">Contact List</a>
             </div>
             <ul class="nav navbar-nav">
+                <li ><a class="tablinks" href="#home" onclick="menuSwitch(event, 'content_home')">Home</a></li>
                 <li ><a class="tablinks" href="#store" onclick="menuSwitch(event, 'content_books')">Books</a></li>
             </ul>
 
