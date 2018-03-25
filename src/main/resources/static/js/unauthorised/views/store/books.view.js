@@ -32,14 +32,14 @@ define(function (require) {
                 className = options.className;
                 isAdmin = options.isAdmin;
             }
-            setTimeout(function() {
+            // setTimeout(function() {
                 if (emptyView) {
                     self.removeViews();
                 } else {
                     self.removeViews();
                     self.collection.each(self.addOne, self);
                 }
-            }, 500);
+            // }, 500);
             return this;
         },
 

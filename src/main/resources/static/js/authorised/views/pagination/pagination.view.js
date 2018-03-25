@@ -78,9 +78,15 @@ define(function (require) {
         setDefaultStyles: function () {
             let $firstPage = this.$el.find( "li" ).eq(0);
             let $prevPage = this.$el.find( "li" ).eq(1);
+            let $lastPage = this.$el.find( 'li:last' );
+            let $nextPage = this.$el.find( 'li:last' ).prev();
 
             $firstPage.hide();
             $prevPage.hide();
+            if (this.collection.state.currentPage === this.collection.state.lastPage) {
+                $nextPage.hide();
+                $lastPage.hide();
+            }
 
             this.$el.find( "li" ).eq(2).addClass('active');
         },

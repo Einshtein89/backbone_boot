@@ -98,29 +98,21 @@ define(function (require) {
                 });
             },
 
-            renderListView: function (options, usersView) {
-                options.singleViewTemplate = singleViewListTemplate;
-                options.className = 'contactList_list';
-                usersView.render(options);
-            },
-
-            renderTabView: function (options, usersView) {
-                options.singleViewTemplate = null;
-                options.className = null;
-                usersView.render(options);
-            },
-
             chooseListOrTabView: function () {
-                let self = this;
-                usersView.on('view:listView', function (options) {
-                    self.renderListView(options, this);
-                    Backbone.history.navigate('admin/listView', {trigger: false, replace: true});
-                });
-                usersView.on('view:tabsView', function (options) {
-                    self.renderTabView(options, this);
-                    Backbone.history.navigate('admin/tabView', {trigger: false, replace: true});
-                });
+                ControllerUtils.chooseListOrTabView(usersView, 'admin/listView', 'admin/tabView', singleViewListTemplate);
             },
+
+            // renderListView: function (options, usersView) {
+            //     options.singleViewTemplate = singleViewListTemplate;
+            //     options.className = 'contactList_list';
+            //     usersView.render(options);
+            // },
+            //
+            // renderTabView: function (options, usersView) {
+            //     options.singleViewTemplate = null;
+            //     options.className = null;
+            //     usersView.render(options);
+            // },
 
             showAddForm: function () {
                 addUserView = new AddUserView({model: newUser, collection : contactList,
@@ -186,7 +178,7 @@ define(function (require) {
             createContactsPerPageView: function () {
                 if (!contactsPerPageView) {
                     contactsPerPageView = new ContactsPerPageView({collection : contactList,
-                        multiView: usersView, paginationView: paginationView});
+                        multiView: usersView, paginationView: paginationView, redirectTo: "admin"});
                 }
                 $(contactsPerPageView.render().el).insertAfter(".header");
             },
@@ -227,65 +219,29 @@ define(function (require) {
 
             //pagination actions
             getFirstPage: function () {
-                contactList.getFirstPage(options);
-                paginationView.render({isMainPage : true});
-                usersView.remove();
-                $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
-                Backbone.history.navigate('admin', {trigger: false, replace: false});
-                this.setNavigationButtonStyles();
+                var options = {};
+                options.redirectTo = "admin";
+                ControllerUtils.getFirstPage(contactList, paginationView, contactsPerPageView, usersView, options);
             },
 
             getLastPage: function () {
-                contactList.getLastPage(options);
-                paginationView.render({isNewUserAdded : true});
-                usersView.remove();
-                $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
-                Backbone.history.navigate('admin', {trigger: false, replace: false});
-                this.setNavigationButtonStyles();
+                var options = {};
+                options.redirectTo = "admin";
+                ControllerUtils.getLastPage(contactList, paginationView, contactsPerPageView, usersView, options);
             },
 
             getCurrentPage: function (pageId) {
-                let id = Number(pageId);
-                contactList.getPage(id, options);
-                paginationView.render({isMainPage : false});
-                this.setNavigationButtonStyles();
-                usersView.remove();
-                $(usersView.render().el).insertAfter("." + contactsPerPageView.$el[0].className);
-                let $currentLi = $('[name=' + id + ']');
-                $currentLi.addClass('active').siblings().removeClass('active');
-                Backbone.history.navigate('admin', {trigger: false, replace: false});
+                var options = {};
+                options.redirectTo = "admin";
+                ControllerUtils.getCurrentPage(pageId, contactList, paginationView, contactsPerPageView, usersView, options);
             },
 
             getPrevPage: function () {
-                contactList.getPreviousPage(options);
-                Backbone.history.navigate('page' + (contactList.state.currentPage), true);
+                ControllerUtils.getPrevPage(contactList, options);
             },
 
             getNextPage: function () {
-                contactList.getNextPage(options);
-                Backbone.history.navigate('page' + (contactList.state.currentPage), true);
-            },
-
-            setNavigationButtonStyles: function () {
-                let $firstPage = paginationView.$el.find( "li" ).eq(0);
-                let $prevPage = paginationView.$el.find( "li" ).eq(1);
-                let $lastPage = paginationView.$el.find( 'li:last' );
-                let $nextPage = paginationView.$el.find( 'li:last' ).prev();
-
-                if (contactList.state.currentPage === contactList.state.firstPage) {
-                    $firstPage.hide();
-                    $prevPage.hide();
-                } else {
-                    $firstPage.show();
-                    $prevPage.show();
-                }
-                if (contactList.state.currentPage === contactList.state.lastPage) {
-                    $nextPage.hide();
-                    $lastPage.hide();
-                } else {
-                    $lastPage.show();
-                    $nextPage.show();
-                }
+                ControllerUtils.getNextPage(contactList, options);
             }
         };
     };

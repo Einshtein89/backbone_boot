@@ -1,13 +1,14 @@
 define(function (require) {
-    var Template = require('contactsPerPageTemplate');
-    var $ = require('jquery');
-    var Backbone = require('backbone');
-    var Dust = require('dust');
-    var collection;
-    var multiView;
-    var paginationView;
+    let Template = require('contactsPerPageTemplate');
+    let $ = require('jquery');
+    let Backbone = require('backbone');
+    let Dust = require('dust');
+    let collection;
+    let multiView;
+    let paginationView;
+    let redirectTo;
 
-    var ContactsPerPageView = Backbone.View.extend({
+    const ContactsPerPageView = Backbone.View.extend({
 
         className: 'contactPerPageHolder',
 
@@ -17,6 +18,7 @@ define(function (require) {
             collection = options.collection;
             multiView = options.multiView;
             paginationView = options.paginationView;
+            redirectTo = options.redirectTo;
             this.render(options);
         },
 
@@ -25,9 +27,9 @@ define(function (require) {
         },
 
         render: function () {
-            var output = '';
-            var data = {};
-            var contactsPerPage = [3, 6, 9, 12, 15];
+            let output = '';
+            let data = {};
+            let contactsPerPage = [3, 6, 9, 12, 15];
             data.contactsPerPage = contactsPerPage;
             Dust.renderSource(this.template, data, function(err, out) {
                 if (err) {
@@ -45,7 +47,7 @@ define(function (require) {
             paginationView.render(options);
             $( ".pagination" ).find( "li" ).eq(2).addClass('active');
             Backbone.history.navigate('first', true);
-            Backbone.history.navigate('', {trigger: false, replace: false});
+            Backbone.history.navigate(redirectTo, {trigger: false, replace: false});
         }
     });
 

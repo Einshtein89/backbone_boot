@@ -3,8 +3,8 @@ body {
     margin: 0 auto;
 }
 
-.main {
-    width: 800px;
+.content_admin, .content_books {
+    width: 1000px;
     margin: 0 auto;
     padding: 10px;
 }
@@ -60,6 +60,57 @@ body {
     border: 1px solid black;
 }
 
+.bookList_tabs {
+    margin: 20px;
+    width: 28%;
+}
+
+.contactList_list {
+    background-color: cornflowerblue;
+    margin: .46154em .38462em 0 0;
+    padding: 0 0 1.84615em;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 62px;
+}
+
 .menu {
+    width: 20%;
     float: left;
+}
+
+.contactPerPageHolder, .selectViewHolder {
+    padding: 10px;
+    width: 50%;
+}
+
+.selectViewHolder {
+    margin-right: -100px;
+}
+
+.main {
+    float: left;
+    width: 80%;
+}
+
+.selectViewHolder {
+    float: right;
+}
+
+.selectViewHolder > div {
+    padding-left: 40%;
+}
+.selectViewHolder > div > a {
+    padding: 10px;
+}
+
+#listtabs {
+    width: 30px;
+    height: 30px;
+}
+
+
+.paginationHolder {
+    margin: 0 auto;
+    width: max-content;
 }

@@ -22,9 +22,9 @@ require.config({
             'addUserView' : 'views/contacts/actions/addContact.view',
             'editUserView' : 'views/contacts/actions/editContact.view',
             'searchView' : 'views/search/search.view',
-            'paginationView' : 'views/pagination/pagination.view',
-            'contactsPerPageView' : 'views/pagination/contactsPerPage.view',
-            'selectViewView' : 'views/selectview/selectView.view',
+            'paginationView' : '../authorised/views/pagination/pagination.view',
+            'contactsPerPageView' : '../authorised/views/pagination/contactsPerPage.view',
+            'selectViewView' : '../authorised/views/selectview/selectView.view',
             "headerView" : 'views/header/header.view',
             "homePageView" : 'views/homePage/home.page.view',
             "bookView" : 'views/store/book.view',
@@ -34,12 +34,12 @@ require.config({
             'book' : 'models/book',
             //templates
             'contactTemplate' : 'text!templates/contacts/contactView.dust',
-            'contactListTemplate' : 'text!templates/contacts/contactList.dust',
+            'contactListTemplate' : 'text!../../authorised/templates/contacts/contactList.dust',
             'contactInfoTemplate' : 'text!templates/contacts/contactInfo.dust',
             'addUserTemplate' : 'text!templates/contacts/addContact.dust',
-            'paginationTemplate' : 'text!templates/pagination/pagination.dust',
-            'contactsPerPageTemplate' : 'text!templates/contacts/contactsPerPage.dust',
-            'selectViewTemplate' : 'text!templates/selectView/selectView.dust',
+            'paginationTemplate' : 'text!../../../authorised/templates/pagination/pagination.dust',
+            'contactsPerPageTemplate' : 'text!../../../authorised/templates/contacts/contactsPerPage.dust',
+            'selectViewTemplate' : 'text!../../../authorised/templates/selectView/selectView.dust',
             "headerTemplate" : 'text!templates/header/header.dust',
             "homePageTemplate" : 'text!templates/homePage/home.dust',
             "batchDeleteForm" : 'text!templates/contacts/batchDeleteForm.dust',
@@ -51,7 +51,7 @@ require.config({
             'router' : 'router/router',
             //components
             'userUtils' : 'components/user.utils',
-            'controllerUtils' : 'components/controller.utils',
+            'controllerUtils' : '../authorised/components/controller.utils',
             //controllers
             'mainController' : 'controllers/main.controller',
         }

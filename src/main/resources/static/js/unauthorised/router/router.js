@@ -13,11 +13,11 @@ define(function (require) {
             // 'add': 'main#showAddForm',
             // 'edit' : 'main#userEdit',
             // 'renderEmptyView' : 'main#renderEmptyView',
-            // 'first' : 'main#getFirstPage',
-            // 'last' : 'main#getLastPage',
-            // 'page:id' : 'main#getCurrentPage',
-            // 'prev': 'main#getPrevPage',
-            // 'next': 'main#getNextPage'
+            'first' : 'main#getFirstPage',
+            'last' : 'main#getLastPage',
+            'page:id' : 'main#getCurrentPage',
+            'prev': 'main#getPrevPage',
+            'next': 'main#getNextPage'
         }
     });
 
